@@ -30,9 +30,15 @@ python dashboard_automation.py env-compare --label sprint-42
 # Demo (no credentials needed)
 python dashboard_automation.py demo
 
-# Load testing variants (10 calls per case, aggregates latency stats)
+# Load testing variants (10 calls per case for run, 5 per env for env-compare)
 python dashboard_automation.py run --label perf-check --load-test
 python dashboard_automation.py env-compare --label sprint-42 --load-test
+
+# env-compare with explicit thresholds (all have defaults)
+python dashboard_automation.py env-compare --label sprint-42 \
+  --load-test --load-test-runs 5 \
+  --latency-threshold 20 \
+  --concurrency-threshold 5
 
 # Filter to specific service or case
 python dashboard_automation.py run --label test --only-service Risk
@@ -50,7 +56,25 @@ python dashboard_automation.py run --label test --only-case <case_id>
 4. `comparator.py` — diffs candidate vs baseline `RunResult` lists, produces `ComparisonResult` list
 5. `reporter.py` — writes HTML dashboards and JSON artifacts to `output/<ISO_TIMESTAMP>__<label>/`
 
-**Key models** (all dataclasses in `models.py`): `TestCase`, `RunResult`, `ComparisonResult`, `LoadTestStats`, `EnvCompareResult`.
+**Key models** (all dataclasses in `models.py`): `TestCase`, `RunResult`, `ComparisonResult`, `LoadTestStats`, `EnvCompareResult`, `EnvCompareLoadResult`.
+
+## env-compare Pass/Fail Logic
+
+`env-compare` hits every case against both environments concurrently (`ThreadPoolExecutor`, 2 workers per case). Pass requires **all** of:
+
+| Check | Threshold | Outcome on fail |
+|-------|-----------|-----------------|
+| HTTP status == expected (both envs) | — | `status_mismatch` |
+| All schema fields in test2 present in dev2; no type mismatches | — | `structure_mismatch` |
+| dev2 p95 ≤ test2 p95 + `--latency-threshold` % | default 20% | `latency_regression` |
+
+In `--load-test` mode, additional check on `EnvCompareLoadResult`:
+
+| Check | Threshold | Outcome on fail |
+|-------|-----------|-----------------|
+| dev2 error rate ≤ test2 error rate + `--concurrency-threshold` % | default 5% | `concurrency_regression` |
+
+The load dashboard adds: service-level avg latency table, environment total row, per-run latency (collapsible), error-rate Δ column.
 
 ## Adding Test Cases
 
