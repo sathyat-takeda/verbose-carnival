@@ -248,6 +248,7 @@ def compare_env_load_pairs(
     dev_env: str = "dev2",
     test_env: str = "test2",
     latency_threshold_pct: float = 20.0,
+    concurrency_threshold_pct: float = 5.0,
 ) -> list[EnvCompareLoadResult]:
     """Convert ``(dev_stats, test_stats)`` pairs into load-test comparison results."""
     results: list[EnvCompareLoadResult] = []
@@ -269,6 +270,16 @@ def compare_env_load_pairs(
             elif test.normalized_response is not None:
                 structural_diffs = ["dev2 has no representative response to compare"]
 
+        # Error rate comparison (positive delta = dev has higher error rate)
+        dev_error_rate_pct = round(dev.error_count / dev.runs * 100, 1) if dev.runs > 0 else None
+        test_error_rate_pct = round(test.error_count / test.runs * 100, 1) if test.runs > 0 else None
+        if dev_error_rate_pct is not None and test_error_rate_pct is not None:
+            error_rate_delta_pct = round(dev_error_rate_pct - test_error_rate_pct, 1)
+            concurrency_regression = error_rate_delta_pct > concurrency_threshold_pct
+        else:
+            error_rate_delta_pct = None
+            concurrency_regression = False
+
         # Outcome
         if dev.success_count == 0 and test.success_count > 0:
             outcome = "dev_failed"
@@ -282,6 +293,8 @@ def compare_env_load_pairs(
             outcome = "latency_regression"
         elif structural_diffs:
             outcome = "response_changed"
+        elif concurrency_regression:
+            outcome = "concurrency_regression"
         else:
             outcome = "passed"
 
@@ -308,6 +321,7 @@ def compare_env_load_pairs(
                 dev_p95_ms=dev.p95_ms,
                 dev_response_hash=dev.response_hash,
                 dev_error_samples=dev.error_samples,
+                dev_raw_elapsed_ms=dev.raw_elapsed_ms,
                 test_url=test.url,
                 test_runs=test.runs,
                 test_success_count=test.success_count,
@@ -320,10 +334,15 @@ def compare_env_load_pairs(
                 test_p95_ms=test.p95_ms,
                 test_response_hash=test.response_hash,
                 test_error_samples=test.error_samples,
+                test_raw_elapsed_ms=test.raw_elapsed_ms,
                 latency_delta_pct=latency_delta_pct,
                 latency_within_threshold=latency_within_threshold,
                 response_match=response_match,
                 structural_diffs=structural_diffs,
+                dev_error_rate_pct=dev_error_rate_pct,
+                test_error_rate_pct=test_error_rate_pct,
+                error_rate_delta_pct=error_rate_delta_pct,
+                concurrency_regression=concurrency_regression,
                 outcome=outcome,
                 sources=dev.sources,
                 tags=dev.tags,

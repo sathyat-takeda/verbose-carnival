@@ -1252,7 +1252,7 @@ def render_env_compare_load_dashboard_html(
     results: list[EnvCompareLoadResult],
     generated_at: str,
 ) -> str:
-    from collections import Counter
+    from collections import Counter, defaultdict
 
     summary = Counter(r.outcome for r in results)
     services_seen = sorted({r.service_alias for r in results})
@@ -1260,10 +1260,33 @@ def render_env_compare_load_dashboard_html(
     passed = summary.get("passed", 0)
     lat_reg = summary.get("latency_regression", 0) + summary.get("both_changed", 0)
     resp_chg = summary.get("response_changed", 0) + summary.get("both_changed", 0)
+    conc_reg = summary.get("concurrency_regression", 0)
     dev_failed = summary.get("dev_failed", 0)
     errors = summary.get("error", 0) + summary.get("test_env_error", 0)
 
     runs = results[0].dev_runs if results else 5
+
+    # Service-level latency aggregation
+    svc_buckets: dict[str, dict[str, list]] = defaultdict(lambda: {"dev": [], "test": []})
+    for r in results:
+        if r.dev_avg_ms is not None:
+            svc_buckets[r.service_alias]["dev"].append(r.dev_avg_ms)
+        if r.test_avg_ms is not None:
+            svc_buckets[r.service_alias]["test"].append(r.test_avg_ms)
+    service_agg = [
+        {
+            "service": svc,
+            "dev_avg_ms": round(sum(b["dev"]) / len(b["dev"]), 1) if b["dev"] else None,
+            "test_avg_ms": round(sum(b["test"]) / len(b["test"]), 1) if b["test"] else None,
+            "cases": len(b["dev"]) or len(b["test"]),
+        }
+        for svc, b in sorted(svc_buckets.items())
+    ]
+    all_dev_avgs = [r.dev_avg_ms for r in results if r.dev_avg_ms is not None]
+    all_test_avgs = [r.test_avg_ms for r in results if r.test_avg_ms is not None]
+    env_dev_avg = round(sum(all_dev_avgs) / len(all_dev_avgs), 1) if all_dev_avgs else None
+    env_test_avg = round(sum(all_test_avgs) / len(all_test_avgs), 1) if all_test_avgs else None
+
     records = [
         {
             "case_id": r.case_id,
@@ -1274,34 +1297,57 @@ def render_env_compare_load_dashboard_html(
             "test_env": r.test_env,
             "dev_runs": r.dev_runs,
             "dev_success_count": r.dev_success_count,
+            "dev_error_count": r.dev_error_count,
+            "dev_error_rate_pct": r.dev_error_rate_pct,
             "dev_avg_ms": r.dev_avg_ms,
             "dev_p50_ms": r.dev_p50_ms,
             "dev_p90_ms": r.dev_p90_ms,
             "dev_p95_ms": r.dev_p95_ms,
             "dev_min_ms": r.dev_min_ms,
             "dev_max_ms": r.dev_max_ms,
+            "dev_raw_elapsed_ms": r.dev_raw_elapsed_ms,
             "test_runs": r.test_runs,
             "test_success_count": r.test_success_count,
+            "test_error_count": r.test_error_count,
+            "test_error_rate_pct": r.test_error_rate_pct,
             "test_avg_ms": r.test_avg_ms,
             "test_p50_ms": r.test_p50_ms,
             "test_p90_ms": r.test_p90_ms,
             "test_p95_ms": r.test_p95_ms,
             "test_min_ms": r.test_min_ms,
             "test_max_ms": r.test_max_ms,
+            "test_raw_elapsed_ms": r.test_raw_elapsed_ms,
             "latency_delta_pct": r.latency_delta_pct,
             "latency_within_threshold": r.latency_within_threshold,
-            "response_match": r.response_match,
             "structural_diffs": r.structural_diffs,
+            "schema_match": len(r.structural_diffs) == 0,
+            "error_rate_delta_pct": r.error_rate_delta_pct,
+            "concurrency_regression": r.concurrency_regression,
             "tags": r.tags,
             "notes": r.notes,
         }
         for r in results
     ]
     data_blob = json.dumps(records).replace("</", "<\\/")
+    service_agg_blob = json.dumps(service_agg).replace("</", "<\\/")
 
     # Max p95 across both envs for bar scaling
     all_p95 = [v for r in results for v in [r.dev_p95_ms, r.test_p95_ms] if v is not None]
     max_p95_json = json.dumps(max(all_p95, default=1))
+
+    def _avg_cell(v: float | None) -> str:
+        return f"{v} ms" if v is not None else "—"
+
+    env_dev_avg_display = html.escape(_avg_cell(env_dev_avg))
+    env_test_avg_display = html.escape(_avg_cell(env_test_avg))
+
+    svc_agg_rows = "".join(
+        f'<tr><td><strong>{html.escape(s["service"])}</strong></td>'
+        f'<td>{html.escape(_avg_cell(s["dev_avg_ms"]))}</td>'
+        f'<td>{html.escape(_avg_cell(s["test_avg_ms"]))}</td>'
+        f'<td style="color:var(--text-soft)">{s["cases"]}</td></tr>'
+        for s in service_agg
+    )
 
     title = "Env Compare Load Test Dashboard"
     subtitle = f"{dev_env}  vs  {test_env}  |  {runs} runs per case  |  Label: {label}"
@@ -1330,25 +1376,31 @@ def render_env_compare_load_dashboard_html(
   .stat {{ background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); }}
   .stat .value {{ font-size: 28px; font-weight: 700; }}
   .stat .label {{ margin-top: 4px; text-transform: uppercase; font-size: 11px; letter-spacing: 0.08em; color: var(--text-soft); }}
+  .section-hdr {{ padding: 20px 36px 6px; font-size: 15px; font-weight: 700; color: var(--text); }}
   .controls {{ display: flex; gap: 12px; padding: 14px 36px 6px; flex-wrap: wrap; }}
   .controls input, .controls select {{ border: 1px solid var(--border); border-radius: 999px; padding: 10px 16px; background: var(--surface); font-size: 14px; }}
   .table-wrap {{ padding: 10px 36px 40px; overflow-x: auto; }}
+  .agg-table-wrap {{ padding: 0 36px 20px; }}
   table {{ width: 100%; border-collapse: collapse; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; font-size: 13px; }}
+  .agg-table {{ max-width: 600px; }}
   thead th {{ background: var(--takeda-dark); color: white; padding: 11px 14px; text-align: left; white-space: nowrap; font-weight: 600; font-size: 12px; letter-spacing: 0.04em; }}
   thead th.env-hdr {{ text-align: center; background: rgba(0,0,0,0.18); }}
   tbody tr {{ border-bottom: 1px solid var(--border); }}
   tbody tr:last-child {{ border-bottom: none; }}
   tbody tr:hover {{ background: var(--surface-alt); }}
   tbody td {{ padding: 9px 14px; vertical-align: middle; }}
+  .agg-total td {{ background: rgba(16,24,40,0.04); font-weight: 700; border-top: 2px solid var(--border); }}
   tr.passed {{ background: rgba(12,143,90,0.04); }}
   tr.latency_regression, tr.both_changed {{ background: rgba(198,66,24,0.07); }}
   tr.response_changed {{ background: rgba(180,83,9,0.07); }}
+  tr.concurrency_regression {{ background: rgba(139,0,10,0.06); }}
   tr.dev_failed {{ background: rgba(143,29,29,0.10); }}
   tr.error, tr.test_env_error {{ background: rgba(107,114,128,0.06); }}
   .badge {{ display: inline-block; border-radius: 999px; padding: 4px 10px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }}
   .badge.passed {{ background: rgba(12,143,90,0.12); color: var(--pass); }}
   .badge.latency_regression, .badge.both_changed {{ background: rgba(198,66,24,0.12); color: var(--fail); }}
   .badge.response_changed {{ background: rgba(180,83,9,0.12); color: var(--warn); }}
+  .badge.concurrency_regression {{ background: rgba(139,0,10,0.12); color: var(--error); }}
   .badge.dev_failed {{ background: rgba(143,29,29,0.12); color: var(--error); }}
   .badge.error, .badge.test_env_error {{ background: rgba(107,114,128,0.12); color: var(--skip); }}
   .delta-pos {{ color: var(--fail); font-weight: 600; }}
@@ -1362,6 +1414,10 @@ def render_env_compare_load_dashboard_html(
   .name-cell strong {{ display: block; font-size: 13px; }}
   .name-cell small {{ color: var(--text-soft); font-size: 11px; }}
   tr.hidden {{ display: none; }}
+  details summary {{ cursor: pointer; font-size: 11px; color: var(--text-soft); }}
+  .raw-times {{ font-family: ui-monospace, monospace; font-size: 11px; color: var(--text-soft); word-break: break-all; max-width: 180px; }}
+  .schema-ok {{ color: var(--pass); }}
+  .schema-fail {{ color: var(--fail); font-size: 11px; }}
 </style>
 </head>
 <body>
@@ -1375,20 +1431,46 @@ def render_env_compare_load_dashboard_html(
     <div class="stat"><div class="value">{total}</div><div class="label">Cases</div></div>
     <div class="stat"><div class="value" style="color:var(--pass)">{passed}</div><div class="label">Passed</div></div>
     <div class="stat"><div class="value" style="color:var(--fail)">{lat_reg}</div><div class="label">Latency Regression</div></div>
-    <div class="stat"><div class="value" style="color:var(--warn)">{resp_chg}</div><div class="label">Response Changed</div></div>
+    <div class="stat"><div class="value" style="color:var(--warn)">{resp_chg}</div><div class="label">Schema Mismatch</div></div>
+    <div class="stat"><div class="value" style="color:var(--error)">{conc_reg}</div><div class="label">Concurrency Regression</div></div>
     <div class="stat"><div class="value" style="color:var(--error)">{dev_failed}</div><div class="label">Dev Failed</div></div>
     <div class="stat"><div class="value" style="color:var(--skip)">{errors}</div><div class="label">Errors</div></div>
     <div class="stat"><div class="value">{len(services_seen)}</div><div class="label">Services</div></div>
   </section>
 
+  <p class="section-hdr">Latency Summary by Service</p>
+  <div class="agg-table-wrap">
+    <table class="agg-table">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>{html.escape(dev_env)} avg</th>
+          <th>{html.escape(test_env)} avg</th>
+          <th>Cases</th>
+        </tr>
+      </thead>
+      <tbody>
+        {svc_agg_rows}
+        <tr class="agg-total">
+          <td>Environment Total</td>
+          <td>{env_dev_avg_display}</td>
+          <td>{env_test_avg_display}</td>
+          <td style="color:var(--text-soft)">{total}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="section-hdr">Per-API Results</p>
   <section class="controls">
     <input id="search" type="search" placeholder="Search case, service&hellip;">
     <select id="outcomeFilter">
       <option value="all">All outcomes</option>
       <option value="passed">Passed</option>
       <option value="latency_regression">Latency Regression</option>
-      <option value="response_changed">Response Changed</option>
+      <option value="response_changed">Schema Mismatch</option>
       <option value="both_changed">Both Changed</option>
+      <option value="concurrency_regression">Concurrency Regression</option>
       <option value="dev_failed">Dev Failed</option>
       <option value="error">Error</option>
     </select>
@@ -1405,11 +1487,12 @@ def render_env_compare_load_dashboard_html(
           <th rowspan="2">Case</th>
           <th rowspan="2">Service</th>
           <th rowspan="2">Outcome</th>
-          <th rowspan="2">OK/Runs</th>
-          <th class="env-hdr" colspan="4">dev2 ({html.escape(dev_env)})</th>
-          <th class="env-hdr" colspan="4">test2 ({html.escape(test_env)})</th>
+          <th rowspan="2">OK / Runs</th>
+          <th class="env-hdr" colspan="5">{html.escape(dev_env)}</th>
+          <th class="env-hdr" colspan="5">{html.escape(test_env)}</th>
           <th rowspan="2">Δ p95 %</th>
-          <th rowspan="2">Response</th>
+          <th rowspan="2">Err rate Δ</th>
+          <th rowspan="2">Schema</th>
           <th rowspan="2">Latency bars</th>
         </tr>
         <tr style="background:rgba(0,0,0,0.14);">
@@ -1417,10 +1500,12 @@ def render_env_compare_load_dashboard_html(
           <th style="font-size:11px;font-weight:500;padding:6px 14px;">p50</th>
           <th style="font-size:11px;font-weight:500;padding:6px 14px;">p90</th>
           <th style="font-size:11px;font-weight:500;padding:6px 14px;">p95</th>
+          <th style="font-size:11px;font-weight:500;padding:6px 14px;">per-run</th>
           <th style="font-size:11px;font-weight:500;padding:6px 14px;">avg</th>
           <th style="font-size:11px;font-weight:500;padding:6px 14px;">p50</th>
           <th style="font-size:11px;font-weight:500;padding:6px 14px;">p90</th>
           <th style="font-size:11px;font-weight:500;padding:6px 14px;">p95</th>
+          <th style="font-size:11px;font-weight:500;padding:6px 14px;">per-run</th>
         </tr>
       </thead>
       <tbody id="ec-tbody"></tbody>
@@ -1438,11 +1523,17 @@ def render_env_compare_load_dashboard_html(
     const serviceFilter = document.getElementById("serviceFilter");
 
     function ms(v) {{ return v == null ? "—" : v + " ms"; }}
-    function deltaCell(pct) {{
-      if (pct == null) return '<td class="delta-neu">—</td>';
-      const sign = pct > 0 ? "+" : "";
-      const cls = pct > 20 ? "delta-pos" : pct < -5 ? "delta-neg" : "delta-neu";
-      return `<td class="${{cls}}">${{sign}}${{pct}}%</td>`;
+    function pct(v) {{ return v == null ? "—" : v + "%"; }}
+    function deltaCell(p, threshold) {{
+      if (p == null) return '<td class="delta-neu">—</td>';
+      const sign = p > 0 ? "+" : "";
+      const cls = p > threshold ? "delta-pos" : p < -5 ? "delta-neg" : "delta-neu";
+      return `<td class="${{cls}}">${{sign}}${{p}}%</td>`;
+    }}
+    function rawTimesCell(arr) {{
+      if (!arr || arr.length === 0) return '<td>—</td>';
+      const formatted = arr.map(v => v + "ms").join(", ");
+      return `<td><details><summary>${{arr.length}} runs</summary><div class="raw-times">${{formatted}}</div></details></td>`;
     }}
     function barCell(r) {{
       const devP95  = r.dev_p95_ms  || 0;
@@ -1450,10 +1541,15 @@ def render_env_compare_load_dashboard_html(
       const devW  = Math.round((devP95  / maxP95) * maxBarPx);
       const testW = Math.round((testP95 / maxP95) * maxBarPx);
       return `<td><div class="bar-wrap">
-        <div class="bar dev"  style="width:${{devW}}px"  title="dev p95: ${{devP95}}ms"></div>
-        <div class="bar tst"  style="width:${{testW}}px" title="test p95: ${{testP95}}ms"></div>
+        <div class="bar dev"  style="width:${{devW}}px"  title="{html.escape(dev_env)} p95: ${{devP95}}ms"></div>
+        <div class="bar tst"  style="width:${{testW}}px" title="{html.escape(test_env)} p95: ${{testP95}}ms"></div>
         <span style="font-size:11px;color:#6b7280">${{devP95}}ms / ${{testP95}}ms</span>
       </div></td>`;
+    }}
+    function schemaCell(r) {{
+      if (r.schema_match) return '<td class="schema-ok">Match ✓</td>';
+      const diffs = (r.structural_diffs || []).slice(0, 3).join("\\n");
+      return `<td class="schema-fail">Mismatch ✗<br><small>${{diffs}}</small></td>`;
     }}
 
     function render() {{
@@ -1466,9 +1562,9 @@ def render_env_compare_load_dashboard_html(
         if (svc !== "all" && r.service  !== svc) return null;
 
         const okLabel = `${{r.dev_success_count}}/${{r.dev_runs}} | ${{r.test_success_count}}/${{r.test_runs}}`;
-        const respCell = r.response_match
-          ? `<td style="color:var(--pass)">Match ✓</td>`
-          : `<td style="color:var(--warn)">Changed</td>`;
+        const errDelta = r.error_rate_delta_pct;
+        const errDeltaCls = errDelta != null && errDelta > 5 ? "delta-pos" : "delta-neu";
+        const errDeltaStr = errDelta == null ? "—" : (errDelta > 0 ? "+" : "") + errDelta + "%";
         return `<tr class="${{r.outcome}}">
           <td class="name-cell"><strong>${{r.name}}</strong><small>${{r.case_id}}</small></td>
           <td>${{r.service}}</td>
@@ -1478,12 +1574,15 @@ def render_env_compare_load_dashboard_html(
           <td>${{ms(r.dev_p50_ms)}}</td>
           <td>${{ms(r.dev_p90_ms)}}</td>
           <td>${{ms(r.dev_p95_ms)}}</td>
+          ${{rawTimesCell(r.dev_raw_elapsed_ms)}}
           <td>${{ms(r.test_avg_ms)}}</td>
           <td>${{ms(r.test_p50_ms)}}</td>
           <td>${{ms(r.test_p90_ms)}}</td>
           <td>${{ms(r.test_p95_ms)}}</td>
-          ${{deltaCell(r.latency_delta_pct)}}
-          ${{respCell}}
+          ${{rawTimesCell(r.test_raw_elapsed_ms)}}
+          ${{deltaCell(r.latency_delta_pct, 20)}}
+          <td class="${{errDeltaCls}}">${{errDeltaStr}}</td>
+          ${{schemaCell(r)}}
           ${{barCell(r)}}
         </tr>`;
       }}).filter(Boolean);

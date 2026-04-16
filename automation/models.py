@@ -271,6 +271,7 @@ class EnvCompareLoadResult:
     dev_p95_ms: int | None
     dev_response_hash: str | None
     dev_error_samples: list[str]
+    dev_raw_elapsed_ms: list[int]
 
     # test stats
     test_url: str
@@ -285,6 +286,7 @@ class EnvCompareLoadResult:
     test_p95_ms: int | None
     test_response_hash: str | None
     test_error_samples: list[str]
+    test_raw_elapsed_ms: list[int]
 
     # Comparison (test2 is baseline; positive delta = dev is slower)
     latency_delta_pct: float | None
@@ -292,9 +294,15 @@ class EnvCompareLoadResult:
     response_match: bool
     structural_diffs: list[str]
 
+    # Error rate comparison (positive = dev has higher error rate than test)
+    dev_error_rate_pct: float | None
+    test_error_rate_pct: float | None
+    error_rate_delta_pct: float | None
+    concurrency_regression: bool
+
     # Overall outcome
-    # "passed" | "latency_regression" | "response_changed" | "dev_failed"
-    # | "test_env_error" | "error"
+    # "passed" | "latency_regression" | "response_changed" | "concurrency_regression"
+    # | "both_changed" | "dev_failed" | "test_env_error" | "error"
     outcome: str
 
     sources: list[str]

@@ -366,6 +366,16 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         help="Number of runs per case per environment in load-test mode (default: 5).",
     )
     ec_parser.add_argument(
+        "--concurrency-threshold",
+        type=float,
+        default=5.0,
+        metavar="PCT",
+        help=(
+            "Error-rate percentage by which dev error rate may exceed test error rate "
+            "before flagged as a concurrency regression (default: 5)."
+        ),
+    )
+    ec_parser.add_argument(
         "--fail-on-diff",
         action="store_true",
         help="Exit with code 1 if any comparison shows a non-passed outcome.",
@@ -484,6 +494,7 @@ def main(argv: list[str] | None = None) -> int:
             ec_load_results = compare_env_load_pairs(
                 lt_pairs, dev_env=dev_env, test_env=test_env,
                 latency_threshold_pct=args.latency_threshold,
+                concurrency_threshold_pct=args.concurrency_threshold,
             )
 
         paths = save_env_compare_reports(
