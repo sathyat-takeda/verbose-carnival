@@ -64,6 +64,7 @@ PURCHASE_ORDER_BASE_URL=https://api-insights-dev2.takeda.io/purchase
 | `list` | Print every test case (service, method, enabled/disabled) |
 | `run` | Execute cases, build HTML dashboards |
 | `compare` | Offline comparison of two existing result files — no API calls |
+| `env-compare` | Run every case against two environments simultaneously and diff schemas, latency, and error rates |
 | `demo` | Render sample dashboards with no network calls |
 
 ---
@@ -269,7 +270,87 @@ python dashboard_automation.py compare \
 
 ---
 
-### 6 — Quick demo (no credentials needed)
+### 6 — Environment comparison: dev2 vs test2 (`env-compare` subcommand)
+
+`env-compare` fires every test case against **two environments at the same time**
+(concurrent HTTP calls, one thread per environment per case) and produces a
+side-by-side comparison dashboard without needing a pre-captured GT snapshot.
+
+**Single-pass (one call per environment per case):**
+
+```bash
+python dashboard_automation.py env-compare --label sprint-42
+```
+
+**With load testing (5 calls per environment per case by default):**
+
+```bash
+python dashboard_automation.py env-compare --label sprint-42 --load-test
+```
+
+**Custom number of runs and thresholds:**
+
+```bash
+python dashboard_automation.py env-compare --label sprint-42 \
+  --load-test \
+  --load-test-runs 10 \
+  --latency-threshold 20 \
+  --concurrency-threshold 5
+```
+
+**Custom environments (e.g. test2 vs uat):**
+
+```bash
+python dashboard_automation.py env-compare --label sprint-42 \
+  --dev-env test2 --test-env uat \
+  --load-test
+```
+
+**Fail CI when any case is non-passing:**
+
+```bash
+python dashboard_automation.py env-compare --label sprint-42 \
+  --load-test --fail-on-diff
+```
+
+Output folder: `output/<timestamp>__sprint-42/`
+
+Files produced:
+
+| File | Purpose |
+|------|---------|
+| `env_compare_results.json` | Per-case single-pass comparison |
+| `Env Compare Dashboard.html` | Side-by-side status, latency, schema diff |
+| `env_compare_load_results.json` | Per-case load-test comparison *(load test only)* |
+| `Env Compare Load Test Dashboard.html` | Latency aggregation + concurrency check *(load test only)* |
+
+#### Pass/fail criteria
+
+**Single-pass** — a case passes when all of the following hold:
+
+| Check | Failure outcome |
+|-------|-----------------|
+| Both envs return the expected HTTP status | `status_mismatch` |
+| Every field present in test2 also exists in dev2 (no missing keys, no type mismatches) | `structure_mismatch` |
+| dev2 single-pass latency ≤ test2 + `--latency-threshold` % | `latency_regression` |
+
+**Load-test** — additionally checks across N runs per environment:
+
+| Check | Failure outcome |
+|-------|-----------------|
+| dev2 p95 ≤ test2 p95 + `--latency-threshold` % | `latency_regression` |
+| Schema fields unchanged across representative responses | `response_changed` |
+| dev2 error rate ≤ test2 error rate + `--concurrency-threshold` % | `concurrency_regression` |
+
+The load-test dashboard also shows:
+- **Service-level latency summary** — average latency per service for each environment
+- **Environment total** — single average across all APIs
+- **Per-run latency** — collapsible cell with individual timings for every run
+- **Error-rate Δ column** — dev error rate minus test error rate (red when over threshold)
+
+---
+
+### 7 — Quick demo (no credentials needed)
 
 ```bash
 python dashboard_automation.py demo
@@ -279,7 +360,7 @@ Opens `output/<timestamp>__demo-candidate/Dashboard.html` in your file browser.
 
 ---
 
-### 7 — Narrow a run to specific cases or services
+### 8 — Narrow a run to specific cases or services
 
 ```bash
 # Only PO Adherence cases
@@ -300,10 +381,11 @@ python dashboard_automation.py run --label release-dev-new --skip-workbook
 ## Complete flag reference
 
 ```
-dashboard_automation.py list    [options]
-dashboard_automation.py run     --label LABEL [options]
-dashboard_automation.py compare --gt PATH --candidate PATH --label LABEL [options]
-dashboard_automation.py demo    [--label LABEL] [--baseline-label LABEL]
+dashboard_automation.py list        [options]
+dashboard_automation.py run         --label LABEL [options]
+dashboard_automation.py compare     --gt PATH --candidate PATH --label LABEL [options]
+dashboard_automation.py env-compare --label LABEL [options]
+dashboard_automation.py demo        [--label LABEL] [--baseline-label LABEL]
 ```
 
 **Shared flags (list + run):**
@@ -331,6 +413,20 @@ dashboard_automation.py demo    [--label LABEL] [--baseline-label LABEL]
 | `--load-test-runs N` | `10` | Number of calls per case in load test mode. |
 | `--load-test-gt FILE` | *(none)* | Path to a `load_test_gt.json` to compare latency against. |
 | `--latency-threshold PCT` | `20` | % above which candidate p95 is flagged as a latency regression. |
+
+**`env-compare`-only flags:**
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--label LABEL` | *(required)* | Short label for this run (used in folder name and dashboard title). |
+| `--dev-env ENV` | `dev2` | The "dev" environment to compare. Rewrites the environment segment in Takeda URLs. |
+| `--test-env ENV` | `test2` | The "test" environment to act as the structural and latency baseline. |
+| `--latency-threshold PCT` | `20` | % above which dev p95 is flagged as a latency regression vs test p95. |
+| `--load-test` | false | Run each case N times against both environments and produce a load-test dashboard. |
+| `--load-test-runs N` | `5` | Number of runs per case per environment in load-test mode. |
+| `--concurrency-threshold PCT` | `5` | % above which dev error rate is flagged as a concurrency regression vs test error rate. |
+| `--fail-on-diff` | false | Exit code 1 if any case is non-passing. |
+| `--only-service`, `--only-case`, `--skip-workbook` | — | Same as `run` — filter which cases are executed. |
 
 **`compare`-only flags (no API calls made):**
 
