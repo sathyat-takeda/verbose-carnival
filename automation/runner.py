@@ -368,6 +368,16 @@ def run_load_test(
 # Env-compare — run each case against two environments concurrently
 # ---------------------------------------------------------------------------
 
+def _ms(v: int | None) -> str:
+    return f"{v}ms" if v is not None else "n/a"
+
+
+def _status_icon(status: int | None, expected: int = 200) -> str:
+    if status is None:
+        return "ERR"
+    return str(status) if status == expected else f"{status}✗"
+
+
 def run_env_compare(
     cases: list[TestCase],
     services: dict[str, ServiceConfig],
@@ -383,16 +393,21 @@ def run_env_compare(
     """
     started_at = iso_now()
     pairs: list[tuple[RunResult, RunResult]] = []
+    total = len(cases)
+    print(f"  Single-pass: {total} cases", flush=True)
 
-    for case in cases:
+    for idx, case in enumerate(cases, 1):
         service = services[case.service]
+        prefix = f"  [{idx:>3}/{total}] {service.alias:<16} {case.name[:38]:<38}"
         if not case.enabled:
+            print(f"{prefix}  skipped (disabled)", flush=True)
             skipped = build_skipped_result(case, service, "Case is disabled in catalog.", started_at)
             pairs.append((skipped, skipped))
             continue
         dev_url = case_url(case, service, env, dev_env)
         test_url = case_url(case, service, env, test_env)
         if not dev_url.startswith(("http://", "https://")) or not test_url.startswith(("http://", "https://")):
+            print(f"{prefix}  skipped (no base URL)", flush=True)
             skipped = build_skipped_result(case, service, "Service base URL is not configured.", started_at)
             pairs.append((skipped, skipped))
             continue
@@ -403,6 +418,9 @@ def run_env_compare(
             dev_result = future_dev.result()
             test_result = future_test.result()
 
+        dev_cell = f"{_status_icon(dev_result.actual_status, case.expected_status)} ({_ms(dev_result.elapsed_ms)})"
+        test_cell = f"{_status_icon(test_result.actual_status, case.expected_status)} ({_ms(test_result.elapsed_ms)})"
+        print(f"{prefix}  {dev_env}: {dev_cell:<18}  {test_env}: {test_cell}", flush=True)
         pairs.append((dev_result, test_result))
 
     return pairs
@@ -425,15 +443,18 @@ def run_env_compare_load_test(
     """
     started_at = iso_now()
     pairs: list[tuple[LoadTestStats, LoadTestStats]] = []
+    enabled_cases = [
+        (case, services[case.service])
+        for case in cases
+        if case.enabled
+        and case_url(case, services[case.service], env, dev_env).startswith(("http://", "https://"))
+    ]
+    total = len(enabled_cases)
+    print(f"  Load test: {total} cases × {runs} runs each env", flush=True)
 
-    for case in cases:
-        service = services[case.service]
-        if not case.enabled:
-            continue
-        dev_url = case_url(case, service, env, dev_env)
-        test_url = case_url(case, service, env, test_env)
-        if not dev_url.startswith(("http://", "https://")) or not test_url.startswith(("http://", "https://")):
-            continue
+    for idx, (case, service) in enumerate(enabled_cases, 1):
+        prefix = f"  [{idx:>3}/{total}] {service.alias:<16} {case.name[:38]:<38}"
+        print(f"{prefix}  running…", end="\r", flush=True)
 
         with ThreadPoolExecutor(max_workers=2) as pool:
             future_dev = pool.submit(_run_case_n_times, case, service, env, runs, started_at, dev_env)
@@ -441,6 +462,9 @@ def run_env_compare_load_test(
             dev_stats = future_dev.result()
             test_stats = future_test.result()
 
+        dev_cell = f"{dev_stats.success_count}/{dev_stats.runs} ok  avg {_ms(dev_stats.avg_ms)}  p95 {_ms(dev_stats.p95_ms)}"
+        test_cell = f"{test_stats.success_count}/{test_stats.runs} ok  avg {_ms(test_stats.avg_ms)}  p95 {_ms(test_stats.p95_ms)}"
+        print(f"{prefix}  {dev_env}: {dev_cell:<34}  {test_env}: {test_cell}", flush=True)
         pairs.append((dev_stats, test_stats))
 
     return pairs

@@ -413,6 +413,18 @@ def _demo_services() -> dict[str, ServiceConfig]:
     }
 
 
+def _print_outcome_summary(label: str, results: list) -> None:
+    from collections import Counter
+    counts = Counter(r.outcome for r in results)
+    total = len(results)
+    passed = counts.get("passed", 0)
+    failures = {k: v for k, v in counts.items() if k != "passed"}
+    parts = [f"passed {passed}/{total}"]
+    for outcome, n in sorted(failures.items()):
+        parts.append(f"{outcome.replace('_', ' ')} {n}")
+    print(f"  {label}: {' | '.join(parts)}")
+
+
 def main(argv: list[str] | None = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
     args = parse_args(argv)
@@ -479,6 +491,7 @@ def main(argv: list[str] | None = None) -> int:
         # ------------------------------------------------------------------
         pairs = run_env_compare(selected_cases, services, env_values, dev_env=dev_env, test_env=test_env)
         ec_results = compare_env_pairs(pairs, dev_env=dev_env, test_env=test_env, latency_threshold_pct=args.latency_threshold)
+        _print_outcome_summary("Single-pass results", ec_results)
 
         # ------------------------------------------------------------------
         # Load test comparison (optional)
@@ -486,7 +499,7 @@ def main(argv: list[str] | None = None) -> int:
         ec_load_results = None
         if getattr(args, "load_test", False):
             lt_runs: int = args.load_test_runs
-            print(f"Load test          : {lt_runs} runs per case per environment …")
+            print(f"\nLoad test          : {lt_runs} runs per case per environment")
             lt_pairs = run_env_compare_load_test(
                 selected_cases, services, env_values,
                 runs=lt_runs, dev_env=dev_env, test_env=test_env,
@@ -496,13 +509,14 @@ def main(argv: list[str] | None = None) -> int:
                 latency_threshold_pct=args.latency_threshold,
                 concurrency_threshold_pct=args.concurrency_threshold,
             )
+            _print_outcome_summary("Load-test results ", ec_load_results)
 
         paths = save_env_compare_reports(
             destination, args.label, dev_env, test_env, services,
             ec_results, load_results=ec_load_results,
         )
 
-        print(f"Env compare JSON   : {paths['env_compare_results']}")
+        print(f"\nEnv compare JSON   : {paths['env_compare_results']}")
         print(f"Dashboard          : {paths['env_compare_dashboard']}")
         if "env_compare_load_results" in paths:
             print(f"Load compare JSON  : {paths['env_compare_load_results']}")
