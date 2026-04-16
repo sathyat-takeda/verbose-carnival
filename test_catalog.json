@@ -1,0 +1,954 @@
+{
+  "services": [
+    {
+      "service_id": "insight-center-dev-graphql-user-management-services",
+      "display_name": "insight-center-dev-graphql-user-management-services",
+      "alias": "Platform_API_Test",
+      "kind": "graphql",
+      "base_url": "https://api-insights-dev2.takeda.io/core/user-management/graphql",
+      "base_url_env": "USER_MANAGEMENT_GRAPHQL_BASE_URL",
+      "enabled": true,
+      "notes": "Mounted at /graphql in the service app; deployed suffix provided by user."
+    },
+    {
+      "service_id": "insight-center-dev-batches-graphql-services",
+      "display_name": "insight-center-dev-batches-graphql-services",
+      "alias": "Batches",
+      "kind": "graphql",
+      "base_url": "https://api-insights-dev2.takeda.io/batches/graphql",
+      "base_url_env": "BATCHES_GRAPHQL_BASE_URL",
+      "enabled": true,
+      "notes": "GraphQL endpoint confirmed at api-insights-test2.takeda.io/batches/graphql. Stored as dev2 so --env flag switches environments automatically."
+    },
+    {
+      "service_id": "insight-center-purchase-order-services",
+      "display_name": "insight-center-purchase-order-services",
+      "alias": "Purchase_Order",
+      "kind": "rest",
+      "base_url": "https://api-insights-dev2.takeda.io/purchase",
+      "base_url_env": "PURCHASE_ORDER_BASE_URL",
+      "enabled": true,
+      "notes": "Purchase order service exposes /api/v1 and /api/v2 routers under /purchase."
+    },
+    {
+      "service_id": "insight-center-dev-core-graphql-services",
+      "display_name": "insight-center-dev-core-graphql-services",
+      "alias": "Core",
+      "kind": "graphql",
+      "base_url": "https://api-insights-dev2.takeda.io/core/graphql/graphql",
+      "base_url_env": "CORE_GRAPHQL_BASE_URL",
+      "enabled": true,
+      "notes": "Strawberry GraphQL endpoint."
+    },
+    {
+      "service_id": "insight-center-dev-erm-graphql-services",
+      "display_name": "insight-center-dev-erm-graphql-services",
+      "alias": "ERM_GraphQL",
+      "kind": "graphql",
+      "base_url": "https://api-insights-dev2.takeda.io/risks/graphql/",
+      "base_url_env": "ERM_GRAPHQL_BASE_URL",
+      "enabled": true,
+      "notes": "Strawberry GraphQL endpoint."
+    },
+    {
+      "service_id": "insight-center-dev-erm-services",
+      "display_name": "insight-center-dev-erm-services",
+      "alias": "Risk",
+      "kind": "rest",
+      "base_url": "https://api-insights-dev2.takeda.io/risks",
+      "base_url_env": "RISK_REST_BASE_URL",
+      "enabled": true,
+      "notes": "FastAPI REST service with /api/v1 routes."
+    }
+  ],
+  "workbook_imports": [
+    {
+      "sheet": "Risk",
+      "service": "insight-center-dev-erm-services",
+      "endpoint_strategy": "use_service_base",
+      "enabled": true,
+      "include_patterns": [
+        "comprehensive-risks",
+        "mitigation-plan"
+      ],
+      "exclude_patterns": [],
+      "tags": [
+        "excel",
+        "risk"
+      ],
+      "execution_mode": "regression",
+      "notes": "Imported from API_Automation_Test_Data.xlsx using the Risk alias."
+    },
+    {
+      "sheet": "Platform_API_Test",
+      "service": "insight-center-dev-graphql-user-management-services",
+      "endpoint_strategy": "use_service_base",
+      "enabled": false,
+      "include_patterns": [
+        "Membership"
+      ],
+      "exclude_patterns": [],
+      "tags": [
+        "excel",
+        "user-management",
+        "mutation"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Platform workbook cases are mutations, so they are cataloged but not enabled by default."
+    }
+  ],
+  "manual_cases": [
+    {
+      "case_id": "user_mgmt_fetch_user_groups",
+      "name": "User management fetchUserGroups for current user",
+      "service": "insight-center-dev-graphql-user-management-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query UserGroupMyAccess {\n  fetchUserGroups(filterByCurrentUser: true, status: \"Granted\") {\n    id\n    name\n    description\n    dimensions {\n      id\n      name\n      rank\n      __typename\n    }\n    memberships(forCurrentUser: true, status: \"Granted\") {\n      id\n      user {\n        id\n        email\n        displayName\n        __typename\n      }\n      role {\n        id\n        name\n        hierarchyLevel\n        canManage\n        __typename\n      }\n      membershipDetails {\n        dimId\n        value\n        valueDescription\n        id\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "smoke",
+        "user-management"
+      ],
+      "sources": [
+        "User-supplied GraphQL query",
+        "Repo scan: tests/common/test_graphql_helper.py",
+        "Repo scan: app/main.py"
+      ],
+      "execution_mode": "regression",
+      "notes": "Read-only query. Preferred over workbook mutations for branch comparison.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_paginated_dimensions_basic",
+      "name": "Core fetchPaginatedDimensions basic",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchPaginatedDimensions(\n    paginationFilters: {limit: 1000, page: 1}\n    dimensionIds: [1]\n  ) {\n    limit\n    page\n    totalRecords\n    dimensions {\n      dimensionId\n      name\n      description\n      values(searchText: \"\", version: 1) {\n        valueId\n        name\n        aliases {\n          aliasName\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "smoke",
+        "core"
+      ],
+      "sources": [
+        "User-supplied GraphQL query",
+        "Repo scan: app/clients/interservices/graphql_queries.py",
+        "Repo scan: app/main.py"
+      ],
+      "execution_mode": "regression",
+      "notes": "Baseline dimension query without relationship filter.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_paginated_dimensions_relationship",
+      "name": "Core fetchPaginatedDimensions with relationship filter",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchPaginatedDimensions(\n    paginationFilters: {limit: 1000, page: 1}\n    dimensionIds: [1]\n  ) {\n    limit\n    page\n    totalRecords\n    dimensions {\n      dimensionId\n      name\n      description\n      values(\n        searchText: \"\"\n        version: 1\n        relationshipFilter: {intersetOperations: [], sets: [{pairs: [{dimId: 2, value: \"cdbc70db-d904-4cd7-a9f5-afa46376552e\"}], operation: OR}]}\n      ) {\n        valueId\n        name\n        aliases {\n          aliasName\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "User-supplied GraphQL query",
+        "Repo scan: app/clients/interservices/graphql_queries.py"
+      ],
+      "execution_mode": "regression",
+      "notes": "Relationship-filter variant to cover branch logic around dimension filters.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "erm_graphql_fetch_projects",
+      "name": "ERM GraphQL fetchProjects",
+      "service": "insight-center-dev-erm-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "{\n  fetchProjects(filters: {projectRiskProfileFilter: {}}) {\n    projectDetails {\n      name\n      sourceProjId\n      projectId\n      recordActiveFlag\n      riskProfile {\n        assessmentCycle {\n          id\n          value\n        }\n        riskScoreVal\n        riskRsnDescription\n        mitgDescription\n        riskDescription\n        mitgEffDescription\n        mitgStatDescription\n        riskStatEvalByReccFlg\n        profileActiveFlg\n        trustImpactType {\n          id\n          value\n        }\n        ptrbImpactType {\n          id\n          value\n        }\n        likelihoodType {\n          id\n          value\n        }\n        patientImpactType {\n          id\n          value\n        }\n        businessImpactType {\n          id\n          value\n        }\n        reputationalImpactType {\n          id\n          value\n        }\n        finalImpactAmountOy\n        mitgCmmtDescription\n      }\n      operationalUnitDescription\n      governanceTier\n      phase\n      description\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "erm"
+      ],
+      "sources": [
+        "User-supplied GraphQL query",
+        "Repo scan: app/main.py"
+      ],
+      "execution_mode": "regression",
+      "notes": "Broad read-only query for project and risk profile data.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "risk_products_list",
+      "name": "Risk products list",
+      "service": "insight-center-dev-erm-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/params/products-list",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "risk"
+      ],
+      "sources": [
+        "User-supplied endpoint",
+        "Repo scan: tests/api/v1/risk/test_routes.py"
+      ],
+      "execution_mode": "regression",
+      "notes": "Simple GET endpoint from ERM REST tests.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "risk_site_details",
+      "name": "Risk site details",
+      "service": "insight-center-dev-erm-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/site-details",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "risk"
+      ],
+      "sources": [
+        "User-supplied endpoint",
+        "Repo scan: tests/api/v1/site/test_route.py"
+      ],
+      "execution_mode": "regression",
+      "notes": "No query string supplied, so this exercises the service default behavior.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "risk_ccm_groups",
+      "name": "Risk ccm groups",
+      "service": "insight-center-dev-erm-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/ccm-groups?ccm_group_type=System%7CDrill&page=1",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "risk"
+      ],
+      "sources": [
+        "User-supplied endpoint",
+        "Repo scan: tests/api/v1/site/test_route.py"
+      ],
+      "execution_mode": "regression",
+      "notes": "CCM group listing with the query string supplied by the user.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "risk_params_data",
+      "name": "Risk params data",
+      "service": "insight-center-dev-erm-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/params/data?ptrb_type=all&assessment_cycle_state=active%2Crecently_completed",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "risk"
+      ],
+      "sources": [
+        "User-supplied endpoint",
+        "Repo scan: tests/api/v1/risk/test_routes.py"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "risk_products_list_filtered",
+      "name": "Risk products list filtered",
+      "service": "insight-center-dev-erm-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/params/products-list?products=advate&opus=small%20molecules%20and%20oncology",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "risk"
+      ],
+      "sources": [
+        "User-supplied endpoint",
+        "Repo scan: tests/api/v1/risk/test_routes.py"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "risk_owners",
+      "name": "Risk owners",
+      "service": "insight-center-dev-erm-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/risk-owners",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "risk"
+      ],
+      "sources": [
+        "User-supplied endpoint",
+        "Repo scan: tests/data/get_risk_owners_response.json"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "risk_mitigation_plan",
+      "name": "Risk mitigation plan",
+      "service": "insight-center-dev-erm-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/mitigation-plan?risk_ids=4062",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "risk"
+      ],
+      "sources": [
+        "User-supplied endpoint",
+        "Repo scan: tests/api/v1/mitigation/test_route.py"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_batch_stages_v2",
+      "name": "Purchase order batch stages v2",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v2/purchase-order/batch-stages?brand_name=ADVATE&site_type=External&opu=SMALL%20MOLECULES%20AND%20ONCOLOGY&start_date=1736876741154&end_date=1807724741154&limit=50",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "purchase-order"
+      ],
+      "sources": [
+        "User-supplied endpoint",
+        "Repo scan: tests/api/v2/batches/test_route.py"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_batches_v1",
+      "name": "Purchase order batches v1",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/purchase-order/batches?sort_by=safety_stock_level_date&brand_name=ALOGLIPTIN&stage_code=B&sort_order=asc&page=1&limit=3&start_date=1736876851013&end_date=1807724851013&search_by=batch_number&site_type=Internal",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "purchase-order"
+      ],
+      "sources": [
+        "User-supplied endpoint",
+        "Repo scan: tests/api/v1/batches/test_route.py"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_safety_stock_weeks_of_coverage_v2",
+      "name": "Purchase order safety stock weeks of coverage v2",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v2/purchase-order/safety-stock-weeks-of-coverage?stage_code=B&brand_name=ALOGLIPTIN&site_type=Internal&is_current_week_year=true&page=1&limit=50",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "purchase-order"
+      ],
+      "sources": [
+        "User-supplied endpoint",
+        "Repo scan: tests/api/v2/weeks_of_coverage/test_route.py"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_adh_sdn_status_fetch",
+      "name": "PO Adherence - Fetch SDN_Status in batch card (TC-11463)",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/purchase-order/batches?brand_name=LIVTENCITY&page=5&limit=10",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "purchase-order",
+        "po-adherence",
+        "sdn-status"
+      ],
+      "sources": [
+        "TC-11463",
+        "BICN-136017",
+        "R_1.19.0",
+        "PI-4/25 Sprint-9"
+      ],
+      "execution_mode": "regression",
+      "notes": "Verify sdn_status field is present in each batch object and its value is either null or 'active'. Covers BICN-136017 R_1.19.0.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_adh_invalid_tag_stage_negative",
+      "name": "PO Adherence - Error handling for invalid Tag and Stage (TC-11464)",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/purchase-order/batches?opu=sm%26o&brand_name=IXAZOMIB&tag=XYZ&stage=Invalid&page=1&limit=10",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "negative",
+        "purchase-order",
+        "po-adherence",
+        "error-handling"
+      ],
+      "sources": [
+        "TC-11464",
+        "BICN-136017",
+        "R_1.19.0",
+        "PI-3/25 Sprint-9"
+      ],
+      "execution_mode": "regression",
+      "notes": "Negative: invalid Tag=XYZ and Stage=Invalid with OPU=sm&o, Brand=IXAZOMIB. Response code is 200 but data body returns null/empty. Covers BICN-136017 R_1.19.0.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_adh_optimized_response_time",
+      "name": "PO Adherence - Retrieve batch data with optimized response time (TC-11160)",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/purchase-order/batches?stage_code=S&site_type=Internal&page=1&limit=50",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 30,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "performance",
+        "purchase-order",
+        "po-adherence"
+      ],
+      "sources": [
+        "TC-11160",
+        "BICN-131960",
+        "R_1.18.0",
+        "PI-4/25 Sprint-5"
+      ],
+      "execution_mode": "regression",
+      "notes": "Verify API response time is below performance threshold (timeout_seconds=30 enforces this). stage_code+site_type required — bare page/limit call returns 500. Response must contain only required fields and return bulk batch data correctly with no functional regression. Covers BICN-131960 R_1.18.0.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_adh_batch_stages_all_params",
+      "name": "PO Adherence - Batch Stages with all params OPU+Brand+Tag+Stage (TC-11276)",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v2/purchase-order/batch-stages?opu=SMO&brand_name=BRIGATINIB&site_type=External&stage_code=B&page=1&limit=10",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "purchase-order",
+        "po-adherence",
+        "batch-stages"
+      ],
+      "sources": [
+        "TC-11276",
+        "BICN-111957",
+        "R_1.17.0",
+        "PI-3/25 Sprint-4"
+      ],
+      "execution_mode": "regression",
+      "notes": "Valid search with OPU=SMO, Brand=BRIGATINIB, site_type=External (Tag), stage_code=B (Drug Product). Response 200 with batch_stages list. Covers BICN-111957 R_1.17.0.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_adh_multiple_status_filter",
+      "name": "PO Adherence - Multiple status values as input to batches API (TC-11277)",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/purchase-order/batches?batch_status=urgent&batch_status=in_progress&brand_name=ALUNBRIG&page=1&limit=50&start_date=1736876741154&end_date=1807724741154",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "purchase-order",
+        "po-adherence"
+      ],
+      "sources": [
+        "TC-11277",
+        "BICN-111593",
+        "R_1.16.0",
+        "PI-3/25 Sprint-3"
+      ],
+      "execution_mode": "regression",
+      "notes": "Verify batch_status accepts comma-separated multiple values (urgent,in_progress). Response includes batches of both statuses. Covers BICN-111593 R_1.16.0.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_adh_count_by_batch",
+      "name": "PO Adherence - count_status_by=batch returns only batch counts (TC-11279 step 1)",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/purchase-order/batches?page=3&limit=10&count_status_by=batch",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "purchase-order",
+        "po-adherence",
+        "count-status"
+      ],
+      "sources": [
+        "TC-11279",
+        "BICN-127526",
+        "R_1.18.0",
+        "PI-4/25 Sprint-5"
+      ],
+      "execution_mode": "regression",
+      "notes": "count_status_by=batch: batch_statuses_count is populated with real counts; material_statuses_count fields are all zero. Covers BICN-127526 R_1.18.0 step 1. NOTE: returns HTTP 500 on release/dev-new — server-side bug; single-value count_status_by triggers a crash in the current build. Expect this to resolve when BICN-127526 is fully deployed.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_adh_count_by_material",
+      "name": "PO Adherence - count_status_by=material returns only material counts (TC-11279 step 2)",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/purchase-order/batches?page=3&limit=10&count_status_by=material",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "purchase-order",
+        "po-adherence",
+        "count-status"
+      ],
+      "sources": [
+        "TC-11279",
+        "BICN-127526",
+        "R_1.18.0",
+        "PI-4/25 Sprint-5"
+      ],
+      "execution_mode": "regression",
+      "notes": "count_status_by=material: material_statuses_count is populated with real counts; batch_statuses_count fields are all zero. Covers BICN-127526 R_1.18.0 step 2. NOTE: returns HTTP 500 on release/dev-new — same server-side bug as step 1; single-value count_status_by triggers a crash in the current build.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_adh_count_by_batch_and_material",
+      "name": "PO Adherence - count_status_by=batch,material returns both counts (TC-11279 step 3)",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/purchase-order/batches?page=3&limit=10&count_status_by=batch&count_status_by=material",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "purchase-order",
+        "po-adherence",
+        "count-status"
+      ],
+      "sources": [
+        "TC-11279",
+        "BICN-127526",
+        "R_1.18.0",
+        "PI-4/25 Sprint-5"
+      ],
+      "execution_mode": "regression",
+      "notes": "count_status_by=batch,material: both batch_statuses_count and material_statuses_count are populated with real counts. Covers BICN-127526 R_1.18.0 step 3.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_adh_batch_stages_count_by_material",
+      "name": "PO Adherence - Batch Stages count_status_by material (TC-11284)",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v2/purchase-order/batch-stages?brand_name=BRIGATINIB&count_status_by=material&page=1&limit=10",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "purchase-order",
+        "po-adherence",
+        "batch-stages",
+        "count-status"
+      ],
+      "sources": [
+        "TC-11284",
+        "BICN-134146",
+        "R_1.18.0",
+        "PI-4/25 Sprint-5"
+      ],
+      "execution_mode": "regression",
+      "notes": "batch-stages v2 with count_status_by=material: brands_data contains batch_counts and material_counts per stage. Covers BICN-134146 R_1.18.0.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_adh_date_range_plant_rank_supply_model",
+      "name": "PO Adherence - Date range with plant rank, WOC, PSS and supply model fields (TC-11299)",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/purchase-order/batches?brand_name=ALUNBRIG&page=1&limit=3&start_date=1736876741154&end_date=1807724741154",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "purchase-order",
+        "po-adherence"
+      ],
+      "sources": [
+        "TC-11299",
+        "BICN-40350",
+        "R_1.15.0",
+        "PI-2/25 Sprint-4"
+      ],
+      "execution_mode": "regression",
+      "notes": "Verify response includes plant rank, weeks_of_coverage (current_weeks_of_coverage, planned_safety_stock_weeks), and supply_model_category_code fields. Covers BICN-40350 R_1.15.0.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_adh_event_ids_in_plants",
+      "name": "PO Adherence - Event ID present in plants events array (TC-11300)",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/purchase-order/batches?search_by=batch_number&search_text=12931277&page=1&limit=1",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "purchase-order",
+        "po-adherence",
+        "events"
+      ],
+      "sources": [
+        "TC-11300",
+        "BICN-89125",
+        "R_1.15.0",
+        "PI-2/25 Sprint-5"
+      ],
+      "execution_mode": "regression",
+      "notes": "Verify each event in plants.events includes an 'id' field (1-5). Batch 12931277 (EVOBRIG 180MG BRA, External CMO). Covers BICN-89125 R_1.15.0.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_adh_pss_and_woc_values",
+      "name": "PO Adherence - Batch with PSS and WOC values in weeks_of_coverage (TC-11301)",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/purchase-order/batches?search_by=batch_number&search_text=BTCH4502015451500420&page=1&limit=1",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "purchase-order",
+        "po-adherence",
+        "woc",
+        "pss"
+      ],
+      "sources": [
+        "TC-11301",
+        "BICN-108256",
+        "R_1.17.0",
+        "PI-3/25 Sprint-5"
+      ],
+      "execution_mode": "regression",
+      "notes": "Verify weeks_of_coverage contains planned_safety_stock_weeks and current_weeks_of_coverage for batch BTCH4502015451500420 (EQUASYM DEPOT 10MG Norway, External CMO TPI-IB IT). Covers BICN-108256 R_1.17.0.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_adh_forecast_grpt_pdt_values",
+      "name": "PO Adherence - Batch with forecast_next_6_weeks_avg, GRPT and PDT fields (TC-11302)",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/purchase-order/batches?search_by=batch_number&search_text=12771727&page=1&limit=1",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "purchase-order",
+        "po-adherence",
+        "forecast",
+        "grpt",
+        "pdt"
+      ],
+      "sources": [
+        "TC-11302",
+        "BICN-117355",
+        "R_1.17.0",
+        "PI-3/25 Sprint-5"
+      ],
+      "execution_mode": "regression",
+      "notes": "Verify plants include planned_delivery_time_days (PDT) and goods_received_processing_time_days (GRPT); weeks_of_coverage includes forecast_next_6_weeks_avg. Batch 12771727 (NINLARO 2.3MG External CMO PCI Pharma UK). Covers BICN-117355 R_1.17.0.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_adh_smart_search",
+      "name": "PO Adherence - Batch stages accommodates Smart Search (TC-11303)",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v2/purchase-order/batch-stages?page=1&limit=10",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "purchase-order",
+        "po-adherence",
+        "smart-search"
+      ],
+      "sources": [
+        "TC-11303",
+        "BICN-120829",
+        "R_1.17.0",
+        "PI-4/25 Sprint-1"
+      ],
+      "execution_mode": "regression",
+      "notes": "Verify batch-stages v2 API accommodates Smart Search requirements. Covers BICN-120829 R_1.17.0.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_adh_api_documentation_openapi",
+      "name": "PO Adherence - API documentation comments present in openapi.json (TC-11305)",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/openapi.json",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "documentation",
+        "purchase-order",
+        "po-adherence"
+      ],
+      "sources": [
+        "TC-11305",
+        "BICN-125860",
+        "R_1.18.0",
+        "PI-4/25 Sprint-3"
+      ],
+      "execution_mode": "regression",
+      "notes": "Verify openapi.json is accessible and contains documentation comments for batches v1, batch-stages v2, and safety-stock weeks-of-coverage v2 endpoints. Covers BICN-125860 R_1.18.0.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_fetch_batch_user_mapping_placeholder",
+      "name": "Batches fetch_batch_user_mapping placeholder",
+      "service": "insight-center-dev-batches-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "query FetchBatchUserMapping {\n  fetch_batch_user_mapping(input: {batch_id: \"TODO_BATCH_ID\", po_number: \"TODO_PO\", po_itm_number: \"TODO_PO_ITEM\"}) {\n    batch_id\n    po_number\n    po_itm_number\n    assign_user_ids\n    users {\n      id\n      email\n      displayName\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "placeholder",
+        "batches"
+      ],
+      "sources": [
+        "Repo scan: app/graphql_types/batch_user_mapping.py",
+        "Repo scan: app/main.py"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "URL confirmed (api-insights-dev2.takeda.io/batches/graphql). Enable this case and replace TODO_BATCH_ID / TODO_PO / TODO_PO_ITEM with real identifiers before running.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    }
+  ]
+}
