@@ -5664,6 +5664,368 @@
       "notes": "Results include current-user memberships — compare against same-user baseline.",
       "ignore_paths": [],
       "ignore_field_names": []
+    },
+    {
+      "case_id": "kpi_make_vienna_raw_txn_a1a305aa",
+      "name": "KPI Make Vienna Create Raw Txn A1A305AA",
+      "service": "insight-center-kpi-services",
+      "protocol": "rest",
+      "method": "POST",
+      "endpoint": "/api/v1/metrics/metric-raw-txn-details",
+      "enabled": false,
+      "body": {
+        "dimensions": {
+          "Opu": "PLASMA",
+          "site": "VIENNA",
+          "prod_brand_nm": "PROTEIN C",
+          "proc_stg": "FDP"
+        },
+        "work_order": 5761787,
+        "work_order_request_date": null,
+        "material_description": null,
+        "lot_number": "A1A305AA",
+        "packaging_line": null,
+        "product_group": null,
+        "actual_data": {
+          "packaging": {
+            "end_date": "2025-03-07T09:00:00",
+            "admin": "vikram-kumar.sinha@takeda.com"
+          },
+          "finishing": {
+            "end_date": "2025-03-09T06:17:00",
+            "admin": "vikram-kumar.sinha@takeda.com"
+          },
+          "qa_review": {
+            "end_date": "2025-03-12T08:58:00",
+            "admin": "vikram-kumar.sinha@takeda.com"
+          },
+          "mfg_approval": {
+            "end_date": "2025-04-12T15:15:15",
+            "admin": "vikram-kumar.sinha@takeda.com"
+          },
+          "qa_approval": {
+            "end_date": "2025-04-14T08:00:00",
+            "admin": "vikram-kumar.sinha@takeda.com"
+          }
+        },
+        "first_defect_date_qa_review": "2025-03-12T08:58:00",
+        "defects_count_total_doc_errors_per_batch": null,
+        "urgent_flag": "N",
+        "comment": null,
+        "deviation_number": null,
+        "reason_for_delay": null
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "mutation",
+        "kpi"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — creates/updates raw transaction metric. Disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "kpi_make_vienna_raw_txn_a1b134aap1",
+      "name": "KPI Make Vienna Create Raw Txn A1B134AAP1",
+      "service": "insight-center-kpi-services",
+      "protocol": "rest",
+      "method": "POST",
+      "endpoint": "/api/v1/metrics/metric-raw-txn-details",
+      "enabled": false,
+      "body": {
+        "dimensions": {
+          "Opu": "PLASMA",
+          "site": "VIENNA",
+          "prod_brand_nm": "PROTEIN C",
+          "proc_stg": "FDP"
+        },
+        "work_order": 5761787,
+        "work_order_request_date": null,
+        "material_description": null,
+        "lot_number": "A1B134AAP1",
+        "packaging_line": null,
+        "product_group": null,
+        "actual_data": {
+          "packaging": {
+            "end_date": "2024-01-02T15:00:00",
+            "admin": "vikram-kumar.sinha@takeda.com"
+          },
+          "finishing": {
+            "end_date": "2024-01-03T16:00:00",
+            "admin": "vikram-kumar.sinha@takeda.com"
+          },
+          "qa_review": {
+            "end_date": "2024-01-04T09:00:00",
+            "admin": "vikram-kumar.sinha@takeda.com"
+          },
+          "mfg_approval": {
+            "end_date": "2024-01-05T15:00:00",
+            "admin": "vikram-kumar.sinha@takeda.com"
+          },
+          "qa_approval": {
+            "end_date": "2024-01-06T22:00:00",
+            "admin": "vikram-kumar.sinha@takeda.com"
+          }
+        },
+        "defects_count_total_doc_errors_per_batch": null,
+        "urgent_flag": "N",
+        "comment": null,
+        "deviation_number": null,
+        "reason_for_delay": null
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "mutation",
+        "kpi"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — creates/updates raw transaction metric. Disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "kpi_make_vienna_raw_txn_a1b488aa",
+      "name": "KPI Make Vienna Create Raw Txn A1B488AA",
+      "service": "insight-center-kpi-services",
+      "protocol": "rest",
+      "method": "POST",
+      "endpoint": "/api/v1/metrics/metric-raw-txn-details",
+      "enabled": false,
+      "body": {
+        "dimensions": {
+          "Opu": "PLASMA",
+          "site": "VIENNA",
+          "prod_brand_nm": "PROTEIN C",
+          "proc_stg": "FDP"
+        },
+        "work_order_request_date": null,
+        "material_description": null,
+        "lot_number": "A1B488AA",
+        "packaging_line": null,
+        "product_group": null,
+        "actual_data": {
+          "packaging": {
+            "end_date": "2024-11-18T08:00:00",
+            "admin": "vikram-kumar.sinha@takeda.com"
+          },
+          "finishing": {
+            "end_date": "2024-11-18T20:00:00",
+            "admin": "vikram-kumar.sinha@takeda.com"
+          },
+          "qa_review": {
+            "end_date": "2024-11-19T09:00:00",
+            "admin": "vikram-kumar.sinha@takeda.com"
+          },
+          "mfg_approval": {
+            "end_date": "2024-11-19T21:00:00",
+            "admin": "vikram-kumar.sinha@takeda.com"
+          },
+          "qa_approval": {
+            "end_date": "2024-11-20T07:00:00",
+            "admin": "vikram-kumar.sinha@takeda.com"
+          }
+        },
+        "defects_count_total_doc_errors_per_batch": null,
+        "urgent_flag": "N",
+        "comment": null,
+        "deviation_number": null,
+        "reason_for_delay": null
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "mutation",
+        "kpi"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — creates/updates raw transaction metric. Disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "kpi_make_vienna_raw_txn_a1a066aap1",
+      "name": "KPI Make Vienna Create Raw Txn A1A066AAP1",
+      "service": "insight-center-kpi-services",
+      "protocol": "rest",
+      "method": "POST",
+      "endpoint": "/api/v1/metrics/metric-raw-txn-details",
+      "enabled": false,
+      "body": {
+        "dimensions": {
+          "Opu": "PLASMA",
+          "site": "VIENNA",
+          "prod_brand_nm": "PROTEIN C",
+          "proc_stg": "FDP"
+        },
+        "work_order_request_date": null,
+        "material_description": null,
+        "lot_number": "A1A066AAP1",
+        "packaging_line": null,
+        "product_group": null,
+        "actual_data": {
+          "packaging": {
+            "end_date": "2023-01-23T07:00:00",
+            "admin": "vikram-kumar.sinha@takeda.com"
+          },
+          "finishing": {
+            "end_date": "2023-01-23T14:00:00",
+            "admin": "vikram-kumar.sinha@takeda.com"
+          },
+          "qa_review": {
+            "end_date": "2023-01-24T08:00:00",
+            "admin": "vikram-kumar.sinha@takeda.com"
+          },
+          "mfg_approval": {
+            "end_date": "2023-01-24T16:00:00",
+            "admin": "vikram-kumar.sinha@takeda.com"
+          },
+          "qa_approval": {
+            "end_date": "2023-01-25T06:00:00",
+            "admin": "vikram-kumar.sinha@takeda.com"
+          }
+        },
+        "defects_count_total_doc_errors_per_batch": null,
+        "urgent_flag": "N",
+        "comment": null,
+        "deviation_number": null,
+        "reason_for_delay": null
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "mutation",
+        "kpi"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — creates/updates raw transaction metric. Disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "kpi_make_vienna_raw_txn_no_payload",
+      "name": "KPI Make Vienna Create Raw Txn (no payload — negative test)",
+      "service": "insight-center-kpi-services",
+      "protocol": "rest",
+      "method": "POST",
+      "endpoint": "/api/v1/metrics/metric-raw-txn-details",
+      "enabled": false,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "mutation",
+        "kpi"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — creates/updates raw transaction metric. Disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_v2_boards_make_fdp",
+      "name": "Batches v2 boards Make FDP B5X016AAP1 Finishing",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v2/boards/make/FDP/B5X016AAP1/Finishing",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards",
+        "batches"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_v2_boards_root",
+      "name": "Batches v2 boards root",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v2/boards",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards",
+        "batches"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "boards_batch_list_make_plasma_limit25",
+      "name": "Boards batch-list Make Plasma Vienna limit=25",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v3/batch-list?board_type=Make&opu=PLASMA&site=VIENNA&process=FINISHED%20DRUG%20PRODUCT&page=1&limit=25&status=At%20Risk%7COn%20Track%7COverdue&sort_by=swimlane_start_date&all_combination=false",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards",
+        "batches"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
     }
   ]
 }
