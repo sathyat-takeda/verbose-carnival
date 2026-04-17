@@ -491,7 +491,11 @@ def main(argv: list[str] | None = None) -> int:
         # ------------------------------------------------------------------
         pairs = run_env_compare(selected_cases, services, env_values, dev_env=dev_env, test_env=test_env)
         ec_results = compare_env_pairs(pairs, dev_env=dev_env, test_env=test_env, latency_threshold_pct=args.latency_threshold)
+        _sp_excluded = [r for r in ec_results if r.dev_error is not None and r.test_error is not None]
+        ec_results = [r for r in ec_results if not (r.dev_error is not None and r.test_error is not None)]
         _print_outcome_summary("Single-pass results", ec_results)
+        if _sp_excluded:
+            print(f"    ({len(_sp_excluded)} case(s) excluded — both environments failed)")
 
         # ------------------------------------------------------------------
         # Load test comparison (optional)
@@ -509,7 +513,11 @@ def main(argv: list[str] | None = None) -> int:
                 latency_threshold_pct=args.latency_threshold,
                 concurrency_threshold_pct=args.concurrency_threshold,
             )
+            _lt_excluded = [r for r in ec_load_results if r.outcome == "error"]
+            ec_load_results = [r for r in ec_load_results if r.outcome != "error"]
             _print_outcome_summary("Load-test results ", ec_load_results)
+            if _lt_excluded:
+                print(f"    ({len(_lt_excluded)} case(s) excluded — both environments failed)")
 
         paths = save_env_compare_reports(
             destination, args.label, dev_env, test_env, services,
