@@ -7,7 +7,7 @@ import sys
 import textwrap
 from pathlib import Path
 
-from automation.catalog import build_workbook_cases, load_catalog, print_case_table, select_cases
+from automation.catalog import apply_service_config, build_workbook_cases, load_catalog, print_case_table, select_cases
 from automation.comparator import compare_env_load_pairs, compare_env_pairs, compare_load_tests, compare_runs
 from automation.io_utils import load_dotenv, load_tester_gt
 from automation.models import LoadTestStats, RunResult, ServiceConfig
@@ -160,6 +160,8 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     common = argparse.ArgumentParser(add_help=False)
     common.add_argument("--catalog", default="test_catalog.json", metavar="FILE",
                         help="Path to test_catalog.json (default: test_catalog.json).")
+    common.add_argument("--config", default="config.json", metavar="FILE",
+                        help="Path to service enable/disable config (default: config.json).")
     common.add_argument("--env-file", default=".env", metavar="FILE",
                         help="Path to .env file with AUTHORIZATION / APP_AUTH_TOKEN (default: .env).")
     common.add_argument("--workbook", default="API_Automation_Test_Data.xlsx", metavar="FILE",
@@ -386,9 +388,11 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
 
 def _load_context(args: argparse.Namespace, cwd: Path):
     catalog_path = (cwd / args.catalog).resolve()
+    config_path = (cwd / args.config).resolve()
     env_file = (cwd / args.env_file).resolve()
     workbook_path = (cwd / args.workbook).resolve()
     services, manual_cases, workbook_imports = load_catalog(catalog_path)
+    apply_service_config(services, config_path)
     all_cases = list(manual_cases)
     if not args.skip_workbook:
         all_cases.extend(build_workbook_cases(workbook_path, services, workbook_imports))

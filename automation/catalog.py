@@ -8,6 +8,17 @@ from automation.models import ServiceConfig, TestCase, WorkbookImport
 from automation.workbook import parse_xlsx_sheet_rows
 
 
+def apply_service_config(services: dict[str, ServiceConfig], config_path: Path) -> None:
+    """Override service.enabled from config.json (keyed by alias). Missing keys keep catalog default."""
+    if not config_path.exists():
+        return
+    cfg = json.loads(config_path.read_text(encoding="utf-8"))
+    alias_map = {svc.alias: svc for svc in services.values()}
+    for alias, enabled in cfg.get("services", {}).items():
+        if alias in alias_map:
+            alias_map[alias].enabled = bool(enabled)
+
+
 def load_catalog(path: Path) -> tuple[dict[str, ServiceConfig], list[TestCase], list[WorkbookImport]]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     services = {entry["service_id"]: ServiceConfig(**entry) for entry in payload["services"]}
