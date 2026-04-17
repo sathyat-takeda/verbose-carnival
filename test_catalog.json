@@ -8142,6 +8142,158 @@
       "notes": "Mutation — disabled by default to avoid state drift.",
       "ignore_paths": [],
       "ignore_field_names": []
+    },
+    {
+      "case_id": "nmt_scenarios_list",
+      "name": "NMT scenarios list",
+      "service": "insight-center-nmt-service",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/nmt/scenarios/",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "nmt"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "nmt_scenarios_brands_markets",
+      "name": "NMT scenario brands-markets (scen-3e3a)",
+      "service": "insight-center-nmt-service",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/nmt/scenarios/scen-3e3a6296f9d34652b734c058026df161/brands-markets?has_brands=true&has_markets=true",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "nmt"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "nmt_scenario_score",
+      "name": "NMT scenario score (scen-61c6, baseline=false)",
+      "service": "insight-center-nmt-service",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/nmt/scenarios/scen-61c6b2835b8e403ba199d23c4ff23b2a/score?baseline=false&include_summary=true",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "nmt"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "nmt_graphql_fetch_scenario_variants",
+      "name": "NMT GraphQL FetchScenarioRecommendationVariants",
+      "service": "insight-center-dev-nmt-graphql-service",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query FetchScenarioRecommendationVariants {\n  fetchScenarioVariants(\n    scenarioInput: {scenarioId: \"scen-61c6b2835b8e403ba199d23c4ff23b2a\", sortFilter: {field: EFFICIENCY_RANK, order: ASC}, pagination: {page: 1, limit: 10}}\n  ) {\n    variants {\n      efficiencyRank\n      laneId\n      scenarioId\n      variantId\n      variantName\n      baseMetrics {\n        co2PerPack\n        co2Score\n        costPerPack\n        costScore\n        finalScore\n        leadTime\n        leadTimeScore\n        shippingSolution {\n          name\n          ratio\n          __typename\n        }\n        palletQuantity\n        palletPercentage\n        numberOfShipments\n        modeSplit {\n          airPercentage\n          roadPercentage\n          seaPercentage\n          __typename\n        }\n        totalCo2\n        totalCost\n        totalPallets\n        __typename\n      }\n      efficiencyScore\n      improvements\n      modifiedParameter\n      tradeOffs\n      variantDescription\n      variantMetrics {\n        co2PerPackDiff\n        co2PerPackImpact\n        co2PerPackSensitivity\n        co2ScoreDiff\n        co2ScoreImpact\n        co2ScoreSensitivity\n        costPerPackDiff\n        costPerPackImpact\n        costPerPackSensitivity\n        costScoreDiff\n        costScoreImpact\n        costScoreSensitivity\n        finalScoreDiff\n        finalScoreImpact\n        totalCostSensitivity\n        totalCostRankDiff\n        totalCostImpact\n        totalCostDiff\n        totalCo2Sensitivity\n        totalCo2RankDiff\n        totalCo2Impact\n        totalCo2Diff\n        scenarioMetrics {\n          co2PerPack\n          co2Score\n          totalPallets\n          totalCost\n          totalCo2\n          palletQuantity\n          palletPercentage\n          numberOfShipments\n          leadTimeScore\n          leadTime\n          finalScore\n          costScore\n          costPerPack\n          modeSplit {\n            airPercentage\n            roadPercentage\n            seaPercentage\n            __typename\n          }\n          shippingSolution {\n            name\n            ratio\n            __typename\n          }\n          __typename\n        }\n        leadTimeSensitivity\n        leadTimeScoreSensitivity\n        leadTimeScoreImpact\n        leadTimeScoreDiff\n        leadTimeRankDiff\n        leadTimeImpact\n        leadTimeDiff\n        finalScoreSensitivity\n        __typename\n      }\n      __typename\n    }\n    totalRecords\n    page\n    limit\n    __typename\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "smoke",
+        "nmt"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "Results are scenario-specific — compare against same-scenario baseline.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "risk_profiles",
+      "name": "Risk risk-profiles list",
+      "service": "insight-center-dev-erm-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/risk-profiles",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "risk"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_rest_filter_all_combinations",
+      "name": "Core REST filter all-combinations",
+      "service": "insight-center-core-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/filter/all-combinations",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "core"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
     }
   ]
 }
