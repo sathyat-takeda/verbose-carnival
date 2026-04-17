@@ -98,6 +98,42 @@
       "base_url": "https://api-insights-dev2.takeda.io/quality/graphql/graphql",
       "base_url_env": "QUALITY_GRAPHQL_BASE_URL",
       "notes": "Base URL is a placeholder \u2014 confirm actual gateway path."
+    },
+    {
+      "service_id": "insight-center-dev-nmt-graphql-service",
+      "display_name": "insight-center-dev-nmt-graphql-service",
+      "alias": "NMT_GraphQL",
+      "kind": "graphql",
+      "base_url": "https://api-insights-dev2.takeda.io/nmt/graphql/",
+      "base_url_env": "NMT_GRAPHQL_BASE_URL",
+      "notes": "NMT GraphQL endpoint."
+    },
+    {
+      "service_id": "insight-center-dev-inventory-graphql-service",
+      "display_name": "insight-center-dev-inventory-graphql-service",
+      "alias": "Inventory",
+      "kind": "graphql",
+      "base_url": "https://api-insights-dev2.takeda.io/inventory/graphql/",
+      "base_url_env": "INVENTORY_GRAPHQL_BASE_URL",
+      "notes": "Inventory GraphQL endpoint."
+    },
+    {
+      "service_id": "insight-center-kpi-services",
+      "display_name": "insight-center-kpi-services",
+      "alias": "KPI",
+      "kind": "rest",
+      "base_url": "https://api-insights-dev2.takeda.io/kpi",
+      "base_url_env": "KPI_BASE_URL",
+      "notes": "KPI REST service."
+    },
+    {
+      "service_id": "insight-center-dev-notification-graphql",
+      "display_name": "insight-center-dev-notification-graphql",
+      "alias": "Notification_GraphQL",
+      "kind": "graphql",
+      "base_url": "https://api-insights-dev2.takeda.io/notification/graphql/graphql",
+      "base_url_env": "NOTIFICATION_GRAPHQL_BASE_URL",
+      "notes": "Notification GraphQL endpoint."
     }
   ],
   "workbook_imports": [
