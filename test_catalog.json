@@ -3823,6 +3823,331 @@
       "notes": "Expects empty result set from this relationship filter combination.",
       "ignore_paths": [],
       "ignore_field_names": []
+    },
+    {
+      "case_id": "risk_comprehensive_risks",
+      "name": "Risk comprehensive risks (default filters)",
+      "service": "insight-center-dev-erm-services",
+      "protocol": "rest",
+      "method": "POST",
+      "endpoint": "api/v1/comprehensive-risks",
+      "enabled": true,
+      "body": {
+        "products": null,
+        "risk_id": null,
+        "risk_type_id": null,
+        "key_risk": null,
+        "impacted_site_ids": null,
+        "risk_category_ids": null,
+        "impact_range_ids": null,
+        "mitigation": true,
+        "opu_ids": null,
+        "page": 1,
+        "limit": 10,
+        "search_keyword": "",
+        "financial_impact_range_ids": null,
+        "risk_state_id": null,
+        "risk_owner_id": null,
+        "overall_likelihood_type_id": null,
+        "risk_mitigation_type": null,
+        "overall_ptrb_type_id": null,
+        "risk_phase_ids": null,
+        "risk_universe_ids": []
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "risk"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "risk_mitigation_plan_2821",
+      "name": "Risk mitigation plan risk_ids=2821",
+      "service": "insight-center-dev-erm-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/mitigation-plan?risk_ids=2821&page=1&sort_order=asc",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "risk"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "risk_mitigation_plan_2808_risk_type",
+      "name": "Risk mitigation plan risk_ids=2808 with risk_type_ids",
+      "service": "insight-center-dev-erm-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/mitigation-plan?risk_ids=2808&risk_type_ids=1&page=1&sort_order=asc",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "risk"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "risk_mitigation_plan_due_date",
+      "name": "Risk mitigation plan with due_date filter",
+      "service": "insight-center-dev-erm-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/mitigation-plan?due_date=2025-07-22&risk_type_ids=1&page=1&sort_order=asc",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "risk"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "risk_product_details",
+      "name": "Risk product details",
+      "service": "insight-center-dev-erm-services",
+      "protocol": "rest",
+      "method": "POST",
+      "endpoint": "api/v1/product-details",
+      "enabled": true,
+      "body": {
+        "products": [
+          "string"
+        ]
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "risk"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "risk_params_data_active_patient",
+      "name": "Risk params data active cycle ptrb_type=patient",
+      "service": "insight-center-dev-erm-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/params/data?assessment_cycle_state=active&ptrb_type=patient",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "risk"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "risk_params_data_active_trust",
+      "name": "Risk params data active cycle ptrb_type=trust",
+      "service": "insight-center-dev-erm-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/params/data?assessment_cycle_state=active&ptrb_type=trust",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "risk"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "risk_params_data_recent_reputation",
+      "name": "Risk params data recently_completed ptrb_type=reputation",
+      "service": "insight-center-dev-erm-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/params/data?assessment_cycle_state=recently_completed&ptrb_type=reputation",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "risk"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "risk_params_data_recent_business",
+      "name": "Risk params data recently_completed ptrb_type=business",
+      "service": "insight-center-dev-erm-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/params/data?assessment_cycle_state=recently_completed&ptrb_type=business",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "risk"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "risk_params_data_active_product_filtered",
+      "name": "Risk params data active with product+opu filter",
+      "service": "insight-center-dev-erm-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/params/data?assessment_cycle_state=active&products=ADVATE&opus=biologics&ptrb_type=patient",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "risk"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "risk_site_details_type_2",
+      "name": "Risk site details site_type_ids=2",
+      "service": "insight-center-dev-erm-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/site-details?site_type_ids=2",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "risk"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "risk_site_details_type_1",
+      "name": "Risk site details site_type_ids=1",
+      "service": "insight-center-dev-erm-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/site-details?site_type_ids=1",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "risk"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
     }
   ]
 }
