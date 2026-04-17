@@ -1448,6 +1448,25 @@
       "notes": "Returns notifications for the authenticated user. Results are user-specific — compare against same-user baseline.",
       "ignore_paths": [],
       "ignore_field_names": []
+    },
+    {
+      "case_id": "platform_authorize",
+      "name": "Platform authorize endpoint",
+      "service": "insight-center-dev-graphql-user-management-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "https://api-insights-dev2.takeda.io/authorize",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": ["rest", "smoke", "auth"],
+      "sources": ["User-supplied endpoint"],
+      "execution_mode": "regression",
+      "notes": "API-gateway-level auth endpoint. Absolute URL used; assigned to Platform_API_Test as the nearest auth-owning service.",
+      "ignore_paths": [],
+      "ignore_field_names": []
     }
   ]
 }
