@@ -149,6 +149,86 @@
       "base_url_env": "NOTIFICATION_GRAPHQL_BASE_URL",
       "notes": "Notification GraphQL endpoint.",
       "enabled": true
+    },
+    {
+      "service_id": "insight-center-coa-services",
+      "display_name": "Certificate of Analysis",
+      "alias": "COA",
+      "kind": "rest",
+      "base_url": "https://api-insights-dev2.takeda.io/coa",
+      "base_url_env": "",
+      "notes": "COA REST services. API docs at /coa/docs",
+      "enabled": true
+    },
+    {
+      "service_id": "insight-center-core-services",
+      "display_name": "Core REST Services",
+      "alias": "Core_REST",
+      "kind": "rest",
+      "base_url": "https://api-insights-dev2.takeda.io/core",
+      "base_url_env": "",
+      "notes": "Core REST services (distinct from Core GraphQL at /core/graphql/graphql).",
+      "enabled": true
+    },
+    {
+      "service_id": "insight-center-dev-checklist-services",
+      "display_name": "Checklist GraphQL",
+      "alias": "Checklist_GraphQL",
+      "kind": "graphql",
+      "base_url": "https://api-insights-dev2.takeda.io/checklist/graphql",
+      "base_url_env": "",
+      "notes": "",
+      "enabled": true
+    },
+    {
+      "service_id": "insight-center-dev-coa-graphql-services",
+      "display_name": "COA GraphQL",
+      "alias": "COA_GraphQL",
+      "kind": "graphql",
+      "base_url": "https://api-insights-dev2.takeda.io/coa/graphql/graphql",
+      "base_url_env": "",
+      "notes": "",
+      "enabled": true
+    },
+    {
+      "service_id": "insight-center-dev-insight-center-AOS-services",
+      "display_name": "AOS Services",
+      "alias": "AOS",
+      "kind": "rest",
+      "base_url": "https://api-insights-dev2.takeda.io/aos",
+      "base_url_env": "",
+      "notes": "AOS REST services. API docs at /aos/docs",
+      "enabled": true
+    },
+    {
+      "service_id": "insight-center-search-engine-services",
+      "display_name": "Search Engine",
+      "alias": "Search",
+      "kind": "rest",
+      "base_url": "https://api-insights-dev2.takeda.io/search",
+      "base_url_env": "",
+      "notes": "",
+      "enabled": true
+    },
+    {
+      "service_id": "insight-center-dev-data-quality-services",
+      "display_name": "Data Quality GraphQL",
+      "alias": "Data_Quality_GraphQL",
+      "kind": "graphql",
+      "base_url": "https://api-insights-dev2.takeda.io/dqh/graphql/",
+      "base_url_env": "",
+      "notes": "",
+      "enabled": true
+    },
+    {
+      "service_id": "insight-center-dev-process-quality-services",
+      "display_name": "Process Quality GraphQL",
+      "alias": "Process_Quality_GraphQL",
+      "kind": "graphql",
+      "base_url": "https://api-insights-dev2.takeda.io/process-quality/graphql",
+      "base_url_env": "",
+      "notes": "",
+      "enabled": true
     }
   ],
   "workbook_imports": [
