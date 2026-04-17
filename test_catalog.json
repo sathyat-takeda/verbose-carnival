@@ -7,7 +7,8 @@
       "kind": "graphql",
       "base_url": "https://api-insights-dev2.takeda.io/core/user-management/graphql",
       "base_url_env": "USER_MANAGEMENT_GRAPHQL_BASE_URL",
-      "notes": "Mounted at /graphql in the service app; deployed suffix provided by user."
+      "notes": "Mounted at /graphql in the service app; deployed suffix provided by user.",
+      "enabled": true
     },
     {
       "service_id": "insight-center-dev-batches-graphql-services",
@@ -16,7 +17,8 @@
       "kind": "graphql",
       "base_url": "https://api-insights-dev2.takeda.io/batches/graphql/",
       "base_url_env": "BATCHES_GRAPHQL_BASE_URL",
-      "notes": "GraphQL endpoint confirmed at api-insights-test2.takeda.io/batches/graphql. Stored as dev2 so --env flag switches environments automatically."
+      "notes": "GraphQL endpoint confirmed at api-insights-test2.takeda.io/batches/graphql. Stored as dev2 so --env flag switches environments automatically.",
+      "enabled": true
     },
     {
       "service_id": "insight-center-purchase-order-services",
@@ -25,7 +27,8 @@
       "kind": "rest",
       "base_url": "https://api-insights-dev2.takeda.io/purchase",
       "base_url_env": "PURCHASE_ORDER_BASE_URL",
-      "notes": "Purchase order service exposes /api/v1 and /api/v2 routers under /purchase."
+      "notes": "Purchase order service exposes /api/v1 and /api/v2 routers under /purchase.",
+      "enabled": true
     },
     {
       "service_id": "insight-center-dev-core-graphql-services",
@@ -34,7 +37,8 @@
       "kind": "graphql",
       "base_url": "https://api-insights-dev2.takeda.io/core/graphql/graphql",
       "base_url_env": "CORE_GRAPHQL_BASE_URL",
-      "notes": "Strawberry GraphQL endpoint."
+      "notes": "Strawberry GraphQL endpoint.",
+      "enabled": true
     },
     {
       "service_id": "insight-center-dev-erm-graphql-services",
@@ -43,7 +47,8 @@
       "kind": "graphql",
       "base_url": "https://api-insights-dev2.takeda.io/risks/graphql/",
       "base_url_env": "ERM_GRAPHQL_BASE_URL",
-      "notes": "Strawberry GraphQL endpoint."
+      "notes": "Strawberry GraphQL endpoint.",
+      "enabled": true
     },
     {
       "service_id": "insight-center-dev-erm-services",
@@ -52,7 +57,8 @@
       "kind": "rest",
       "base_url": "https://api-insights-dev2.takeda.io/risks",
       "base_url_env": "RISK_REST_BASE_URL",
-      "notes": "FastAPI REST service with /api/v1 routes."
+      "notes": "FastAPI REST service with /api/v1 routes.",
+      "enabled": true
     },
     {
       "service_id": "insight-center-dev-metric-graphql-services",
@@ -61,7 +67,8 @@
       "kind": "graphql",
       "base_url": "https://api-insights-dev2.takeda.io/metrics/graphql",
       "base_url_env": "METRIC_GRAPHQL_BASE_URL",
-      "notes": "Base URL is a placeholder \u2014 confirm actual gateway path."
+      "notes": "Base URL is a placeholder \u2014 confirm actual gateway path.",
+      "enabled": true
     },
     {
       "service_id": "insight-center-nmt-service",
@@ -70,7 +77,8 @@
       "kind": "graphql",
       "base_url": "https://api-insights-dev2.takeda.io/nmt",
       "base_url_env": "NMT_BASE_URL",
-      "notes": "NMT GraphQL service."
+      "notes": "NMT GraphQL service.",
+      "enabled": true
     },
     {
       "service_id": "insight-center-dev-insight-center-boards-services",
@@ -79,7 +87,8 @@
       "kind": "rest",
       "base_url": "https://api-insights-dev2.takeda.io/batches",
       "base_url_env": "BOARDS_BASE_URL",
-      "notes": "REST side of the batches service \u2014 board views, batch details, and events."
+      "notes": "REST side of the batches service \u2014 board views, batch details, and events.",
+      "enabled": true
     },
     {
       "service_id": "insight-center-dev-quality-services",
@@ -88,7 +97,8 @@
       "kind": "rest",
       "base_url": "https://api-insights-dev2.takeda.io/quality",
       "base_url_env": "QUALITY_BASE_URL",
-      "notes": "Base URL is a placeholder \u2014 confirm actual gateway path."
+      "notes": "Base URL is a placeholder \u2014 confirm actual gateway path.",
+      "enabled": true
     },
     {
       "service_id": "insight-center-dev-graphql-quality-services",
@@ -97,7 +107,8 @@
       "kind": "graphql",
       "base_url": "https://api-insights-dev2.takeda.io/quality/graphql/graphql",
       "base_url_env": "QUALITY_GRAPHQL_BASE_URL",
-      "notes": "Base URL is a placeholder \u2014 confirm actual gateway path."
+      "notes": "Base URL is a placeholder \u2014 confirm actual gateway path.",
+      "enabled": true
     },
     {
       "service_id": "insight-center-dev-nmt-graphql-service",
@@ -106,7 +117,8 @@
       "kind": "graphql",
       "base_url": "https://api-insights-dev2.takeda.io/nmt/graphql/",
       "base_url_env": "NMT_GRAPHQL_BASE_URL",
-      "notes": "NMT GraphQL endpoint."
+      "notes": "NMT GraphQL endpoint.",
+      "enabled": true
     },
     {
       "service_id": "insight-center-dev-inventory-graphql-service",
@@ -115,7 +127,8 @@
       "kind": "graphql",
       "base_url": "https://api-insights-dev2.takeda.io/inventory/graphql/",
       "base_url_env": "INVENTORY_GRAPHQL_BASE_URL",
-      "notes": "Inventory GraphQL endpoint."
+      "notes": "Inventory GraphQL endpoint.",
+      "enabled": true
     },
     {
       "service_id": "insight-center-kpi-services",
@@ -124,7 +137,8 @@
       "kind": "rest",
       "base_url": "https://api-insights-dev2.takeda.io/kpi",
       "base_url_env": "KPI_BASE_URL",
-      "notes": "KPI REST service."
+      "notes": "KPI REST service.",
+      "enabled": true
     },
     {
       "service_id": "insight-center-dev-notification-graphql",
@@ -133,7 +147,8 @@
       "kind": "graphql",
       "base_url": "https://api-insights-dev2.takeda.io/notification/graphql/graphql",
       "base_url_env": "NOTIFICATION_GRAPHQL_BASE_URL",
-      "notes": "Notification GraphQL endpoint."
+      "notes": "Notification GraphQL endpoint.",
+      "enabled": true
     }
   ],
   "workbook_imports": [

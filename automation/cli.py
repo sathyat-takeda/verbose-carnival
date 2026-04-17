@@ -392,7 +392,7 @@ def _load_context(args: argparse.Namespace, cwd: Path):
     all_cases = list(manual_cases)
     if not args.skip_workbook:
         all_cases.extend(build_workbook_cases(workbook_path, services, workbook_imports))
-    selected_cases = select_cases(all_cases, set(args.only_service), set(args.only_case))
+    selected_cases = select_cases(all_cases, set(args.only_service), set(args.only_case), services)
     return services, selected_cases, env_file
 
 
