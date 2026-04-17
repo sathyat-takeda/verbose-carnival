@@ -12,7 +12,6 @@ class ServiceConfig:
     kind: str
     base_url: str = ""
     base_url_env: str = ""
-    enabled: bool = True
     notes: str = ""
 
 

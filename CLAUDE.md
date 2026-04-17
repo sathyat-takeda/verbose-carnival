@@ -82,7 +82,7 @@ Test cases live in `test_catalog.json` under the `test_cases` array, or in the `
 
 ## Services
 
-Six microservices, all defaulting to `api-insights-dev2.takeda.io`:
+All services default to `api-insights-dev2.takeda.io`. Services run only when they have test cases pointing to them. Services marked *(placeholder)* need their base path confirmed.
 
 | Alias | Protocol | Base path |
 |-------|----------|-----------|
@@ -92,6 +92,11 @@ Six microservices, all defaulting to `api-insights-dev2.takeda.io`:
 | `Core` | GraphQL | `/core/graphql/graphql` |
 | `Platform_API_Test` | GraphQL | `/core/user-management/graphql` |
 | `Batches` | GraphQL | `/batches/graphql` |
+| `Metric_GraphQL` | GraphQL | `/metrics/graphql` *(placeholder)* |
+| `NMT` | REST | `/nmt` *(placeholder)* |
+| `Boards` | REST | `/boards` *(placeholder)* |
+| `Quality` | REST | `/quality` *(placeholder)* |
+| `Quality_GraphQL` | GraphQL | `/quality/graphql` *(placeholder)* |
 
 ## Output Structure
 
