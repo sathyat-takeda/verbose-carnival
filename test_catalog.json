@@ -4184,6 +4184,442 @@
       "notes": "",
       "ignore_paths": [],
       "ignore_field_names": []
+    },
+    {
+      "case_id": "ship_get_batch_details_a4a095",
+      "name": "Ship get batch details A4A095",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/batch-details/A4A095",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "batches",
+        "ship"
+      ],
+      "sources": [
+        "TC_Ship_Get_Batch_details"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "ship_put_invalid_error_correction_date",
+      "name": "Ship PUT invalid error_correction_date format (mutation)",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "PUT",
+      "endpoint": "api/v1/batch-details",
+      "enabled": false,
+      "body": {
+        "assign_to": [
+          "vijayakumara.k@takeda.com"
+        ],
+        "swimlane_end_date": null,
+        "swimlane": "Finishing Admin",
+        "batch_number": "A4A095",
+        "swimlane_start_date": null,
+        "projected_swimlane_end_date": "null",
+        "reason_for_delay": [],
+        "swimlane_target_date": "string",
+        "site": "VIENNA",
+        "po_number": "null",
+        "cmo_number": "null",
+        "board_type": "ship",
+        "date_of_manufacturing": "24-03-2023",
+        "error_correction_date": "24-03-2023 14:00"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "negative",
+        "batches",
+        "ship",
+        "mutation"
+      ],
+      "sources": [
+        "TC_Ship_Put_invalid_error_correction_date_format"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 PUT mutates batch details. Tests invalid date format for error_correction_date.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "ship_put_missing_batch_number",
+      "name": "Ship PUT with missing batch_number (mutation)",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "PUT",
+      "endpoint": "api/v1/batch-details",
+      "enabled": false,
+      "body": {
+        "assign_to": [
+          "vijayakumara.k@takeda.com"
+        ],
+        "swimlane_end_date": null,
+        "swimlane": "Finishing Admin",
+        "batch_number": "null",
+        "swimlane_start_date": null,
+        "projected_swimlane_end_date": "null",
+        "reason_for_delay": [],
+        "swimlane_target_date": "string",
+        "site": "VIENNA",
+        "po_number": "null",
+        "cmo_number": "null",
+        "board_type": "ship",
+        "date_of_manufacturing": "24-03-2023",
+        "error_correction_date": "24-03-2023 14:00"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "negative",
+        "batches",
+        "ship",
+        "mutation"
+      ],
+      "sources": [
+        "TC_Ship_Put_with_missing_batch_number"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 PUT mutates batch details. Tests missing/null batch_number.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "ship_get_nonexistent_batch",
+      "name": "Ship GET non-existent batch INVALID123",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/batch-details/INVALID123",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "negative",
+        "batches",
+        "ship"
+      ],
+      "sources": [
+        "TC_Ship_Get_non_existent_batch_id"
+      ],
+      "execution_mode": "regression",
+      "notes": "Negative: non-existent batch ID. Expect empty or error body.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "ship_get_batch_unauthorized",
+      "name": "Ship GET batch details A4A095 unauthorized",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/batch-details/A4A095",
+      "enabled": false,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 401,
+      "tags": [
+        "rest",
+        "negative",
+        "batches",
+        "ship",
+        "auth"
+      ],
+      "sources": [
+        "TC_Ship_Unauthorized access"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 requires running without auth credentials to validate 401 response.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "ship_put_update_assign_to",
+      "name": "Ship PUT update assign_to on batch F2C006AH (mutation)",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "PUT",
+      "endpoint": "api/v1/batch-details",
+      "enabled": false,
+      "body": {
+        "assign_to": [
+          "vijayakumara.k@takeda.com"
+        ],
+        "swimlane": "Finishing Admin",
+        "batch_number": "F2C006AH"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "batches",
+        "ship",
+        "mutation"
+      ],
+      "sources": [
+        "TC_Ship_Put_Update_Assign_to_Batch_details"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 PUT mutates assign_to field on batch.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "ship_validate_assign_to_f2c006ah",
+      "name": "Ship GET batch details F2C006AH (validate assign_to)",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/batch-details/F2C006AH",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "batches",
+        "ship"
+      ],
+      "sources": [
+        "TC_Ship_Validate_Assign_to_in_Batch_details"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "ship_put_remove_assign_to",
+      "name": "Ship PUT remove assign_to on batch F2C006AH (mutation)",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "PUT",
+      "endpoint": "api/v1/batch-details",
+      "enabled": false,
+      "body": {
+        "assign_to": [],
+        "swimlane": "Finishing Admin",
+        "batch_number": "F2C006AH"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "batches",
+        "ship",
+        "mutation"
+      ],
+      "sources": [
+        "TC_Ship_Put_Remove_Assign_to_Batch_details"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 PUT clears assign_to list on batch.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "ship_verify_smart_search_filters",
+      "name": "Ship verify smart search filters (Core fetchPaginatedDimensions)",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchPaginatedDimensions(\n    paginationFilters: { limit: 1000, page: 1 }\n    dimensionIds: [1, 2, 3, 7]\n  ) {\n    limit\n    page\n    totalRecords\n    dimensions {\n      dimensionId\n      name\n      description\n      values(\n        limitPerDimension: 1000\n        version: 1\n        valueIds: [\n          \"03347122-f8e2-445f-96c4-40577cbd43a4\",\n          \"66faa6e5-40f1-441d-94b4-50a10e22de91\",\n          \"19f11724-c488-466f-8673-5cd9428ec062\"\n        ]\n      ) {\n        valueId\n        name\n        aliases {\n          aliasName\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core",
+        "ship"
+      ],
+      "sources": [
+        "TC_Ship_Verify_Smart_search_filters"
+      ],
+      "execution_mode": "regression",
+      "notes": "fetchPaginatedDimensions with limitPerDimension and specific valueIds for Ship board smart search.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "ship_batch_list_ship_board",
+      "name": "Ship batch-list v3 (ship board / PLASMA / VIENNA)",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v3/batch-list?board_type=ship&opu=PLASMA&site=VIENNA&process=FINISHED%20DRUG%20PRODUCT&search=15/216AT&all_combination=false",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "batches",
+        "ship"
+      ],
+      "sources": [
+        "TC_Ship_Verify_search_results_of_Batch"
+      ],
+      "execution_mode": "regression",
+      "notes": "board_type=ship variant of batch-list v3 with search filter.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "ship_put_delete_event_attached",
+      "name": "Ship PUT delete/update user-attached event on A4B174AA (mutation)",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "PUT",
+      "endpoint": "api/v1/events/user-attached",
+      "enabled": false,
+      "body": {
+        "event_id": 45,
+        "batch_number": "A4B174AA",
+        "swimlane": "Finishing Admin",
+        "user_rationale": "QA_Test",
+        "opu": "Plasma",
+        "site": "Vienna",
+        "flag_type": "1"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "batches",
+        "ship",
+        "events",
+        "mutation"
+      ],
+      "sources": [
+        "TC_Ship_Put_Delete_Event_Attached_Pre"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 PUT mutates user-attached event record.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "ship_post_attach_event_a4b174aa",
+      "name": "Ship POST attach user event on A4B174AA (mutation)",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "POST",
+      "endpoint": "api/v1/events/user-attached",
+      "enabled": false,
+      "body": {
+        "event_name": "Risk Assessment",
+        "user_rationale": "acgac",
+        "opu": "Plasma",
+        "site": "Vienna",
+        "batch_number": "A4B174AA",
+        "board_type": "Ship"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "batches",
+        "ship",
+        "events",
+        "mutation"
+      ],
+      "sources": [
+        "TC_Ship_Post_Attach_Event"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 POST creates a user-attached event record.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "ship_get_attached_event_a4b174aa",
+      "name": "Ship GET user-attached events for A4B174AA",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/events/user-attached/A4B174AA",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "batches",
+        "ship",
+        "events"
+      ],
+      "sources": [
+        "TC_Ship_Get_Attached_Event"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "ship_get_events_derived_a4b174aa",
+      "name": "Ship GET derived events for A4B174AA",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v2/A4B174AA/events/?event_type=derived",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "batches",
+        "ship",
+        "events"
+      ],
+      "sources": [
+        "TC_Ship_Get_Events_with_derived_type"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
     }
   ]
 }
