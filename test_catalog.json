@@ -6106,6 +6106,2042 @@
       "notes": "",
       "ignore_paths": [],
       "ignore_field_names": []
+    },
+    {
+      "case_id": "dqh_fetch_data_pipeline",
+      "name": "DQH fetchDataPipeline paginated",
+      "service": "insight-center-dev-data-quality-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchDataPipeline(dataPipelineJobsInput: {paginationInfo: {limit: 2, page: 2}}) {\n    page\n    limit\n    totalCount\n    data {\n      url\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "dqh",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "dqh_fetch_data_table_monitor",
+      "name": "DQH fetchDataTableMonitor paginated",
+      "service": "insight-center-dev-data-quality-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchDataTableMonitor(\n    dataTableMonitorsInput: {paginationInfo: {limit: 2, page: 2}}\n  ) {\n    page\n    limit\n    totalCount\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "dqh",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_mutation_user_action_single",
+      "name": "COA coaMutation UserAction single valid",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  coaMutation(\n    inputDetails: {\n      entityName: USER_ACTION, \n      inputDetails: {\n      userAction: {\n        batchId: \"batch\", \n        siteStdName: \"batchs\", \n        verifyByEmpId: 10, \n        verifyStatusId: 10, \n        verifyActionDate: \"2025-11-06 16:58:10.387 +0530\"}}})\n  {\n    success\n    message\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "mutation"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_mutation_user_action_multiple",
+      "name": "COA coaMutation UserAction multiple valid",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  coaMutation(\n    inputDetails: {entityName: COA_TEST_RESULT_STAT, inputDetails: {userAction: [\n      {batchId: \"t\", siteStdName: \"t\", verifyByEmpId: 10, verifyStatusId: 10, verifyActionDate: \"\"\"},\n      {batchId: \"y\", siteStdName: \"y\", verifyByEmpId: 10, verifyStatusId: 10, verifyActionDate: \"\"\"}\n    ]}})\n  {\n    message\n    success\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "mutation"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_update_mutation_user_action_single",
+      "name": "COA coaMutation update UserAction single verifyStatusId=2",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  coaMutation(\n    inputDetails: {\n      entityName: USER_ACTION, \n      inputDetails: {\n      userAction: {\n        batchId: \"batch\", \n        siteStdName: \"batchs\", \n        verifyByEmpId: 10, \n        verifyStatusId: 2, \n        verifyActionDate: \"2025-11-06 16:58:10.387 +0530\"}}})\n  {\n    success\n    message\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "mutation"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_update_mutation_user_action_multiple",
+      "name": "COA coaMutation update UserAction multiple",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  coaMutation(\n    inputDetails: {entityName: COA_TEST_RESULT_STAT, inputDetails: {userAction: [\n      {batchId: \"t\", siteStdName: \"t\", verifyByEmpId: 10, verifyStatusId: 10, verifyActionDate: \"\"\"},\n      {batchId: \"y\", siteStdName: \"y\", verifyByEmpId: 10, verifyStatusId: 10, verifyActionDate: \"\"\"}\n    ]}})\n  {\n    message\n    success\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "mutation"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_mutation_user_action_null",
+      "name": "COA coaMutation UserAction null parameters",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  coaMutation(\n    inputDetails: {entityName: COA_TEST_RESULT_STAT, inputDetails: {userAction: {batchId: \"\", siteStdName: \"\", verifyByEmpId: 10, verifyStatusId: 10, verifyActionDate: \"\"\"}}}\n  ) {\n    message\n    success\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "mutation"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_mutation_test_result_stat_single",
+      "name": "COA coaMutation COATestResultStat single input",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  coaMutation(\n    inputDetails: {entityName: COA_TEST_RESULT_STAT, inputDetails: {coaTestResultStat: {extBatchId: \"Testing\", extTestNm: \"Testing\", extTestResultDesc: \"Testing\", extTestSpecDesc: \"Testing\", specRgnDesc: \"Testing\", prodShelfLifeDesc: \"Testing\", storageCondDesc: \"Testing\", testResultPassFlg: false}}}\n  ) {\n    message\n    success\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "mutation"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_mutation_test_result_stat_multiple",
+      "name": "COA coaMutation COATestResultStat multiple inputs",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  coaMutation(\n    inputDetails: {entityName: COA_TEST_RESULT_STAT, inputDetails:{coaTestResultStat: [\n      {extBatchId: \"Testing\", extTestNm: \"Testing\", extTestResultDesc: \"Testing\", extTestSpecDesc: \"Testing\", specRgnDesc: \"Testing\", prodShelfLifeDesc: \"Testing\", storageCondDesc: \"Testing\", testResultPassFlg: false},\n    {\n          extBatchId: \"Testing\", \n          extTestNm: \"Testing\", \n          extTestResultDesc: \"Testing\", \n          extTestSpecDesc: \"Testing\", \n          specRgnDesc: \"Region2\", \n          prodShelfLifeDesc: \"Testing\", \n          storageCondDesc: \"Testing\", \n          testResultPassFlg: true\n      }]}\n    }\n  ) {\n    message\n    success\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "mutation"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_mutation_test_result_stat_update",
+      "name": "COA coaMutation COATestResultStat update",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  coaMutation(\n    inputDetails: {entityName: COA_TEST_RESULT_STAT, inputDetails:{coaTestResultStat:\n      {extBatchId: \"Testing\", extTestNm: \"Testing\", extTestResultDesc: \"Testing\", extTestSpecDesc: \"Testing\", specRgnDesc: \"Testing\", prodShelfLifeDesc: \"Testing\", storageCondDesc: \"Testing\", testResultPassFlg: false}}\n    }\n  ) {\n    message\n    success\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "mutation"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_mutation_test_result_stat_invalid",
+      "name": "COA coaMutation COATestResultStat invalid param (empty ids)",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  coaMutation(\n    inputDetails: {entityName: COA_TEST_RESULT_STAT, inputDetails:{coaTestResultStat:\n      {extBatchId: \"\", extTestNm: \"\", extTestResultDesc: \"Testing\", extTestSpecDesc: \"Testing\", specRgnDesc: \"Testing\", prodShelfLifeDesc: \"Testing\", storageCondDesc: \"Testing\", testResultPassFlg: false}}\n    }\n  ) {\n    message\n    success\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "mutation"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_create_docusign_valid",
+      "name": "COA createDocusign mutation valid input",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  createDocusign(input: {service: \"coa\", filters: {batchId: \"2174-207\", stdSiteName: \"Emergent\"}}) {\n    data {\n      envelopeId\n      fileId\n      requestDatetime\n      status\n    }\n    message\n    success\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "mutation"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_create_docusign_duplicate",
+      "name": "COA createDocusign mutation duplicate input",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  createDocusign(input: {service: \"coa\", filters: {batchId: \"2174-207\", stdSiteName: \"Emergent\"}}) {\n    data {\n      envelopeId\n      fileId\n      requestDatetime\n      status\n    }\n    message\n    success\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "mutation"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_create_docusign_empty",
+      "name": "COA createDocusign mutation empty batchId",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  createDocusign(input: {service: \"coa\", filters: {batchId: \"\", stdSiteName: \"Emergent\"}}) {\n    data {\n      envelopeId\n      fileId\n      requestDatetime\n      status\n    }\n    message\n    success\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "mutation"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_add_result_stats_duplicate",
+      "name": "COA addCoaResultStats mutation duplicate record",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  addCoaResultStats(\n    testResultStatInput: {siteStdName: \"takeda1\", batchId: \"takeda1\", prodReleaseDtz: \"2026-04-15 08:56:37.778\", testName: \"takeda4\", testResultDesc: \"takeda1\", materialId: \"takeda1\", prodSpecCode: \"takeda1\", testSpecDesc: \"takeda1\", specAnalysisCode: \"taked23\", specComponentName: \"takeda1\", specRegionDesc: \"takeda1\"}\n  ) {\n    message\n    success\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "mutation"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_add_result_stats_valid",
+      "name": "COA addCoaResultStats mutation valid input",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  addCoaResultStats(\n    testResultStatInput: {siteStdName: \"arti\", batchId: \"tetsong\", prodReleaseDtz: \"2026-04-15 08:56:37.778\", testName: \"testing adfg\", testResultDesc: \"takeda testt\", materialId: \"mkk\", prodSpecCode: \"takeda1\", testSpecDesc: \"takeda1\", specAnalysisCode: \"taked23\", specComponentName: \"takeda1\", specRegionDesc: \"takeda1\"}\n  ) {\n    message\n    success\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "mutation"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_material_product_regions_single",
+      "name": "COA fetchMaterialProductRegions single materialId",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchMaterialProductRegions(materialIds: [\"6510186\"]) {\n    materialId\n    productSpecificationCode\n    productSpecificationRegions\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_material_product_regions_multiple",
+      "name": "COA fetchMaterialProductRegions multiple materialIds",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchMaterialProductRegions(materialIds: [\"6000576\", \"7000022-007\", \"7001727\"]) {\n    materialId\n    productSpecificationCode\n    productSpecificationRegions\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_material_product_regions_null",
+      "name": "COA fetchMaterialProductRegions empty materialIds",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchMaterialProductRegions(materialIds: []) {\n    materialId\n    productSpecificationCode\n    productSpecificationRegions\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_material_product_regions_invalid",
+      "name": "COA fetchMaterialProductRegions invalid materialId",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchMaterialProductRegions(materialIds: [\"123\"]) {\n    materialId\n    productSpecificationRegions\n    productSpecificationCode\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_material_product_regions_mismatch",
+      "name": "COA fetchMaterialProductRegions empty string materialId",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchMaterialProductRegions(materialIds: [\"]) {\n    materialId\n    productSpecificationRegions\n    productSpecificationCode\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_coa_status",
+      "name": "COA fetchCoaStatus",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchCoaStatus {\n    id\n    status\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_coa_test_prod_spec_map_valid",
+      "name": "COA fetchCoaTestProdSpecMap valid params",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchCoaTestProdSpecMap(\n    coaTestProdSpecMapInput: {batchId: \"TEXC04\", regionDesc: \"REGION1\"}\n  ) {\n    testName\n    batchId\n    materialId\n    productReleaseDatetime\n    productSpecificationCode\n    regionDescription\n    siteStdName\n    specficationRuleDescription\n    specificationAnalysisCode\n    specificationComponentName\n    specificationMaxValue\n    specificationMinValue\n    specificationTextValue\n    testResultDescription\n    testSpecificationDescription\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_coa_test_prod_spec_map_invalid_batch",
+      "name": "COA fetchCoaTestProdSpecMap invalid batchId",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchCoaTestProdSpecMap(\n    coaTestProdSpecMapInput: {batchId: \"dd\", regionDesc: \"REGION1\"}\n  ) {\n    testName\n    batchId\n    materialId\n    productReleaseDatetime\n    productSpecificationCode\n    regionDescription\n    siteStdName\n    specficationRuleDescription\n    specificationAnalysisCode\n    specificationComponentName\n    specificationMaxValue\n    specificationMinValue\n    specificationTextValue\n    testResultDescription\n    testSpecificationDescription\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_coa_test_prod_spec_map_empty_batch",
+      "name": "COA fetchCoaTestProdSpecMap empty batchId",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchCoaTestProdSpecMap(\n    coaTestProdSpecMapInput: {batchId: \", regionDesc: \"REGION1\"}\n  ) {\n    testName\n    batchId\n    materialId\n    productReleaseDatetime\n    productSpecificationCode\n    regionDescription\n    siteStdName\n    specficationRuleDescription\n    specificationAnalysisCode\n    specificationComponentName\n    specificationMaxValue\n    specificationMinValue\n    specificationTextValue\n    testResultDescription\n    testSpecificationDescription\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_coa_test_prod_spec_map_empty_inputs",
+      "name": "COA fetchCoaTestProdSpecMap empty batchId and regionDesc",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchCoaTestProdSpecMap(\n    coaTestProdSpecMapInput: {batchId: \", regionDesc: \"}\n  ) {\n    testName\n    batchId\n    materialId\n    productReleaseDatetime\n    productSpecificationCode\n    regionDescription\n    siteStdName\n    specficationRuleDescription\n    specificationAnalysisCode\n    specificationComponentName\n    specificationMaxValue\n    specificationMinValue\n    specificationTextValue\n    testResultDescription\n    testSpecificationDescription\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_product_spec_multiple_params",
+      "name": "COA fetchProductSpecification multiple params",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchProductSpecification(\n    prodSpecInput: {productSpecificationCode: \"MB_SWFI_GATTEX_DP_V\", componentName: \"Conductivity - Conforms\", analysisCode: \"MB_EUCL_CONDUCTIVITY\"}\n  ) {\n    analysisCode\n    componentName\n    maxValue\n    minValue\n    productSpecificationCode\n    regionDescription\n    ruleDescription\n    textValue\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_product_spec_null",
+      "name": "COA fetchProductSpecification null values",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchProductSpecification(\n    prodSpecInput: {productSpecificationCode: \", analysisCode: \", componentName: \"}\n  ) {\n    analysisCode\n    componentName\n    maxValue\n    minValue\n    productSpecificationCode\n    regionDescription\n    ruleDescription\n    textValue\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_product_spec_invalid",
+      "name": "COA fetchProductSpecification invalid value",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchProductSpecification(\n    prodSpecInput: {productSpecificationCode: \"MB_GATTEX_DP_5MG_H\", analysisCode: \"analysis\", componentName: \"compoent name\"}\n  ) {\n    analysisCode\n    componentName\n    maxValue\n    minValue\n    productSpecificationCode\n    regionDescription\n    ruleDescription\n    textValue\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_product_spec_mismatch",
+      "name": "COA fetchProductSpecification mismatch value",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchProductSpecification(\n    prodSpecInput: {productSpecificationCode: \"MB_GCB_DP_400U\", componentName: \"Conductivity - Conforms\", analysisCode: \"MB_EUCL_CONDUCTIVITY\"}\n  ) {\n    analysisCode\n    componentName\n    maxValue\n    minValue\n    productSpecificationCode\n    regionDescription\n    ruleDescription\n    textValue\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_product_spec_multiple_values_param",
+      "name": "COA fetchProductSpecification multiple values to param",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchProductSpecification(\n    prodSpecInput: {productSpecificationCode: [\"MB_SWFI_GATTEX_DP_V\"], componentName: \"Conductivity - Conforms\", analysisCode: \"MB_EUCL_CONDUCTIVITY\"}\n  ) {\n    analysisCode\n    componentName\n    maxValue\n    minValue\n    productSpecificationCode\n    regionDescription\n    ruleDescription\n    textValue\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_test_result_stat_single",
+      "name": "COA fetchTestResultStat single value each param",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchTestResultStat(\n    testResultStatInput: {batchId: \"TRXB01\", testName: \"sterility test filled vials\", testResultDesc: \"conforms\", testSpecDesc: \"no growth\", prodReleaseDtz: \"2024-03-21 12:00:00 +0530\"}\n  ) {\n    materialId\n    prodReleaseDate\n    specAnalysisCode\n    specRegionDesc\n    testName\n    testResultDesc\n    testResultPassFlg\n    testResultSpecification {\n      analysisCode\n      batchId\n      componentName\n      specResult\n      stdSiteName\n    }\n    testSpecDesc\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_test_result_stat_multiple",
+      "name": "COA fetchTestResultStat multiple inputs",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchTestResultStat(\n    testResultStatInput: [\n      {batchId: \"TRXB01\", testName: \"sterility test filled vials\", testResultDesc: \"conforms\", testSpecDesc: \"no growth\", prodReleaseDtz: \"2024-03-21 12:00:00 +0530\"},\n      {batchId: \"takeda1234\", testName: \"takeda1234\", testResultDesc: \"takeda1234\", testSpecDesc: \"takeda11234\", prodReleaseDtz: \"2025-10-01 12:00:00 +0530\"}\n    ]\n  ) {\n    materialId\n    prodReleaseDate\n    specAnalysisCode\n    specRegionDesc\n    testName\n    testResultDesc\n    testResultPassFlg\n    testResultSpecification {\n      analysisCode\n      batchId\n      componentName\n      specResult\n      stdSiteName\n    }\n    testSpecDesc\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_test_result_stat_null",
+      "name": "COA fetchTestResultStat null values",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchTestResultStat(\n    testResultStatInput: {batchId: \", testName: \", testResultDesc: \", testSpecDesc: \", prodReleaseDtz: \"}\n  ) {\n    materialId\n    prodReleaseDate\n    specAnalysisCode\n    specRegionDesc\n    testName\n    testResultDesc\n    testResultPassFlg\n    testResultSpecification {\n      analysisCode\n      batchId\n      componentName\n      specResult\n      stdSiteName\n    }\n    testSpecDesc\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_test_result_stat_invalid",
+      "name": "COA fetchTestResultStat invalid (empty batchId)",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchTestResultStat(\n    testResultStatInput: {batchId: \", testName: \"sterility test filled vials\", testResultDesc: \"conforms\", testSpecDesc: \"no growth\", prodReleaseDtz: \"2024-03-21 12:00:00 +0530\"}\n  ) {\n    materialId\n    prodReleaseDate\n    specAnalysisCode\n    specRegionDesc\n    testName\n    testResultDesc\n    testResultPassFlg\n    testResultSpecification {\n      analysisCode\n      batchId\n      componentName\n      specResult\n      stdSiteName\n    }\n    testSpecDesc\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_test_result_stat_mismatch",
+      "name": "COA fetchTestResultStat mismatch values",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchTestResultStat(\n    testResultStatInput: {batchId: \"test\", testName: \" test filled vials\", testResultDesc: \"conforms\", testSpecDesc: \"no growth\", prodReleaseDtz: \"2024-03-21 12:00:00 +0530\"}\n  ) {\n    materialId\n    prodReleaseDate\n    specAnalysisCode\n    specRegionDesc\n    testName\n    testResultDesc\n    testResultPassFlg\n    testResultSpecification {\n      analysisCode\n      batchId\n      componentName\n      specResult\n      stdSiteName\n    }\n    testSpecDesc\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_material_product_specs_single",
+      "name": "COA fetchMaterialProductSpecifications single materialId",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchMaterialProductSpecifications(materialIds: \"7001439\") {\n    materialId\n    productSpecificationCode\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_material_product_specs_multiple",
+      "name": "COA fetchMaterialProductSpecifications multiple materialIds",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchMaterialProductSpecifications(materialIds: [\"7001439\", \"6503172\"]) {\n    materialId\n    productSpecificationCode\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_material_product_specs_null",
+      "name": "COA fetchMaterialProductSpecifications null materialIds",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchMaterialProductSpecifications(materialIds: []) {\n    materialId\n    productSpecificationCode\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_material_product_specs_invalid",
+      "name": "COA fetchMaterialProductSpecifications invalid materialId",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchMaterialProductSpecifications(materialIds: [\"70014383\"]) {\n    materialId\n    productSpecificationCode\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_material_product_specs_mismatch",
+      "name": "COA fetchMaterialProductSpecifications mismatch materialIds",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchMaterialProductSpecifications(materialIds: [\"70014383\", \"7000002-006\"]) {\n    materialId\n    productSpecificationCode\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_user_actions_valid",
+      "name": "COA fetchUserActions valid input",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchUserActions(userActionInputs: {batchId: \"TRXB01\", siteStdName: \"Vetter\"}) {\n    batchId\n    siteStdName\n    verifyActionDate\n    verifyEmpId\n    verifyStatusId\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_user_actions_nested",
+      "name": "COA fetchUserActions valid nested output",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchUserActions(userActionInputs: {batchId: \"TRXB01\", siteStdName: \"Vetter\"}) {\n    batchId\n    siteStdName\n    verifyActionDate\n    verifyEmpId\n    verifyStatusId\n    userDetails {\n      email\n      fullName\n      userId\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_user_actions_multiple",
+      "name": "COA fetchUserActions multiple inputs",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchUserActions(userActionInputs: [\n    {batchId: \"TRXB01\", siteStdName: \"Vetter\"},\n    {batchId: \"None\", siteStdName: \"None\"}\n  ]) {\n    batchId\n    siteStdName\n    verifyActionDate\n    verifyEmpId\n    verifyStatusId\n    userDetails {\n      email\n      fullName\n      userId\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_user_actions_invalid",
+      "name": "COA fetchUserActions invalid input",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchUserActions(userActionInputs: [\n    {batchId: \"x\", siteStdName: \"y\"}\n  ]) {\n    batchId\n    siteStdName\n    verifyActionDate\n    verifyEmpId\n    verifyStatusId\n    userDetails {\n      email\n      fullName\n      userId\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_user_actions_null",
+      "name": "COA fetchUserActions null input",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchUserActions(userActionInputs: [\n    {batchId: \", siteStdName: \"}\n  ]) {\n    batchId\n    siteStdName\n    verifyActionDate\n    verifyEmpId\n    verifyStatusId\n    userDetails {\n      email\n      fullName\n      userId\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_test_by_lab_single_no_params",
+      "name": "COA fetchTestByLab single batchId",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchTestByLab(\n    batchinput: [{batchId: \"B189-041060\", stdSiteName: \"Lonza Hayward\"}]\n  ) {\n    batchId\n    stdSiteName\n    batch {\n      batchId\n      mfgDate\n      productName\n    }\n    testresult {\n      testName\n      testMethod\n      testDate\n      testedFor\n      testResultDesc\n      testResultState\n      verificationDate\n      verifiedBy\n      lab {\n        labsiteName\n      }\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_test_by_lab_multiple",
+      "name": "COA fetchTestByLab multiple batchIds and stdSiteNames",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchTestByLab(\n    batchinput: [{batchId: \"B189-041060\", stdSiteName: \"Lonza Hayward\"},\n      {batchId: \"A2100006\", stdSiteName: \"JHS\"},\n      {batchId: \"520830\", stdSiteName: \"AbbVie Bioresearch\"}\n    ]\n  ) {\n    batchId\n    stdSiteName\n    batch {\n      batchId\n      mfgDate\n      productName\n    }\n    testresult {\n      testName\n      testMethod\n      testDate\n      testedFor\n      testResultDesc\n      testResultState\n      verificationDate\n      verifiedBy\n      lab {\n        labsiteName\n      }\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_test_by_lab_invalid",
+      "name": "COA fetchTestByLab invalid batchId and stdSiteName",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchTestByLab(\n    batchinput: [{batchId: \"cjasvcha\", stdSiteName: \"cjCKVS\"}]\n  ) {\n    batchId\n    stdSiteName\n    batch {\n      batchId\n      mfgDate\n      productName\n    }\n    testresult {\n      testName\n      testMethod\n      testDate\n      testedFor\n      testResultDesc\n      testResultState\n      verificationDate\n      verifiedBy\n      lab {\n        labsiteName\n      }\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_test_by_lab_missing",
+      "name": "COA fetchTestByLab missing batchId",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchTestByLab(\n    batchinput: [{batchId: \" \", stdSiteName: \"Lonza Hayward\"}]\n  ) {\n    batchId\n    stdSiteName\n    batch {\n      batchId\n      mfgDate\n      productName\n    }\n    testresult {\n      testName\n      testMethod\n      testDate\n      testedFor\n      testResultDesc\n      testResultState\n      verificationDate\n      verifiedBy\n      lab {\n        labsiteName\n      }\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "coa_gql_fetch_test_by_lab_invalid_char",
+      "name": "COA fetchTestByLab invalid char input (tab in stdSiteName)",
+      "service": "insight-center-dev-coa-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchTestByLab(\n    batchinput: {batchId: \"B189-041060\", stdSiteName: \"Lonza Hayward\\t\\t\"}\n  ) {\n    batch {\n      batchId\n      mfgDate\n      productName\n    }\n    batchId\n    stdSiteName\n    testresult {\n      analysisDate\n      batchId\n      lab {\n        filename\n        labsiteName\n        stdSiteName\n      }\n      releaseDate\n      specification\n      specificationNumber\n      stdSiteName\n      testDate\n      testMethod\n      testResultDesc\n      testName\n      testResultState\n      testedFor\n      verificationDate\n      verifiedBy\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "coa",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_external_batch_details_assign_single",
+      "name": "Batches external-batch-details assign single assignee",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "PUT",
+      "endpoint": "api/v1/external-batch-details",
+      "enabled": false,
+      "body": {
+        "po_number": "4501742936",
+        "assign_to": [
+          "vijayakumara.k@takeda.com"
+        ],
+        "batch_number": "",
+        "cmo_number": "",
+        "date_of_manufacturing": ""
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "mutation",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — assigns user to external batch. Disabled by default.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_external_batch_details_validate_single",
+      "name": "Batches external-batch-details GET single assignee",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/external-batch-details/?batch_id=null&po_id=4501742936&cmo_id=null",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_external_batch_details_assign_multiple",
+      "name": "Batches external-batch-details assign multiple assignees",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "PUT",
+      "endpoint": "api/v1/external-batch-details",
+      "enabled": false,
+      "body": {
+        "po_number": "4501742936",
+        "assign_to": [
+          "vijayakumara.k@takeda.com",
+          "pallavi-ashok.yadav@takeda.com",
+          "jyothsna.j-h@takeda.com"
+        ],
+        "batch_number": "",
+        "cmo_number": "",
+        "date_of_manufacturing": ""
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "mutation",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — assigns multiple users to external batch. Disabled by default.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_external_batch_details_validate_multiple",
+      "name": "Batches external-batch-details GET multiple assignees (same po_id)",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/external-batch-details/?batch_id=null&po_id=4501742936&cmo_id=null",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_external_batch_details_unassign",
+      "name": "Batches external-batch-details unassign all",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "PUT",
+      "endpoint": "api/v1/external-batch-details",
+      "enabled": false,
+      "body": {
+        "po_number": "4501742936",
+        "assign_to": [],
+        "batch_number": "",
+        "cmo_number": "",
+        "date_of_manufacturing": ""
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "mutation",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — unassigns all users from external batch. Disabled by default.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_external_batch_list_biologics_limit120",
+      "name": "Batches external-batch-list Biologics External BIO Test limit=120",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/external-batch-list?opu=BIOLOGICS&site=EXTERNAL%20BIO&process=Drug%20Product%7CDrug%20Substance&boardType=Test&page=1&limit=120",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards",
+        "pagination"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_external_batch_list_biologics_limit0",
+      "name": "Batches external-batch-list Biologics limit=0 edge case",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/external-batch-list?opu=BIOLOGICS&site=EXTERNAL%20BIO&process=Drug%20Product%7CDrug%20Substance&boardType=Test&page=1&limit=0",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards",
+        "pagination"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_external_batch_list_invalid_combination",
+      "name": "Batches external-batch-list invalid combination (no opu)",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/external-batch-list?site=EXTERNAL%20BIO&process=Drug%20Product%7CDrug%20Substance&boardType=Test&page=1&limit=10",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards",
+        "pagination"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_external_batch_list_invalid_request",
+      "name": "Batches external-batch-list invalid request (unencoded params)",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/external-batch-list?board_type=test&opu=Plasma|Biologics&site=Vienna|Madrid&process=Drug Substance|Finished Drug Product|Master Cell Stock&brand=Albumin NG|Alofisel&page=1&limit=100&events=Tender|CPA&status=Completed|On Track&potency=Blank - Sales Rpt Code 541/S5",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards",
+        "pagination"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_filters_random_board_type",
+      "name": "Batches filters board_type=avhkad (random)",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/filters?board_type=avhkad",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_filters_string_board_type",
+      "name": "Batches filters board_type=\"Test\" (quoted string)",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/filters?board_type=\"Test\"",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_disposition_details_a1a068ac",
+      "name": "Batches disposition batch details A1A068AC VN1 FIN",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/disposition-batch-details/A1A068AC/VN1/FIN",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_disposition_assign_ala0003",
+      "name": "Batches disposition assign user ALA0003 VN1 BLK",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "PUT",
+      "endpoint": "api/v1/disposition-batch-details",
+      "enabled": false,
+      "body": {
+        "site_id": "VN1",
+        "batch_id": "ALA0003",
+        "disposition_group": "BLK",
+        "assigned_users": [
+          "archana.r@takeda.com"
+        ]
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "mutation",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — assigns user to batch. Disabled by default.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_disposition_unassign_ala0003",
+      "name": "Batches disposition unassign user ALA0003",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "DELETE",
+      "endpoint": "api/v1/disposition-batch-assigned-users/ALA0003",
+      "enabled": false,
+      "body": {
+        "site_id": "VN1",
+        "disposition_group": "BLK",
+        "assigned_users": [
+          "archana.r@takeda.com"
+        ]
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "mutation",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — removes user from batch disposition. Disabled by default.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_checklist_state_a1a068ac",
+      "name": "Batches checklist item state A1A068AC",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/checklist-item-state/A1A068AC?item_type=automated",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "pq_fetch_process_quality_details",
+      "name": "Process Quality fetch_process_quality_details TechTransfer",
+      "service": "insight-center-dev-process-quality-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetch_process_quality_details(\n    param_value: {manufacturing_stage: \"Drug Substance\", clinical_code: \"TAK-279\", site_name: \"Cambrex Charles City\"}\n  ) {\n    clinical_code\n    data_source\n    load_time_stamp\n    manufacturing_stage\n    opu\n    process_id\n    process_name\n    site\n    ... on TechTransfer {\n      process_id\n      process_name\n      clinical_code\n      data_source\n      load_time_stamp\n      manufacturing_stage\n      opu\n      project_id\n      receiving_unit\n      sending_unit\n      site\n      user_name\n      workspace_id\n      workspace_name\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "process-quality",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "pq_fetch_sub_process_details",
+      "name": "Process Quality fetch_sub_process_details Stage 1 TAK-279",
+      "service": "insight-center-dev-process-quality-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetch_sub_process_details(\n    param_values: {stage: \"Stage 1\", clinical_code: \"TAK-279\", site_name: \"Cambrex Charles City\", manufacturing_stage: \"Drug Substance\"}\n  ) {\n    input_output_yield_percentage\n    operation_unit\n    stage\n    solubility {\n      material_name\n    }\n    stability {\n      solution_name\n      details {\n        peak_id\n        stability_attributes {\n          parameter_name\n        }\n      }\n    }\n    batch_volume {\n      maximum_volume\n      stage_name\n    }\n    equipments {\n      equipment_code\n      material_of_construction\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "process-quality",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "pq_fetch_tech_transfer_details",
+      "name": "Process Quality fetch_tech_transfer_details full",
+      "service": "insight-center-dev-process-quality-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetch_tech_transfer_details {\n    clinical_code\n    data_source\n    load_time_stamp\n    manufacturing_stage\n    opu\n    process_id\n    process_name\n    project_id\n    receiving_unit\n    sending_unit\n    site\n    user_name\n    workspace_id\n    workspace_name\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "process-quality",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "pq_fetch_operation_unit_details",
+      "name": "Process Quality fetch_paginated_operation_unit_details Step 4 TAK-279",
+      "service": "insight-center-dev-process-quality-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetch_paginated_operation_unit_details(\n    param_value: {stage: \"Step 4\", site_name: \"Cambrex Charles City\", clinical_code: \"TAK-279\", pagination: {limit: 2, page: 1}}\n  ) {\n    limit\n    page\n    total_count\n    operation_unit_details {\n      critical_process_details\n      operation_unit_name\n      sequence_number\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "process-quality",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "pq_fetch_equipment_details_v1",
+      "name": "Process Quality fetch_paginated_equipment_details Step 3 (no pagination)",
+      "service": "insight-center-dev-process-quality-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetch_paginated_equipment_details(\n    param_value: {clinical_code: \"TAK-279\", site_name: \"Cambrex Charles City\", stages: \"Step 3\"}\n  ) {\n    equipment_details {\n      equipment_code\n      equipment_id\n      equipment_name\n      equipment_type\n      material_of_construction\n    }\n    limit\n    page\n    total_count\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "process-quality",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "pq_fetch_equipment_details_v2",
+      "name": "Process Quality fetch_paginated_equipment_details Step 3 with pagination",
+      "service": "insight-center-dev-process-quality-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetch_paginated_equipment_details(\n    param_value: {clinical_code: \"TAK-279\", site_name: \"Cambrex Charles City\", stages: \"Step 3\", pagination: {limit: 2, page: 1}}\n  ) {\n    limit\n    page\n    total_count\n    equipment_details {\n      equipment_code\n      equipment_id\n      equipment_type\n      material_of_construction\n      equipment_name\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "process-quality",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "pq_fetch_project_plan_details",
+      "name": "Process Quality fetch_paginated_project_plan_details",
+      "service": "insight-center-dev-process-quality-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetch_paginated_project_plan_details(\n    project_input: {meta_data_filter: {attribute_key: \"key_milestones\", attribute_value: \"True\"}, workspace_id: \"8257582272931716\"}\n  ) {\n    limit\n    page\n    project_plan_details {\n      allocation_pct\n      assigned_to\n      workspace_name\n      workspace_id\n    }\n    total_count\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "process-quality",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "inventory_fetch_restock_material",
+      "name": "Inventory fetchRestockMaterial paginated",
+      "service": "insight-center-dev-inventory-graphql-service",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchRestockMaterial(\n    input: {paginationFilters: {limit: 10, page: 1}, filter: {matId: \"1004634\", opuNm: \"SM&O\", ctryGroupNm: \"NO\", actnDesc: \"No Action\"}}\n  ) {\n    limit\n    page\n    totalRecords\n    riseDetails {\n      materialId\n      materialDimDetails {\n        labDesignOfficeCode\n        productBrandName\n        materialDescription\n        materialBoxQuantity\n        materialPalletQuantity\n        productBrandTradeName\n      }\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "inventory",
+        "smoke"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "inventory_update_material_remarks",
+      "name": "Inventory updateMaterialRemarks mutation",
+      "service": "insight-center-dev-inventory-graphql-service",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation {\n  updateMaterialRemarks(\n    inputs: {\n      materialId: \"6226995\"\n      rdcPlantId: \"3811\"\n      locPlantId: \"3811\"\n      mfctPlantId: \"18\"\n      remark: \"stock\"\n      countryName: \"DE\"\n    }\n  ) {\n    data {\n      countryName\n      materialId\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "inventory",
+        "mutation"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
     }
   ]
 }
