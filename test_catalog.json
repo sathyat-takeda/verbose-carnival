@@ -156,7 +156,7 @@
       "alias": "COA",
       "kind": "rest",
       "base_url": "https://api-insights-dev2.takeda.io/coa",
-      "base_url_env": "",
+      "base_url_env": "COA_BASE_URL",
       "notes": "COA REST services. API docs at /coa/docs",
       "enabled": true
     },
@@ -166,7 +166,7 @@
       "alias": "Core_REST",
       "kind": "rest",
       "base_url": "https://api-insights-dev2.takeda.io/core",
-      "base_url_env": "",
+      "base_url_env": "CORE_REST_BASE_URL",
       "notes": "Core REST services (distinct from Core GraphQL at /core/graphql/graphql).",
       "enabled": true
     },
@@ -176,7 +176,7 @@
       "alias": "Checklist_GraphQL",
       "kind": "graphql",
       "base_url": "https://api-insights-dev2.takeda.io/checklist/graphql",
-      "base_url_env": "",
+      "base_url_env": "CHECKLIST_GRAPHQL_BASE_URL",
       "notes": "",
       "enabled": true
     },
@@ -186,7 +186,7 @@
       "alias": "COA_GraphQL",
       "kind": "graphql",
       "base_url": "https://api-insights-dev2.takeda.io/coa/graphql/graphql",
-      "base_url_env": "",
+      "base_url_env": "COA_GRAPHQL_BASE_URL",
       "notes": "",
       "enabled": true
     },
@@ -196,7 +196,7 @@
       "alias": "AOS",
       "kind": "rest",
       "base_url": "https://api-insights-dev2.takeda.io/aos",
-      "base_url_env": "",
+      "base_url_env": "AOS_BASE_URL",
       "notes": "AOS REST services. API docs at /aos/docs",
       "enabled": true
     },
@@ -206,7 +206,7 @@
       "alias": "Search",
       "kind": "rest",
       "base_url": "https://api-insights-dev2.takeda.io/search",
-      "base_url_env": "",
+      "base_url_env": "SEARCH_BASE_URL",
       "notes": "",
       "enabled": true
     },
@@ -216,7 +216,7 @@
       "alias": "Data_Quality_GraphQL",
       "kind": "graphql",
       "base_url": "https://api-insights-dev2.takeda.io/dqh/graphql/",
-      "base_url_env": "",
+      "base_url_env": "DATA_QUALITY_GRAPHQL_BASE_URL",
       "notes": "",
       "enabled": true
     },
@@ -226,7 +226,7 @@
       "alias": "Process_Quality_GraphQL",
       "kind": "graphql",
       "base_url": "https://api-insights-dev2.takeda.io/process-quality/graphql",
-      "base_url_env": "",
+      "base_url_env": "PROCESS_QUALITY_GRAPHQL_BASE_URL",
       "notes": "",
       "enabled": true
     }

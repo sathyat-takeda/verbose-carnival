@@ -445,34 +445,33 @@ dashboard_automation.py demo        [--label LABEL] [--baseline-label LABEL]
 
 ### Services (all default to dev2)
 
-| Alias | Kind | Service ID |
-|-------|------|-----------|
-| `Purchase_Order` | REST | `insight-center-purchase-order-services` |
-| `Risk` | REST | `insight-center-dev-erm-services` |
-| `ERM_GraphQL` | GraphQL | `insight-center-dev-erm-graphql-services` |
-| `Core` | GraphQL | `insight-center-dev-core-graphql-services` |
-| `Platform_API_Test` | GraphQL | `insight-center-dev-graphql-user-management-services` |
-| `Batches` | GraphQL | `insight-center-dev-batches-graphql-services` *(URL TBD)* |
+281 test cases across 23 services. Run `python dashboard_automation.py list` for the full case list.
 
-### PO Adherence cases (15 cases — all `Purchase_Order` / `GET`)
-
-| Case ID | TC | Endpoint | What it covers |
-|---------|----|----------|----------------|
-| `po_adh_sdn_status_fetch` | TC-11463 | `GET /api/v1/purchase-order/batches` | `sdn_status` field is null or active |
-| `po_adh_invalid_tag_stage_negative` | TC-11464 | `GET /api/v1/purchase-order/batches` | Negative — invalid Tag/Stage, 200 with null data |
-| `po_adh_optimized_response_time` | TC-11160 | `GET /api/v1/purchase-order/batches` | Response time < 30 s for bulk 50-record page |
-| `po_adh_batch_stages_all_params` | TC-11276 | `GET /api/v2/purchase-order/batch-stages` | All params: OPU + Brand + site_type + stage_code |
-| `po_adh_multiple_status_filter` | TC-11277 | `GET /api/v1/purchase-order/batches` | `batch_status=urgent,in_progress` multi-value |
-| `po_adh_count_by_batch` | TC-11279 step 1 | `GET /api/v1/purchase-order/batches` | `count_status_by=batch` — only batch counts populated |
-| `po_adh_count_by_material` | TC-11279 step 2 | `GET /api/v1/purchase-order/batches` | `count_status_by=material` — only material counts |
-| `po_adh_count_by_batch_and_material` | TC-11279 step 3 | `GET /api/v1/purchase-order/batches` | `count_status_by=batch,material` — both counts |
-| `po_adh_batch_stages_count_by_material` | TC-11284 | `GET /api/v2/purchase-order/batch-stages` | batch-stages with `count_status_by=material` |
-| `po_adh_date_range_plant_rank_supply_model` | TC-11299 | `GET /api/v1/purchase-order/batches` | plant rank, WOC, PSS, `supply_model_category_code` |
-| `po_adh_event_ids_in_plants` | TC-11300 | `GET /api/v1/purchase-order/batches` | `id` field present in `plants.events` |
-| `po_adh_pss_and_woc_values` | TC-11301 | `GET /api/v1/purchase-order/batches` | `planned_safety_stock_weeks` + `current_weeks_of_coverage` |
-| `po_adh_forecast_grpt_pdt_values` | TC-11302 | `GET /api/v1/purchase-order/batches` | `forecast_next_6_weeks_avg`, PDT, GRPT fields |
-| `po_adh_smart_search` | TC-11303 | `GET /api/v2/purchase-order/batch-stages` | Smart search requirements |
-| `po_adh_api_documentation_openapi` | TC-11305 | `GET /openapi.json` | Documentation comments present in OpenAPI spec |
+| Alias | Kind | Route | Service ID |
+|-------|------|-------|-----------|
+| `Platform_API_Test` | GraphQL | `/core/user-management/graphql` | `insight-center-dev-graphql-user-management-services` |
+| `Core` | GraphQL | `/core/graphql/graphql` | `insight-center-dev-core-graphql-services` |
+| `Core_REST` | REST | `/core` | `insight-center-core-services` |
+| `Risk` | REST | `/risks` | `insight-center-dev-erm-services` |
+| `ERM_GraphQL` | GraphQL | `/risks/graphql/` | `insight-center-dev-erm-graphql-services` |
+| `Purchase_Order` | REST | `/purchase` | `insight-center-purchase-order-services` |
+| `Batches` | GraphQL | `/batches/graphql/` | `insight-center-dev-batches-graphql-services` |
+| `Boards` | REST | `/batches` | `insight-center-dev-insight-center-boards-services` |
+| `Quality` | REST | `/quality` | `insight-center-dev-quality-services` |
+| `Quality_GraphQL` | GraphQL | `/quality/graphql/graphql` | `insight-center-dev-graphql-quality-services` |
+| `Process_Quality_GraphQL` | GraphQL | `/process-quality/graphql` | `insight-center-dev-process-quality-services` |
+| `Data_Quality_GraphQL` | GraphQL | `/dqh/graphql/` | `insight-center-dev-data-quality-services` |
+| `Metric_GraphQL` | GraphQL | `/metrics/graphql` | `insight-center-dev-metric-graphql-services` |
+| `KPI` | REST | `/kpi` | `insight-center-kpi-services` |
+| `NMT` | REST | `/nmt` | `insight-center-nmt-service` |
+| `NMT_GraphQL` | GraphQL | `/nmt/graphql/` | `insight-center-dev-nmt-graphql-service` |
+| `Notification_GraphQL` | GraphQL | `/notification/graphql/graphql` | `insight-center-dev-notification-graphql` |
+| `COA` | REST | `/coa` | `insight-center-coa-services` |
+| `COA_GraphQL` | GraphQL | `/coa/graphql/graphql` | `insight-center-dev-coa-graphql-services` |
+| `Inventory` | GraphQL | `/inventory/graphql/` | `insight-center-dev-inventory-graphql-service` |
+| `Checklist_GraphQL` | GraphQL | `/checklist/graphql` | `insight-center-dev-checklist-services` |
+| `AOS` | REST | `/aos` | `insight-center-dev-insight-center-AOS-services` |
+| `Search` | REST | `/search` | `insight-center-search-engine-services` |
 
 ---
 
@@ -562,6 +561,5 @@ The `service` value must match a `service_id` in the `services` array.
 
 ## Notes
 
-- The `Batches` GraphQL service base URL is `https://api-insights-dev2.takeda.io/batches/graphql` (confirmed). Its placeholder case is disabled until real batch IDs are provided.
 - `--env` rewrites only URLs matching `api-insights-*.takeda.io`. Custom URLs set via environment variables (e.g. `PURCHASE_ORDER_BASE_URL`) take full precedence and are not rewritten.
 - To add more workbook sheet imports, extend `workbook_imports` in `test_catalog.json`.
