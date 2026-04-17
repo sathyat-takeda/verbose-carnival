@@ -67,7 +67,7 @@
       "kind": "graphql",
       "base_url": "https://api-insights-dev2.takeda.io/metrics/graphql",
       "base_url_env": "METRIC_GRAPHQL_BASE_URL",
-      "notes": "Base URL is a placeholder \u2014 confirm actual gateway path.",
+      "notes": "Base URL is a placeholder — confirm actual gateway path.",
       "enabled": true
     },
     {
@@ -87,7 +87,7 @@
       "kind": "rest",
       "base_url": "https://api-insights-dev2.takeda.io/batches",
       "base_url_env": "BOARDS_BASE_URL",
-      "notes": "REST side of the batches service \u2014 board views, batch details, and events.",
+      "notes": "REST side of the batches service — board views, batch details, and events.",
       "enabled": true
     },
     {
@@ -97,7 +97,7 @@
       "kind": "rest",
       "base_url": "https://api-insights-dev2.takeda.io/quality",
       "base_url_env": "QUALITY_BASE_URL",
-      "notes": "Base URL is a placeholder \u2014 confirm actual gateway path.",
+      "notes": "Base URL is a placeholder — confirm actual gateway path.",
       "enabled": true
     },
     {
@@ -107,7 +107,7 @@
       "kind": "graphql",
       "base_url": "https://api-insights-dev2.takeda.io/quality/graphql/graphql",
       "base_url_env": "QUALITY_GRAPHQL_BASE_URL",
-      "notes": "Base URL is a placeholder \u2014 confirm actual gateway path.",
+      "notes": "Base URL is a placeholder — confirm actual gateway path.",
       "enabled": true
     },
     {
@@ -647,7 +647,7 @@
         "PI-4/25 Sprint-5"
       ],
       "execution_mode": "regression",
-      "notes": "Verify API response time is below performance threshold (timeout_seconds=30 enforces this). stage_code+site_type required \u2014 bare page/limit call returns 500. Response must contain only required fields and return bulk batch data correctly with no functional regression. Covers BICN-131960 R_1.18.0.",
+      "notes": "Verify API response time is below performance threshold (timeout_seconds=30 enforces this). stage_code+site_type required — bare page/limit call returns 500. Response must contain only required fields and return bulk batch data correctly with no functional regression. Covers BICN-131960 R_1.18.0.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -736,7 +736,7 @@
         "PI-4/25 Sprint-5"
       ],
       "execution_mode": "regression",
-      "notes": "count_status_by=batch: batch_statuses_count is populated with real counts; material_statuses_count fields are all zero. Covers BICN-127526 R_1.18.0 step 1. NOTE: returns HTTP 500 on release/dev-new \u2014 server-side bug; single-value count_status_by triggers a crash in the current build. Expect this to resolve when BICN-127526 is fully deployed.",
+      "notes": "count_status_by=batch: batch_statuses_count is populated with real counts; material_statuses_count fields are all zero. Covers BICN-127526 R_1.18.0 step 1. NOTE: returns HTTP 500 on release/dev-new — server-side bug; single-value count_status_by triggers a crash in the current build. Expect this to resolve when BICN-127526 is fully deployed.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -766,7 +766,7 @@
         "PI-4/25 Sprint-5"
       ],
       "execution_mode": "regression",
-      "notes": "count_status_by=material: material_statuses_count is populated with real counts; batch_statuses_count fields are all zero. Covers BICN-127526 R_1.18.0 step 2. NOTE: returns HTTP 500 on release/dev-new \u2014 same server-side bug as step 1; single-value count_status_by triggers a crash in the current build.",
+      "notes": "count_status_by=material: material_statuses_count is populated with real counts; batch_statuses_count fields are all zero. Covers BICN-127526 R_1.18.0 step 2. NOTE: returns HTTP 500 on release/dev-new — same server-side bug as step 1; single-value count_status_by triggers a crash in the current build.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -1615,7 +1615,7 @@
         "User-supplied GraphQL query"
       ],
       "execution_mode": "regression",
-      "notes": "Returns notifications for the authenticated user. Results are user-specific \u2014 compare against same-user baseline.",
+      "notes": "Returns notifications for the authenticated user. Results are user-specific — compare against same-user baseline.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2188,7 +2188,7 @@
         "User-supplied endpoint"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 DELETE mutates assigned users. Enable only for manual runs.",
+      "notes": "Disabled — DELETE mutates assigned users. Enable only for manual runs.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2221,7 +2221,7 @@
         "User-supplied endpoint"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 PUT mutates assigned users. Enable only for manual runs.",
+      "notes": "Disabled — PUT mutates assigned users. Enable only for manual runs.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2254,7 +2254,7 @@
         "User-supplied endpoint"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 DELETE mutates assigned users. Enable only for manual runs.",
+      "notes": "Disabled — DELETE mutates assigned users. Enable only for manual runs.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2294,7 +2294,7 @@
         "User-supplied endpoint"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 PUT mutates checklist state. Enable only for manual runs.",
+      "notes": "Disabled — PUT mutates checklist state. Enable only for manual runs.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2322,7 +2322,7 @@
         "TC2_Captain_Marvel_Add_Memberships"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 mutation adds membership. TC1 and TC2 are identical queries, merged.",
+      "notes": "Disabled — mutation adds membership. TC1 and TC2 are identical queries, merged.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2350,7 +2350,7 @@
         "TC_addUserAppPreference_with_existing_record"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 mutation. valid_input and existing_record share identical query, merged.",
+      "notes": "Disabled — mutation. valid_input and existing_record share identical query, merged.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2377,7 +2377,7 @@
         "TC_addUserAppPreference_with_two_param_input"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 mutation.",
+      "notes": "Disabled — mutation.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2404,7 +2404,7 @@
         "TC_addUserAppPreference_with_different_category_same_application_id"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 mutation.",
+      "notes": "Disabled — mutation.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2432,7 +2432,7 @@
         "TC_addUserAppPreference_with_invalid_application_id"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 mutation. Uses invalid/non-existent applicationId.",
+      "notes": "Disabled — mutation. Uses invalid/non-existent applicationId.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2460,7 +2460,7 @@
         "TC_addUserAppPreference_with_missing_input_details"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 mutation. Empty input object.",
+      "notes": "Disabled — mutation. Empty input object.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2487,7 +2487,7 @@
         "TC_addUserAppPreference_with_multiple_record"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 mutation.",
+      "notes": "Disabled — mutation.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2514,7 +2514,7 @@
         "TC_updateUserAppPreference_with_valid_input"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 mutation.",
+      "notes": "Disabled — mutation.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2541,7 +2541,7 @@
         "TC_updateUserAppPreference_with_valid_multiple_values_input"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 mutation.",
+      "notes": "Disabled — mutation.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2569,7 +2569,7 @@
         "TC_updateUserAppPreference_with_invalid_application_id"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 mutation.",
+      "notes": "Disabled — mutation.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2596,7 +2596,7 @@
         "TC_updateUserAppPreference_with_only_application_id"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 mutation.",
+      "notes": "Disabled — mutation.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2623,7 +2623,7 @@
         "TC_deleteUserAppPreference_with_all_valid_input"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 mutation.",
+      "notes": "Disabled — mutation.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2651,7 +2651,7 @@
         "TC_deleteUserAppPreference_with_invalid_application_id"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 mutation.",
+      "notes": "Disabled — mutation.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2678,7 +2678,7 @@
         "TC_deleteUserAppPreference_with_application_id_only"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 mutation.",
+      "notes": "Disabled — mutation.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2705,7 +2705,7 @@
         "TC_deleteUserAppPreference_with_application_and_category"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 mutation.",
+      "notes": "Disabled — mutation.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2732,7 +2732,7 @@
         "TC_deleteUserAppPreference_with_deleted_category"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 mutation.",
+      "notes": "Disabled — mutation.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2759,7 +2759,7 @@
         "TC_createUserPreset_with_all_valid_details"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 mutation.",
+      "notes": "Disabled — mutation.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2786,7 +2786,7 @@
         "TC_createUserPreset_with_all_valid_details_without_nested_type_response"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 mutation.",
+      "notes": "Disabled — mutation.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2814,7 +2814,7 @@
         "TC_createUserPreset_with_invalid_application_id"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 mutation.",
+      "notes": "Disabled — mutation.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2842,7 +2842,7 @@
         "TC_createUserPreset_with_invalid_value_id"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 mutation.",
+      "notes": "Disabled — mutation.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -2870,7 +2870,7 @@
         "TC_createUserPreset_with_invalid_dim_and_value_id"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 mutation.",
+      "notes": "Disabled — mutation.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -4266,7 +4266,7 @@
         "TC_Ship_Put_invalid_error_correction_date_format"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 PUT mutates batch details. Tests invalid date format for error_correction_date.",
+      "notes": "Disabled — PUT mutates batch details. Tests invalid date format for error_correction_date.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -4310,7 +4310,7 @@
         "TC_Ship_Put_with_missing_batch_number"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 PUT mutates batch details. Tests missing/null batch_number.",
+      "notes": "Disabled — PUT mutates batch details. Tests missing/null batch_number.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -4363,7 +4363,7 @@
         "TC_Ship_Unauthorized access"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 requires running without auth credentials to validate 401 response.",
+      "notes": "Disabled — requires running without auth credentials to validate 401 response.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -4396,7 +4396,7 @@
         "TC_Ship_Put_Update_Assign_to_Batch_details"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 PUT mutates assign_to field on batch.",
+      "notes": "Disabled — PUT mutates assign_to field on batch.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -4453,7 +4453,7 @@
         "TC_Ship_Put_Remove_Assign_to_Batch_details"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 PUT clears assign_to list on batch.",
+      "notes": "Disabled — PUT clears assign_to list on batch.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -4543,7 +4543,7 @@
         "TC_Ship_Put_Delete_Event_Attached_Pre"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 PUT mutates user-attached event record.",
+      "notes": "Disabled — PUT mutates user-attached event record.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -4578,7 +4578,7 @@
         "TC_Ship_Post_Attach_Event"
       ],
       "execution_mode": "manual-only",
-      "notes": "Disabled \u2014 POST creates a user-attached event record.",
+      "notes": "Disabled — POST creates a user-attached event record.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -4633,6 +4633,1035 @@
       ],
       "execution_mode": "regression",
       "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_legends_dispo",
+      "name": "Batches legends Dispo board (Plasma Vienna)",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v2/legends?opu=PLASMA&site=VIENNA&board_type=Dispo",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards",
+        "batches"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_disposition_assign_a1a017",
+      "name": "Batches disposition assign user A1A017",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "PUT",
+      "endpoint": "api/v1/disposition-batch-details",
+      "enabled": false,
+      "body": {
+        "batch_id": "A1A017",
+        "assigned_users": [
+          "archana.r@takeda.com"
+        ],
+        "disposition_group": "FC",
+        "site_id": "PA1"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "mutation",
+        "boards",
+        "batches"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — assigns user to batch. Disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_events_user_attached_put_a1a001",
+      "name": "Batches PUT user-attached event A1A001",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "PUT",
+      "endpoint": "api/v1/events/user-attached",
+      "enabled": false,
+      "body": {
+        "event_id": 97,
+        "batch_number": "A1A001",
+        "user_rationale": "",
+        "opu": "PLASMA",
+        "site": "VIENNA",
+        "swimlane": "",
+        "flag_type": "1"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "mutation",
+        "boards",
+        "batches"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — updates user-attached event flag. Disabled by default.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_disposition_details_ala0001",
+      "name": "Batches disposition batch details ALA0001",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/disposition-batch-details/ALA0001/VN1/BLK",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards",
+        "batches"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_checklist_state_ala0001",
+      "name": "Batches checklist item state ALA0001",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/checklist-item-state/ALA0001?item_type=automated",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards",
+        "batches"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_events_user_attached_ala0001_v2",
+      "name": "Batches v2 events user-attached ALA0001",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v2/ALA0001/events/?event_type=user_attached",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards",
+        "batches"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_checklist_state_update_ala0001",
+      "name": "Batches checklist state PUT Non-Deviation Hold ALA0001",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "PUT",
+      "endpoint": "api/v1/checklist-item-state",
+      "enabled": false,
+      "body": {
+        "batch_id": "ALA0001",
+        "batch_attributes": [
+          {
+            "batch_attribute": "Non-Deviation Hold",
+            "state": "unchecked",
+            "latest_timestamp": "24 Feb 2026, 17:42"
+          }
+        ],
+        "check_rec": true,
+        "sub_stage": "",
+        "updated_batch_attribute": "Non-Deviation Hold",
+        "board": "",
+        "latest_timestamp": "24 Feb 2026, 17:42"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "mutation",
+        "boards",
+        "batches"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — updates checklist item state. Disabled by default.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_disposition_details_and111a",
+      "name": "Batches disposition batch details AND111A",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/disposition-batch-details/AND111A/VN1/BLK",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards",
+        "batches"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_checklist_state_and111a",
+      "name": "Batches checklist item state AND111A",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/checklist-item-state/AND111A?item_type=automated",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards",
+        "batches"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_events_user_attached_and111a_v2",
+      "name": "Batches v2 events user-attached AND111A",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v2/AND111A/events/?event_type=user_attached",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards",
+        "batches"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_disposition_details_a1a003",
+      "name": "Batches disposition batch details A1A003",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/disposition-batch-details/A1A003/VN1/FC",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards",
+        "batches"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_checklist_state_a1a003",
+      "name": "Batches checklist item state A1A003",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/checklist-item-state/A1A003?item_type=automated",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards",
+        "batches"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_events_user_attached_a1a003_v2",
+      "name": "Batches v2 events user-attached A1A003",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v2/A1A003/events/?event_type=user_attached",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards",
+        "batches"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_external_batch_list_test",
+      "name": "Batches external-batch-list Japan Region Test board",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/external-batch-list?opu=JAPAN%20REGION&site=&process=Finished%20Product&brand=&boardType=Test&page=1&limit=20",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards",
+        "batches"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_filters_test",
+      "name": "Batches filters board_type=Test",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/filters?board_type=Test",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "boards",
+        "batches"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_batch_stages_v2_brigatinib",
+      "name": "Purchase batch-stages v2 BRIGATINIB External SMO",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v2/purchase-order/batch-stages?brand_name=BRIGATINIB&stage_code=S&site_type=External&opu=SMALL%20MOLECULES%20AND%20ONCOLOGY&start_date=1737074222290&end_date=1807922222290&limit=50",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "purchase"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_batches_v1_brigatinib",
+      "name": "Purchase batches v1 BRIGATINIB External urgent",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/purchase-order/batches?sort_by=safety_stock_level_date&brand_name=BRIGATINIB&stage_code=S&sort_order=asc&batch_status=urgent&page=1&limit=3&start_date=1737074225383&end_date=1807922225383&search_by=batch_number&site_type=External",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "purchase"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_safety_stock_v2_brigatinib",
+      "name": "Purchase safety-stock-weeks-of-coverage v2 BRIGATINIB External",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v2/purchase-order/safety-stock-weeks-of-coverage?stage_code=S&brand_name=BRIGATINIB&site_type=External&is_current_week_year=true&page=1&limit=50",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "purchase"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_safety_stock_v1_material_id",
+      "name": "Purchase safety-stock-weeks-of-coverage v1 by material_id",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/purchase-order/safety-stock-weeks-of-coverage?material_id=6210131&start_week=16&end_week=41&start_year=2025&end_year=2027&include_weeks_with_no_coverage=true",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "purchase"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "quality_change_control_12869284",
+      "name": "Quality change-control batch 12869284",
+      "service": "insight-center-dev-quality-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/batches/change-control/12869284/",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "quality"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "quality_deviation_summary_12869284",
+      "name": "Quality deviation-summary batch 12869284",
+      "service": "insight-center-dev-quality-services",
+      "protocol": "rest",
+      "method": "POST",
+      "endpoint": "api/v1/quality/deviation/deviation-summary/",
+      "enabled": true,
+      "body": {
+        "batch_id": [
+          "12869284"
+        ],
+        "investigation_type": [
+          "Deviation"
+        ]
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "quality"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "quality_list_owning_departments_algiers",
+      "name": "Quality list-owning-departments Algiers LOC",
+      "service": "insight-center-dev-quality-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/quality/list-owning-departments/?owning_groups=Algiers%20LOC%20-%20Algeria&event_type=deviation%2Clab_investigation%2Cchange_control",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "quality"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "quality_deviation_stages_qim",
+      "name": "Quality deviation-stages board_type=QIM",
+      "service": "insight-center-dev-quality-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/quality/deviation-stages/?board_type_desc=QIM&active_flag=true",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "quality"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "nmt_graphql_get_conversations",
+      "name": "NMT GraphQL getConversationsAndMessages",
+      "service": "insight-center-dev-nmt-graphql-service",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query getConversationsAndMessages {\n  fetch_conversations(\n    scope_id: \"04b7fc60-63bd-44d7-bcbf-09d1476fa0aa\"\n    first: 50\n    after: null\n    search_text: \"\"\n    for_current_user: true\n  ) {\n    conversations {\n      conv_own_emp_id\n      scope_id\n      conversation_id\n      conversation_name\n      shared_by_user_id\n      created_timestamp\n      last_msg_timestamp\n      __typename\n    }\n    page_info {\n      has_next_page\n      has_previous_page\n      start_cursor\n      end_cursor\n      __typename\n    }\n    __typename\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "smoke",
+        "nmt"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "Results are user/scope specific — compare against same-user baseline.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "notification_graphql_fetch_user_notifications",
+      "name": "Notification GraphQL FetchUserNotifications",
+      "service": "insight-center-dev-notification-graphql",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query FetchUserNotifications {\n  fetchPaginatedNotifications(\n    paginatedNotificationInput: {sortBy: SNOOZE_UNTIL_TIMESTAMP, sortOrder: DESC, forCurrentUser: true, first: 200}\n  ) {\n    notifications {\n      eventId\n      userId\n      isRead\n      isArchived\n      snoozeUntilTimestamp\n      eventDetails {\n        eventId\n        definitionId\n        header\n        text\n        priorityName\n        generatedAt\n        eventJson\n        metaData {\n          eventId\n          key\n          value\n          isRequiredInPush\n          isRequiredInApp\n          isRequiredInEmail\n          sequenceNum\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    paginationInfo {\n      startCursor\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      __typename\n    }\n    __typename\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "smoke",
+        "notification"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "Returns notifications for the authenticated user. Results are user-specific.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "notification_graphql_fetch_categories",
+      "name": "Notification GraphQL FetchCategoriesWithDefinitionIds",
+      "service": "insight-center-dev-notification-graphql",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query FetchCategoriesWithDefinitionIds {\n  fetchNotificationCategory {\n    categoryId\n    description\n    name\n    notificationDefinitions {\n      definitionId\n      description\n      definitionDescription\n      __typename\n    }\n    __typename\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "smoke",
+        "notification"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "platform_user_groups_no_filter",
+      "name": "Platform FetchUsergroups (no filter)",
+      "service": "insight-center-dev-graphql-user-management-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query FetchUsergroups {\n  fetchUserGroups {\n    id\n    name\n    description\n    userGroupRole {\n      accessRole {\n        id\n        name\n        canManage\n        hierarchyLevel\n        __typename\n      }\n      __typename\n    }\n    dimensions {\n      id\n      name\n      rank\n      __typename\n    }\n    __typename\n  }\n}",
+        "variables": {}
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "smoke",
+        "platform"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "platform_fetch_role_for_current_user",
+      "name": "Platform FetchRoleforCurrentUser",
+      "service": "insight-center-dev-graphql-user-management-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query FetchRoleforCurrentUser {\n  fetchMemberships(\n    userGroupIds: \"f69ba3de-c625-43bf-a78b-fbc2773ee7cf\"\n    forCurrentUser: true\n    status: \"Granted\"\n  ) {\n    role {\n      id\n      name\n      hierarchyLevel\n      canManage\n      __typename\n    }\n    status\n    __typename\n  }\n}",
+        "variables": {}
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "smoke",
+        "platform"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "Results are user-specific — compare against same-user baseline.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "platform_pending_approvals",
+      "name": "Platform PendingApprovals",
+      "service": "insight-center-dev-graphql-user-management-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query PendingApprovals {\n  fetchUserGroups(status: \"Pending\", managedByCurrentUser: true) {\n    id\n    name\n    description\n    dimensions {\n      id\n      name\n      rank\n      __typename\n    }\n    memberships(status: \"Pending\", managedByCurrentUser: true) {\n      id\n      status\n      user {\n        id\n        email\n        displayName\n        __typename\n      }\n      role {\n        id\n        name\n        hierarchyLevel\n        canManage\n        __typename\n      }\n      membershipDetails {\n        dimId\n        value\n        valueDescription\n        id\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}",
+        "variables": {}
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "smoke",
+        "platform"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "Results are user-specific — compare against same-user baseline.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "platform_user_group_member_id_requested_by",
+      "name": "Platform UserGroupMemberId (filterRequestedByCurrentUser)",
+      "service": "insight-center-dev-graphql-user-management-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query UserGroupMemberId {\n  fetchUserGroups(filterRequestedByCurrentUser: true) {\n    id\n    name\n    description\n    dimensions {\n      id\n      name\n      rank\n      __typename\n    }\n    memberships(requestedByCurrentUser: true) {\n      id\n      status\n      user {\n        id\n        email\n        displayName\n        __typename\n      }\n      role {\n        id\n        name\n        hierarchyLevel\n        canManage\n        __typename\n      }\n      membershipDetails {\n        dimId\n        value\n        valueDescription\n        id\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}",
+        "variables": {}
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "smoke",
+        "platform"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "Results are user-specific — compare against same-user baseline.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "platform_user_groups_managed_by_current",
+      "name": "Platform UserGroups managedByCurrentUser",
+      "service": "insight-center-dev-graphql-user-management-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query UserGroups {\n  fetchUserGroups(managedByCurrentUser: true, status: \"Granted\") {\n    id\n    name\n    description\n    __typename\n  }\n}",
+        "variables": {}
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "smoke",
+        "platform"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "Results are user-specific — compare against same-user baseline.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "platform_user_group_members",
+      "name": "Platform UserGroupMembers (specific group, managedByCurrentUser)",
+      "service": "insight-center-dev-graphql-user-management-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query UserGroupMembers {\n  fetchUserGroups(\n    userGroupIds: \"f69ba3de-c625-43bf-a78b-fbc2773ee7cf\"\n    status: \"Granted\"\n    managedByCurrentUser: true\n  ) {\n    id\n    name\n    description\n    dimensions {\n      id\n      name\n      rank\n      __typename\n    }\n    memberships(status: \"Granted\", managedByCurrentUser: true) {\n      id\n      user {\n        id\n        email\n        displayName\n        __typename\n      }\n      role {\n        id\n        name\n        hierarchyLevel\n        canManage\n        __typename\n      }\n      membershipDetails {\n        dimId\n        value\n        valueDescription\n        id\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}",
+        "variables": {}
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "smoke",
+        "platform"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "Results are user-specific — compare against same-user baseline.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "platform_add_memberships_v2",
+      "name": "Platform AddMemberships (with membershipDetails and accessStatus)",
+      "service": "insight-center-dev-graphql-user-management-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation AddMemberships {\n  addMemberships(\n    membershipRequests: {userGroupId: \"f69ba3de-c625-43bf-a78b-fbc2773ee7cf\", userEmpId: 50400785, accessRoleId: \"601e4403-1389-4ae7-a9d3-d91b6ec36db0\", membershipDetails: [], accessStatus: ACCESS}\n  ) {\n    accessRoleId\n    accessStatus\n    actionByEmpId\n    actionDatetime\n    reasonCatgDescription\n    userEmpId\n    userGroupId\n    status\n    requestedByEmpId\n    reasonDescription\n    __typename\n  }\n}",
+        "variables": {}
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "platform"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — adds membership. Disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "platform_fetch_memberships",
+      "name": "Platform FetchMemberships (with variables)",
+      "service": "insight-center-dev-graphql-user-management-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query FetchMemberships($forCurrentUser: Boolean!, $userGroupIds: [UUID!]) {\n  fetchMemberships(forCurrentUser: $forCurrentUser, userGroupIds: $userGroupIds) {\n    id\n    accessRoleId\n    userEmpId\n    usergroupId\n    status\n    __typename\n  }\n}",
+        "variables": {
+          "forCurrentUser": true,
+          "userGroupIds": [
+            "f69ba3de-c625-43bf-a78b-fbc2773ee7cf"
+          ]
+        }
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "smoke",
+        "platform"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "Results are user-specific — compare against same-user baseline.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "platform_edit_memberships",
+      "name": "Platform editMemberships (mutation)",
+      "service": "insight-center-dev-graphql-user-management-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation editMemberships($membershipIds: [UUID!]!, $accessRoleId: UUID!) {\n  updateMembership(\n    input: {membershipIds: $membershipIds, accessRoleId: $accessRoleId}\n  ) {\n    status\n    message\n    __typename\n  }\n}",
+        "variables": {
+          "membershipIds": [
+            "248c9ab6-95ad-4cd7-8daa-6734f585b355"
+          ],
+          "accessRoleId": "6965505e-965f-4495-892f-9240ec4bc32f"
+        }
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "platform"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — updates membership role. Disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "platform_delete_memberships",
+      "name": "Platform deleteMemberships (mutation)",
+      "service": "insight-center-dev-graphql-user-management-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation deleteMemberships($membershipIds: [UUID!]!) {\n  deleteMemberships(membershipIds: $membershipIds) {\n    status\n    message\n    __typename\n  }\n}",
+        "variables": {
+          "membershipIds": [
+            "248c9ab6-95ad-4cd7-8daa-6734f585b355"
+          ]
+        }
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "platform"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Mutation — deletes membership. Disabled by default to avoid state drift.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "platform_user_groups_by_ids",
+      "name": "Platform UserGroups by userGroupIds",
+      "service": "insight-center-dev-graphql-user-management-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query UserGroups {\n  fetchUserGroups(userGroupIds: [\"d8a61946-24a8-488c-9662-0c83cabeb3b6\", \"8e2ad2be-10b7-4324-bdf8-790500b5f1f3\"]) {\n    name\n    memberships(forCurrentUser: true) {\n      usergroupId\n      role {\n        id\n      }\n    }\n  }\n}",
+        "variables": null
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "smoke",
+        "platform"
+      ],
+      "sources": [
+        "User-supplied test case"
+      ],
+      "execution_mode": "regression",
+      "notes": "Results include current-user memberships — compare against same-user baseline.",
       "ignore_paths": [],
       "ignore_field_names": []
     }
