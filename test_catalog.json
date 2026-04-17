@@ -14,7 +14,7 @@
       "display_name": "insight-center-dev-batches-graphql-services",
       "alias": "Batches",
       "kind": "graphql",
-      "base_url": "https://api-insights-dev2.takeda.io/batches/graphql",
+      "base_url": "https://api-insights-dev2.takeda.io/batches/graphql/",
       "base_url_env": "BATCHES_GRAPHQL_BASE_URL",
       "notes": "GraphQL endpoint confirmed at api-insights-test2.takeda.io/batches/graphql. Stored as dev2 so --env flag switches environments automatically."
     },
@@ -61,16 +61,16 @@
       "kind": "graphql",
       "base_url": "https://api-insights-dev2.takeda.io/metrics/graphql",
       "base_url_env": "METRIC_GRAPHQL_BASE_URL",
-      "notes": "Base URL is a placeholder — confirm actual gateway path."
+      "notes": "Base URL is a placeholder \u2014 confirm actual gateway path."
     },
     {
       "service_id": "insight-center-nmt-service",
       "display_name": "insight-center-nmt-service",
       "alias": "NMT",
       "kind": "graphql",
-      "base_url": "https://api-insights-dev2.takeda.io/notification/graphql/graphql",
+      "base_url": "https://api-insights-dev2.takeda.io/nmt",
       "base_url_env": "NMT_BASE_URL",
-      "notes": "Notification GraphQL service."
+      "notes": "NMT GraphQL service."
     },
     {
       "service_id": "insight-center-dev-insight-center-boards-services",
@@ -79,7 +79,7 @@
       "kind": "rest",
       "base_url": "https://api-insights-dev2.takeda.io/batches",
       "base_url_env": "BOARDS_BASE_URL",
-      "notes": "REST side of the batches service — board views, batch details, and events."
+      "notes": "REST side of the batches service \u2014 board views, batch details, and events."
     },
     {
       "service_id": "insight-center-dev-quality-services",
@@ -88,16 +88,16 @@
       "kind": "rest",
       "base_url": "https://api-insights-dev2.takeda.io/quality",
       "base_url_env": "QUALITY_BASE_URL",
-      "notes": "Base URL is a placeholder — confirm actual gateway path."
+      "notes": "Base URL is a placeholder \u2014 confirm actual gateway path."
     },
     {
       "service_id": "insight-center-dev-graphql-quality-services",
       "display_name": "insight-center-dev-graphql-quality-services",
       "alias": "Quality_GraphQL",
       "kind": "graphql",
-      "base_url": "https://api-insights-dev2.takeda.io/quality/graphql",
+      "base_url": "https://api-insights-dev2.takeda.io/quality/graphql/graphql",
       "base_url_env": "QUALITY_GRAPHQL_BASE_URL",
-      "notes": "Base URL is a placeholder — confirm actual gateway path."
+      "notes": "Base URL is a placeholder \u2014 confirm actual gateway path."
     }
   ],
   "workbook_imports": [
@@ -596,7 +596,7 @@
         "PI-4/25 Sprint-5"
       ],
       "execution_mode": "regression",
-      "notes": "Verify API response time is below performance threshold (timeout_seconds=30 enforces this). stage_code+site_type required — bare page/limit call returns 500. Response must contain only required fields and return bulk batch data correctly with no functional regression. Covers BICN-131960 R_1.18.0.",
+      "notes": "Verify API response time is below performance threshold (timeout_seconds=30 enforces this). stage_code+site_type required \u2014 bare page/limit call returns 500. Response must contain only required fields and return bulk batch data correctly with no functional regression. Covers BICN-131960 R_1.18.0.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -685,7 +685,7 @@
         "PI-4/25 Sprint-5"
       ],
       "execution_mode": "regression",
-      "notes": "count_status_by=batch: batch_statuses_count is populated with real counts; material_statuses_count fields are all zero. Covers BICN-127526 R_1.18.0 step 1. NOTE: returns HTTP 500 on release/dev-new — server-side bug; single-value count_status_by triggers a crash in the current build. Expect this to resolve when BICN-127526 is fully deployed.",
+      "notes": "count_status_by=batch: batch_statuses_count is populated with real counts; material_statuses_count fields are all zero. Covers BICN-127526 R_1.18.0 step 1. NOTE: returns HTTP 500 on release/dev-new \u2014 server-side bug; single-value count_status_by triggers a crash in the current build. Expect this to resolve when BICN-127526 is fully deployed.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -715,7 +715,7 @@
         "PI-4/25 Sprint-5"
       ],
       "execution_mode": "regression",
-      "notes": "count_status_by=material: material_statuses_count is populated with real counts; batch_statuses_count fields are all zero. Covers BICN-127526 R_1.18.0 step 2. NOTE: returns HTTP 500 on release/dev-new — same server-side bug as step 1; single-value count_status_by triggers a crash in the current build.",
+      "notes": "count_status_by=material: material_statuses_count is populated with real counts; batch_statuses_count fields are all zero. Covers BICN-127526 R_1.18.0 step 2. NOTE: returns HTTP 500 on release/dev-new \u2014 same server-side bug as step 1; single-value count_status_by triggers a crash in the current build.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -1001,8 +1001,14 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["rest", "smoke", "boards"],
-      "sources": ["User-supplied endpoint"],
+      "tags": [
+        "rest",
+        "smoke",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
       "execution_mode": "regression",
       "notes": "",
       "ignore_paths": [],
@@ -1020,8 +1026,14 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["rest", "functional", "boards"],
-      "sources": ["User-supplied endpoint"],
+      "tags": [
+        "rest",
+        "functional",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
       "execution_mode": "regression",
       "notes": "",
       "ignore_paths": [],
@@ -1039,8 +1051,14 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["rest", "functional", "boards"],
-      "sources": ["User-supplied endpoint"],
+      "tags": [
+        "rest",
+        "functional",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
       "execution_mode": "regression",
       "notes": "",
       "ignore_paths": [],
@@ -1058,8 +1076,14 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["rest", "functional", "boards"],
-      "sources": ["User-supplied endpoint"],
+      "tags": [
+        "rest",
+        "functional",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
       "execution_mode": "regression",
       "notes": "",
       "ignore_paths": [],
@@ -1077,8 +1101,14 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["rest", "functional", "boards"],
-      "sources": ["User-supplied endpoint"],
+      "tags": [
+        "rest",
+        "functional",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
       "execution_mode": "regression",
       "notes": "",
       "ignore_paths": [],
@@ -1096,8 +1126,14 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["rest", "functional", "boards"],
-      "sources": ["User-supplied endpoint"],
+      "tags": [
+        "rest",
+        "functional",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
       "execution_mode": "regression",
       "notes": "",
       "ignore_paths": [],
@@ -1115,8 +1151,14 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["rest", "functional", "boards"],
-      "sources": ["User-supplied endpoint"],
+      "tags": [
+        "rest",
+        "functional",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
       "execution_mode": "regression",
       "notes": "",
       "ignore_paths": [],
@@ -1134,8 +1176,14 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["rest", "functional", "boards"],
-      "sources": ["User-supplied endpoint"],
+      "tags": [
+        "rest",
+        "functional",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
       "execution_mode": "regression",
       "notes": "",
       "ignore_paths": [],
@@ -1153,8 +1201,14 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["rest", "functional", "boards"],
-      "sources": ["User-supplied endpoint"],
+      "tags": [
+        "rest",
+        "functional",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
       "execution_mode": "regression",
       "notes": "",
       "ignore_paths": [],
@@ -1172,8 +1226,14 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["rest", "functional", "boards"],
-      "sources": ["User-supplied endpoint"],
+      "tags": [
+        "rest",
+        "functional",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
       "execution_mode": "regression",
       "notes": "",
       "ignore_paths": [],
@@ -1191,8 +1251,14 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["rest", "functional", "boards"],
-      "sources": ["User-supplied endpoint"],
+      "tags": [
+        "rest",
+        "functional",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
       "execution_mode": "regression",
       "notes": "",
       "ignore_paths": [],
@@ -1210,8 +1276,14 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["rest", "functional", "boards"],
-      "sources": ["User-supplied endpoint"],
+      "tags": [
+        "rest",
+        "functional",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
       "execution_mode": "regression",
       "notes": "",
       "ignore_paths": [],
@@ -1229,8 +1301,14 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["rest", "functional", "boards"],
-      "sources": ["User-supplied endpoint"],
+      "tags": [
+        "rest",
+        "functional",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
       "execution_mode": "regression",
       "notes": "",
       "ignore_paths": [],
@@ -1248,8 +1326,14 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["rest", "functional", "boards"],
-      "sources": ["User-supplied endpoint"],
+      "tags": [
+        "rest",
+        "functional",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
       "execution_mode": "regression",
       "notes": "",
       "ignore_paths": [],
@@ -1267,8 +1351,14 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["rest", "functional", "boards"],
-      "sources": ["User-supplied endpoint"],
+      "tags": [
+        "rest",
+        "functional",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
       "execution_mode": "regression",
       "notes": "",
       "ignore_paths": [],
@@ -1286,8 +1376,14 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["rest", "functional", "boards"],
-      "sources": ["User-supplied endpoint"],
+      "tags": [
+        "rest",
+        "functional",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
       "execution_mode": "regression",
       "notes": "",
       "ignore_paths": [],
@@ -1305,8 +1401,14 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["rest", "functional", "boards"],
-      "sources": ["User-supplied endpoint"],
+      "tags": [
+        "rest",
+        "functional",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
       "execution_mode": "regression",
       "notes": "",
       "ignore_paths": [],
@@ -1324,8 +1426,14 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["rest", "functional", "boards"],
-      "sources": ["User-supplied endpoint"],
+      "tags": [
+        "rest",
+        "functional",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
       "execution_mode": "regression",
       "notes": "",
       "ignore_paths": [],
@@ -1343,8 +1451,14 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["rest", "functional", "boards"],
-      "sources": ["User-supplied endpoint"],
+      "tags": [
+        "rest",
+        "functional",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
       "execution_mode": "regression",
       "notes": "",
       "ignore_paths": [],
@@ -1362,8 +1476,14 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["rest", "functional", "boards"],
-      "sources": ["User-supplied endpoint"],
+      "tags": [
+        "rest",
+        "functional",
+        "boards"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
       "execution_mode": "regression",
       "notes": "",
       "ignore_paths": [],
@@ -1381,8 +1501,14 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["rest", "smoke", "purchase-order"],
-      "sources": ["User-supplied endpoint"],
+      "tags": [
+        "rest",
+        "smoke",
+        "purchase-order"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
       "execution_mode": "regression",
       "notes": "",
       "ignore_paths": [],
@@ -1402,29 +1528,16 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["graphql", "smoke", "core"],
-      "sources": ["User-supplied GraphQL query"],
+      "tags": [
+        "graphql",
+        "smoke",
+        "core"
+      ],
+      "sources": [
+        "User-supplied GraphQL query"
+      ],
       "execution_mode": "regression",
       "notes": "Returns application registry with dimension and user preference associations.",
-      "ignore_paths": [],
-      "ignore_field_names": []
-    },
-    {
-      "case_id": "core_filter_brands",
-      "name": "Core filter brands (plasma portfolio)",
-      "service": "insight-center-dev-core-graphql-services",
-      "protocol": "rest",
-      "method": "GET",
-      "endpoint": "https://api-insights-dev2.takeda.io/core/api/v1/filter/brands?name=CINRYZE%7CALBUMIN%20NG%7CPROTHROMBIN%7CTISSEEL%20KIT%7CAT-III%7CFEIBA%7CTISSEEL%20DUO%7CARALAST&limit=8",
-      "enabled": true,
-      "body": null,
-      "headers": {},
-      "timeout_seconds": 60,
-      "expected_status": 200,
-      "tags": ["rest", "functional", "core"],
-      "sources": ["User-supplied endpoint"],
-      "execution_mode": "regression",
-      "notes": "Absolute URL used because the Core service base_url points to the GraphQL endpoint, not the REST /core/api/v1 path.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
@@ -1442,29 +1555,2272 @@
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["graphql", "smoke", "nmt"],
-      "sources": ["User-supplied GraphQL query"],
+      "tags": [
+        "graphql",
+        "smoke",
+        "nmt"
+      ],
+      "sources": [
+        "User-supplied GraphQL query"
+      ],
       "execution_mode": "regression",
-      "notes": "Returns notifications for the authenticated user. Results are user-specific — compare against same-user baseline.",
+      "notes": "Returns notifications for the authenticated user. Results are user-specific \u2014 compare against same-user baseline.",
       "ignore_paths": [],
       "ignore_field_names": []
     },
     {
-      "case_id": "platform_authorize",
-      "name": "Platform authorize endpoint",
+      "case_id": "platform_user_group_member_id",
+      "name": "Platform fetchUserGroups by memberId",
       "service": "insight-center-dev-graphql-user-management-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query UserGroupMemberId {\n  fetchUserGroups(memberIds: 50394103, status: \"Granted\") {\n    id\n    name\n    description\n    dimensions {\n      id\n      name\n      rank\n      __typename\n    }\n    memberships(memberIds: 50394103, status: \"Granted\") {\n      id\n      role {\n        id\n        name\n        __typename\n      }\n      membershipDetails {\n        dimId\n        value\n        valueDescription\n        id\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "user-management"
+      ],
+      "sources": [
+        "User-supplied GraphQL query"
+      ],
+      "execution_mode": "regression",
+      "notes": "Fetches user groups filtered by a specific memberId (50394103).",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "platform_search_users",
+      "name": "Platform SearchUsers by email",
+      "service": "insight-center-dev-graphql-user-management-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query SearchUsers {\n  fetchUsers(filters: {searchString: \"anusha.meejuru@takeda.com\"}) {\n    users {\n      id\n      displayName\n      jobTitle\n      email\n      __typename\n    }\n    __typename\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "user-management"
+      ],
+      "sources": [
+        "User-supplied GraphQL query"
+      ],
+      "execution_mode": "regression",
+      "notes": "Searches for a user by email string via fetchUsers.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "quality_list_owning_departments",
+      "name": "Quality list owning departments (complaint)",
+      "service": "insight-center-dev-quality-services",
       "protocol": "rest",
       "method": "GET",
-      "endpoint": "https://api-insights-dev2.takeda.io/authorize",
+      "endpoint": "api/v1/quality/list-owning-departments/?owning_groups=Global%20Quality&event_type=complaint",
       "enabled": true,
       "body": null,
       "headers": {},
       "timeout_seconds": 60,
       "expected_status": 200,
-      "tags": ["rest", "smoke", "auth"],
-      "sources": ["User-supplied endpoint"],
+      "tags": [
+        "rest",
+        "smoke",
+        "quality"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
       "execution_mode": "regression",
-      "notes": "API-gateway-level auth endpoint. Absolute URL used; assigned to Platform_API_Test as the nearest auth-owning service.",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "quality_deviation_stages",
+      "name": "Quality deviation stages (COMPLAINT)",
+      "service": "insight-center-dev-quality-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/quality/deviation-stages/?board_type_desc=COMPLAINT&active_flag=true",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "quality"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "quality_deviation_summary_by_stages",
+      "name": "Quality deviation summary group-by-stages (Analytical Sciences)",
+      "service": "insight-center-dev-quality-services",
+      "protocol": "rest",
+      "method": "POST",
+      "endpoint": "api/v1/quality/deviation-summary-group-by-stages/",
+      "enabled": true,
+      "body": {
+        "page": 1,
+        "limit": 15,
+        "owning_groups": [
+          "Analytical Sciences"
+        ]
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "quality"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "quality_deviation_details_5455166",
+      "name": "Quality deviation details 5455166",
+      "service": "insight-center-dev-quality-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/quality/deviation-details/5455166",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "quality"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "quality_deviation_details_4897994",
+      "name": "Quality deviation details 4897994",
+      "service": "insight-center-dev-quality-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/quality/deviation-details/4897994",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "quality"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_disposition_filters",
+      "name": "Batches process disposition filters",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "POST",
+      "endpoint": "api/v1/process/disposition/filters",
+      "enabled": true,
+      "body": {
+        "page": 1,
+        "limit": 10,
+        "filters": [
+          "batch_id",
+          "material_id",
+          "batch_short_code"
+        ]
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "batches",
+        "disposition"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_disposition_batch_data",
+      "name": "Batches process disposition batch-data-with-filters",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "POST",
+      "endpoint": "api/v1/process/disposition/batch-data-with-filters/",
+      "enabled": true,
+      "body": {
+        "pagination": {
+          "page": 1,
+          "limit": 20
+        },
+        "filter_by": {
+          "sort_by": "batch_id",
+          "sort_order": "asc"
+        }
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "batches",
+        "disposition"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_disposition_details_a1a001",
+      "name": "Batches disposition batch details A1A001/VN1/FC",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/disposition-batch-details/A1A001/VN1/FC",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "batches",
+        "disposition"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_events_user_attached_a1a001_v2",
+      "name": "Batches v2 events user-attached A1A001",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v2/A1A001/events/?event_type=user_attached",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "batches",
+        "events"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_disposition_details_a1a017",
+      "name": "Batches disposition batch details A1A017/PA1/FC",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/disposition-batch-details/A1A017/PA1/FC",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "batches",
+        "disposition"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_checklist_state_a1a017",
+      "name": "Batches checklist item state A1A017 (automated)",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/checklist-item-state/A1A017?item_type=automated",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "batches",
+        "checklist"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_events_user_attached_a1a017_v2",
+      "name": "Batches v2 events user-attached A1A017",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v2/A1A017/events/?event_type=user_attached",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "batches",
+        "events"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_disposition_details_alb0145",
+      "name": "Batches disposition batch details ALB0145/RT1/BLK",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/disposition-batch-details/ALB0145/RT1/BLK",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "batches",
+        "disposition"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_checklist_state_alb0145",
+      "name": "Batches checklist item state ALB0145 (automated)",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/checklist-item-state/ALB0145?item_type=automated",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "batches",
+        "checklist"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_events_user_attached_alb0145_v2",
+      "name": "Batches v2 events user-attached ALB0145",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v2/ALB0145/events/?event_type=user_attached",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "batches",
+        "events"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_disposition_details_ana001",
+      "name": "Batches disposition batch details ANA001/VN1/BLK",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/disposition-batch-details/ANA001/VN1/BLK",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "batches",
+        "disposition"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_checklist_state_ana001",
+      "name": "Batches checklist item state ANA001 (automated)",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v1/checklist-item-state/ANA001?item_type=automated",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "batches",
+        "checklist"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_events_user_attached_ana001_v2",
+      "name": "Batches v2 events user-attached ANA001",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "api/v2/ANA001/events/?event_type=user_attached",
+      "enabled": true,
+      "body": null,
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "functional",
+        "batches",
+        "events"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_disposition_unassign_a1a001",
+      "name": "Batches disposition unassign user A1A001 (mutation)",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "DELETE",
+      "endpoint": "api/v1/disposition-batch-assigned-users/A1A001",
+      "enabled": false,
+      "body": {
+        "batch_id": "A1A001",
+        "assigned_users": [
+          "anusha.meejuru@takeda.com"
+        ],
+        "disposition_group": "FC",
+        "site_id": "VN1"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "mutation",
+        "batches",
+        "disposition"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 DELETE mutates assigned users. Enable only for manual runs.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_disposition_assign_a1a001",
+      "name": "Batches disposition assign user A1A001 (mutation)",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "PUT",
+      "endpoint": "api/v1/disposition-batch-details",
+      "enabled": false,
+      "body": {
+        "batch_id": "A1A001",
+        "assigned_users": [
+          "archana.r@takeda.com"
+        ],
+        "disposition_group": "FC",
+        "site_id": "VN1"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "mutation",
+        "batches",
+        "disposition"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 PUT mutates assigned users. Enable only for manual runs.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_disposition_unassign_a1a017",
+      "name": "Batches disposition unassign user A1A017 (mutation)",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "DELETE",
+      "endpoint": "api/v1/disposition-batch-assigned-users/A1A017",
+      "enabled": false,
+      "body": {
+        "batch_id": "A1A017",
+        "assigned_users": [
+          "archana.r@takeda.com"
+        ],
+        "disposition_group": "FC",
+        "site_id": "PA1"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "mutation",
+        "batches",
+        "disposition"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 DELETE mutates assigned users. Enable only for manual runs.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "batches_checklist_state_update",
+      "name": "Batches update checklist item state ANA001 (mutation)",
+      "service": "insight-center-dev-insight-center-boards-services",
+      "protocol": "rest",
+      "method": "PUT",
+      "endpoint": "api/v1/checklist-item-state",
+      "enabled": false,
+      "body": {
+        "batch_id": "ANA001",
+        "batch_attributes": [
+          {
+            "batch_attribute": "Deviations/Lab Investigations previous stages",
+            "state": "checked",
+            "latest_timestamp": "24 Feb 2026, 17:46"
+          }
+        ],
+        "check_rec": true,
+        "sub_stage": "",
+        "updated_batch_attribute": "Deviations/Lab Investigations previous stages",
+        "board": "",
+        "latest_timestamp": "24 Feb 2026, 17:46"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "mutation",
+        "batches",
+        "checklist"
+      ],
+      "sources": [
+        "User-supplied endpoint"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 PUT mutates checklist state. Enable only for manual runs.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "user_mgmt_add_memberships",
+      "name": "Platform addMemberships (Captain Marvel TC1/TC2)",
+      "service": "insight-center-dev-graphql-user-management-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation { addMemberships(membershipRequests: {userGroupId: \"3c311c3d-b394-465e-a1db-09f9caa85ade\", userEmpId: 50065693, accessRoleId: \"6965505e-965f-4495-892f-9240ec4bc32f\"}) { accessStatus accessRoleId status membershipDetails { valueDescription dimId value } requestedByEmpId reasonDescription reasonCatgDescription actionDatetime actionByEmpId userEmpId userGroupId } }"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "user-management"
+      ],
+      "sources": [
+        "TC1_Captain_Marvel_Add_Memberships",
+        "TC2_Captain_Marvel_Add_Memberships"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 mutation adds membership. TC1 and TC2 are identical queries, merged.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_add_user_app_preference_valid",
+      "name": "Core addUserAppPreference valid input",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  addUserAppPreference(\n    input: {applicationId: \"c70b6fd3-9fc9-48bd-bb0f-39b80cfbe10f\", category: RECOMMENDED, sequenceNumber: 2, userId: 50385199}\n  ) {\n    message\n    status\n    data {\n      applicationId\n      category\n      sequenceNumber\n      userId\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "core"
+      ],
+      "sources": [
+        "TC_addUserAppPreference_with_valid_input",
+        "TC_addUserAppPreference_with_existing_record"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 mutation. valid_input and existing_record share identical query, merged.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_add_user_app_preference_two_param",
+      "name": "Core addUserAppPreference two-param input",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  addUserAppPreference(\n    input: {applicationId: \"76a9d2d6-6943-4f7e-a76b-c489c8e95db3\", category: RECOMMENDED}\n  ) {\n    message\n    status\n    data {\n      applicationId\n      category\n      sequenceNumber\n      userId\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "core"
+      ],
+      "sources": [
+        "TC_addUserAppPreference_with_two_param_input"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 mutation.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_add_user_app_preference_diff_category",
+      "name": "Core addUserAppPreference different category same applicationId",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  addUserAppPreference(\n    input: {applicationId: \"76a9d2d6-6943-4f7e-a76b-c489c8e95db3\", category: PINNED}\n  ) {\n    message\n    status\n    data {\n      applicationId\n      category\n      sequenceNumber\n      userId\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "core"
+      ],
+      "sources": [
+        "TC_addUserAppPreference_with_different_category_same_application_id"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 mutation.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_add_user_app_preference_invalid_app",
+      "name": "Core addUserAppPreference invalid applicationId",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  addUserAppPreference(\n    input: {applicationId: \"b2a8ec5c-7202-4a1e-8e49-46fb8fd67d59\", category: PINNED}\n  ) {\n    message\n    status\n    data {\n      applicationId\n      category\n      sequenceNumber\n      userId\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "core",
+        "negative"
+      ],
+      "sources": [
+        "TC_addUserAppPreference_with_invalid_application_id"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 mutation. Uses invalid/non-existent applicationId.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_add_user_app_preference_missing_input",
+      "name": "Core addUserAppPreference missing input details",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  addUserAppPreference(input: {}) {\n    message\n    status\n    data {\n      applicationId\n      category\n      sequenceNumber\n      userId\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "core",
+        "negative"
+      ],
+      "sources": [
+        "TC_addUserAppPreference_with_missing_input_details"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 mutation. Empty input object.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_add_user_app_preference_multiple_record",
+      "name": "Core addUserAppPreference multiple records",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  addUserAppPreference(\n    input: [{applicationId: \"76a9d2d6-6943-4f7e-a76b-c489c8e95db3\"}, {applicationId: \"76a9d2d6-6943-4f7e-a76b-c489c8e95db3\"}]\n  ) {\n    message\n    status\n    data {\n      applicationId\n      category\n      sequenceNumber\n      userId\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "core"
+      ],
+      "sources": [
+        "TC_addUserAppPreference_with_multiple_record"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 mutation.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_update_user_app_preference_valid",
+      "name": "Core updateUserAppPreference valid input",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  updateUserAppPreference(\n    input: {category: PINNED, sequenceNumber: 3, userId: 50385199, applicationId: \"76a9d2d6-6943-4f7e-a76b-c489c8e95db3\"}\n  ) {\n    message\n    status\n    data {\n      applicationId\n      category\n      sequenceNumber\n      userId\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "core"
+      ],
+      "sources": [
+        "TC_updateUserAppPreference_with_valid_input"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 mutation.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_update_user_app_preference_multiple_values",
+      "name": "Core updateUserAppPreference multiple values",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  updateUserAppPreference(\n    input: {category: RECOMMENDED, sequenceNumber: 6, userId: 50385199, applicationId: \"76a9d2d6-6943-4f7e-a76b-c489c8e95db3\"}\n  ) {\n    message\n    status\n    data {\n      applicationId\n      category\n      sequenceNumber\n      userId\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "core"
+      ],
+      "sources": [
+        "TC_updateUserAppPreference_with_valid_multiple_values_input"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 mutation.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_update_user_app_preference_invalid_app",
+      "name": "Core updateUserAppPreference invalid applicationId",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  updateUserAppPreference(\n    input: {category: RECOMMENDED, sequenceNumber: 6, userId: 50385199, applicationId: \"aec733ff-4d0b-4f2f-bc1b-0ebefca54f8c\"}\n  ) {\n    message\n    status\n    data {\n      applicationId\n      category\n      sequenceNumber\n      userId\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "core",
+        "negative"
+      ],
+      "sources": [
+        "TC_updateUserAppPreference_with_invalid_application_id"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 mutation.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_update_user_app_preference_app_id_only",
+      "name": "Core updateUserAppPreference applicationId only",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  updateUserAppPreference(\n    input: {applicationId: \"76a9d2d6-6943-4f7e-a76b-c489c8e95db3\"}\n  ) {\n    message\n    status\n    data {\n      applicationId\n      category\n      sequenceNumber\n      userId\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "core"
+      ],
+      "sources": [
+        "TC_updateUserAppPreference_with_only_application_id"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 mutation.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_delete_user_app_preference_valid",
+      "name": "Core deleteUserAppPreference all valid input",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  deleteUserAppPreference(\n    input: {applicationId: \"76a9d2d6-6943-4f7e-a76b-c489c8e95db3\", category: PINNED, userId: 50385199}\n  ) {\n    message\n    status\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "core"
+      ],
+      "sources": [
+        "TC_deleteUserAppPreference_with_all_valid_input"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 mutation.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_delete_user_app_preference_invalid_app",
+      "name": "Core deleteUserAppPreference invalid applicationId",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  deleteUserAppPreference(\n    input: {applicationId: \"4388db10-f604-434a-829a-d816552d0ce4\", category: PINNED, userId: 50385199}\n  ) {\n    message\n    status\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "core",
+        "negative"
+      ],
+      "sources": [
+        "TC_deleteUserAppPreference_with_invalid_application_id"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 mutation.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_delete_user_app_preference_app_id_only",
+      "name": "Core deleteUserAppPreference applicationId only",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  deleteUserAppPreference(\n    input: {applicationId: \"76a9d2d6-6943-4f7e-a76b-c489c8e95db3\"}\n  ) {\n    message\n    status\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "core"
+      ],
+      "sources": [
+        "TC_deleteUserAppPreference_with_application_id_only"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 mutation.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_delete_user_app_preference_app_and_category",
+      "name": "Core deleteUserAppPreference applicationId and category",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  deleteUserAppPreference(\n    input: {applicationId: \"76a9d2d6-6943-4f7e-a76b-c489c8e95db3\", category: RECOMMENDED}\n  ) {\n    message\n    status\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "core"
+      ],
+      "sources": [
+        "TC_deleteUserAppPreference_with_application_and_category"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 mutation.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_delete_user_app_preference_deleted_category",
+      "name": "Core deleteUserAppPreference deleted category (PINNED)",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  deleteUserAppPreference(\n    input: {applicationId: \"76a9d2d6-6943-4f7e-a76b-c489c8e95db3\", category: PINNED}\n  ) {\n    message\n    status\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "core"
+      ],
+      "sources": [
+        "TC_deleteUserAppPreference_with_deleted_category"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 mutation.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_create_user_preset_valid_full",
+      "name": "Core createUserPreset all valid details (full nested response)",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  createUserPreset(\n    userPresetInput: {applicationId: \"76a9d2d6-6943-4f7e-a76b-c489c8e95db3\", userId: 50385199, dimensionDetails: {valueId: \"acfb91c7-d08f-48dd-a0ed-98b56113b986\", dimensionId: 1}}\n  ) {\n    message\n    status\n    data {\n      applicationDetails {\n        applicationId\n        defaultOrder\n        description\n        hasGlobalSearch\n        name\n        type\n        url\n        version\n        applicationDimensionDetails {\n          applicationId\n          dimensionGroup\n          isDefault\n          values {\n            dimId\n            valId\n          }\n        }\n      }\n      applicationId\n      dimensionDetails {\n        description\n        dimensionId\n        hierarchy {\n          dimensionId\n          rank\n          version\n        }\n        name\n        values {\n          attributes\n          dimensionId\n          name\n          valueId\n          dimension {\n            description\n            dimensionId\n            name\n            hierarchy {\n              dimensionId\n              rank\n              version\n            }\n            values {\n              attributes\n              aliases {\n                aliasAttributes\n                aliasName\n                dimensionId\n                valueId\n              }\n              dimension {\n                description\n                dimensionId\n                hierarchy {\n                  rank\n                  dimensionId\n                  version\n                }\n                name\n              }\n              name\n              valueId\n              dimensionId\n            }\n          }\n        }\n      }\n      dimensionId\n      userId\n      valueId\n      userAppPrefernceDetails {\n        applicationId\n        category\n        sequenceNumber\n        userId\n      }\n      userDetails {\n        email\n        fullName\n        jobTitle\n        id\n        displayName\n        companyName\n        city\n        terminationDate\n        statusDescription\n        state\n        postalCode\n        phoneNumber\n        organizationName\n        networkId\n        tetDescription\n        countryCode\n        country\n        businessAddress\n        TET5\n        TET3\n        TET4\n        TET2\n        TET1\n      }\n      valueDetails {\n        attributes\n        dimensionId\n        name\n        valueId\n        aliases {\n          aliasAttributes\n          aliasName\n          dimensionId\n          valueId\n        }\n        dimension {\n          description\n          dimensionId\n          name\n          hierarchy {\n            dimensionId\n            rank\n            version\n          }\n          values {\n            name\n            dimensionId\n            valueId\n            attributes\n          }\n        }\n      }\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "core"
+      ],
+      "sources": [
+        "TC_createUserPreset_with_all_valid_details"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 mutation.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_create_user_preset_valid_simple",
+      "name": "Core createUserPreset valid without nested response",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  createUserPreset(\n    userPresetInput: {applicationId: \"76a9d2d6-6943-4f7e-a76b-c489c8e95db3\", userId: 50385199, dimensionDetails: {valueId: \"acfb91c7-d08f-48dd-a0ed-98b56113b986\", dimensionId: 1}}\n  ) {\n    message\n    status\n    data {\n      applicationId\n      dimensionId\n      userId\n      valueId\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "core"
+      ],
+      "sources": [
+        "TC_createUserPreset_with_all_valid_details_without_nested_type_response"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 mutation.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_create_user_preset_invalid_app",
+      "name": "Core createUserPreset invalid applicationId",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  createUserPreset(\n    userPresetInput: {applicationId: \"94c4a2ac-d762-4be5-aef3-f166152d3dec\", userId: 50385199, dimensionDetails: {valueId: \"acfb91c7-d08f-48dd-a0ed-98b56113b986\", dimensionId: 1}}\n  ) {\n    message\n    status\n    data {\n      applicationId\n      dimensionId\n      userId\n      valueId\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "core",
+        "negative"
+      ],
+      "sources": [
+        "TC_createUserPreset_with_invalid_application_id"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 mutation.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_create_user_preset_invalid_value_id",
+      "name": "Core createUserPreset invalid valueId",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  createUserPreset(\n    userPresetInput: {applicationId: \"76a9d2d6-6943-4f7e-a76b-c489c8e95db3\", userId: 50385199, dimensionDetails: {valueId: \"a201cd1f-ede8-4a47-9b68-f1785b7ce19b\", dimensionId: 1}}\n  ) {\n    message\n    status\n    data {\n      applicationId\n      dimensionId\n      userId\n      valueId\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "core",
+        "negative"
+      ],
+      "sources": [
+        "TC_createUserPreset_with_invalid_value_id"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 mutation.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_create_user_preset_invalid_dim_and_value",
+      "name": "Core createUserPreset invalid dimensionId and valueId",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": false,
+      "body": {
+        "query": "mutation MyMutation {\n  createUserPreset(\n    userPresetInput: {applicationId: \"76a9d2d6-6943-4f7e-a76b-c489c8e95db3\", userId: 50385199, dimensionDetails: {valueId: \"a201cd1f-ede8-4a47-9b68-f1785b7ce19b\", dimensionId: 20}}\n  ) {\n    message\n    status\n    data {\n      applicationId\n      dimensionId\n      userId\n      valueId\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "mutation",
+        "core",
+        "negative"
+      ],
+      "sources": [
+        "TC_createUserPreset_with_invalid_dim_and_value_id"
+      ],
+      "execution_mode": "manual-only",
+      "notes": "Disabled \u2014 mutation.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_applications_simple",
+      "name": "Core fetchApplications simple (no filter)",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchApplications {\n    applicationId\n    defaultOrder\n    description\n    hasGlobalSearch\n    type\n    url\n    version\n    name\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "smoke",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchApplications_without_filter"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_applications_app_id_nested",
+      "name": "Core fetchApplications with applicationId and nested types",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchApplications(applicationIds: \"5259eca4-f781-43f8-8374-c17846c557d5\") {\n    applicationId\n    defaultOrder\n    description\n    hasGlobalSearch\n    type\n    url\n    version\n    name\n    associatedDimensions {\n      applicationId\n      dimensionId\n      displaySequenceNumber\n      isMultiSelect\n      requiredFlag\n    }\n    associatedUserPreferences {\n      applicationId\n      category\n      userId\n      sequenceNumber\n    }\n    applicationDimensionDetails {\n      applicationId\n      dimensionGroup\n      isDefault\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchApplications_with_application_id_with_nested_type"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_applications_nested_values",
+      "name": "Core fetchApplications without filter with nested values",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchApplications {\n    applicationId\n    defaultOrder\n    description\n    hasGlobalSearch\n    type\n    url\n    version\n    name\n    associatedDimensions {\n      applicationId\n      dimensionId\n      displaySequenceNumber\n      isMultiSelect\n      requiredFlag\n    }\n    associatedUserPreferences {\n      applicationId\n      category\n      userId\n      sequenceNumber\n    }\n    applicationDimensionDetails {\n      applicationId\n      dimensionGroup\n      isDefault\n      values {\n        valId\n        dimId\n      }\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchApplications_without_filter_nested_values"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_applications_single_nested",
+      "name": "Core fetchApplications single nested type response",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchApplications {\n    applicationId\n    defaultOrder\n    description\n    hasGlobalSearch\n    type\n    url\n    version\n    name\n    applicationDimensionDetails {\n      applicationId\n      dimensionGroup\n      isDefault\n      values {\n        valId\n        dimId\n      }\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchApplications_with_single_nested_type_response"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_applications_multiple_filters",
+      "name": "Core fetchApplications multiple filters and single nested type",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchApplications(\n    applicationIds: [\"5259eca4-f781-43f8-8374-c17846c557d5\", \"7abeccb7-c4f0-427b-bf33-22a80da23803\"]\n    sortOrder: DESC\n    searchText: \"ABD\"\n  ) {\n    applicationId\n    defaultOrder\n    description\n    hasGlobalSearch\n    type\n    url\n    version\n    name\n    applicationDimensionDetails {\n      applicationId\n      dimensionGroup\n      isDefault\n      values {\n        valId\n        dimId\n      }\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchApplications_with_muiltple_filters_and_single_nested_type_respons"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_applications_nested_filter",
+      "name": "Core fetchApplications with nested filters (isDefault/requiredFlag)",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchApplications {\n    applicationId\n    defaultOrder\n    description\n    hasGlobalSearch\n    type\n    url\n    version\n    name\n    applicationDimensionDetails(isDefault: false) {\n      applicationId\n      dimensionGroup\n      isDefault\n      values {\n        valId\n        dimId\n      }\n    }\n    associatedDimensions(requiredFlag: false) {\n      applicationId\n      dimensionId\n      displaySequenceNumber\n      isMultiSelect\n      requiredFlag\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchApplications_with_nested_filter"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_applications_nested_and_nested_filter",
+      "name": "Core fetchApplications nested and nested filters with userPreferences",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchApplications {\n    applicationId\n    defaultOrder\n    description\n    hasGlobalSearch\n    type\n    url\n    version\n    name\n    applicationDimensionDetails(isDefault: false) {\n      applicationId\n      dimensionGroup\n      isDefault\n      values {\n        valId\n        dimId\n      }\n    }\n    associatedDimensions(requiredFlag: true, isMultiSelect: false) {\n      applicationId\n      dimensionId\n      displaySequenceNumber\n      isMultiSelect\n      requiredFlag\n      dimensionDetails {\n        description\n        dimensionId\n        name\n      }\n    }\n    associatedUserPreferences(forCurrentUser: true) {\n      applicationId\n      category\n      userId\n      sequenceNumber\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchApplications_with_nested_and_nested_filter"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_dimensions_nested_full",
+      "name": "Core fetchDimensions without filter full nested response",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchDimensions {\n    name\n    dimensionId\n    description\n    values {\n      valueId\n      name\n      dimensionId\n      attributes\n      dimension {\n        hierarchy {\n          rank\n          dimensionId\n          version\n        }\n        dimensionId\n        description\n        name\n        values {\n          dimensionId\n          name\n          valueId\n          attributes\n        }\n      }\n    }\n    hierarchy {\n      dimensionId\n      rank\n      version\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchDimensions_without_filter_nested_response"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_dimensions_simple",
+      "name": "Core fetchDimensions simple (no nested)",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchDimensions {\n    name\n    dimensionId\n    description\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "smoke",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchDimensions_without_filter_without_nested_response_type"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_dimensions_with_hierarchy",
+      "name": "Core fetchDimensions with hierarchy",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchDimensions {\n    name\n    dimensionId\n    description\n    hierarchy {\n      dimensionId\n      rank\n      version\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchDimensions_with_single_nested_type"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_dimensions_multi_filter_v10",
+      "name": "Core fetchDimensions multiple filters version 10",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchDimensions(\n    excludedDimensionIds: 17\n    dimensionIds: [1, 3, 4, 2, 5, 6]\n    version: 10\n  ) {\n    name\n    dimensionId\n    description\n    hierarchy {\n      dimensionId\n      rank\n      version\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchDimensions_with_multiple_filter (version 10)"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_dimensions_multi_filter_v1",
+      "name": "Core fetchDimensions multiple filters version 1",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchDimensions(\n    excludedDimensionIds: 17\n    dimensionIds: [1, 3, 4, 2, 5, 6]\n    version: 1\n  ) {\n    name\n    dimensionId\n    description\n    hierarchy {\n      dimensionId\n      rank\n      version\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchDimensions_with_multiple_filter (version 1)"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_dimensions_multi_filter_v1_name",
+      "name": "Core fetchDimensions multiple filters version 1 with dimensionName",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchDimensions(\n    excludedDimensionIds: 17\n    dimensionIds: [1, 3, 4, 2, 5, 6]\n    version: 1\n    dimensionName: \"opu\"\n  ) {\n    name\n    dimensionId\n    description\n    hierarchy {\n      dimensionId\n      rank\n      version\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchDimensions_with_multiple_filter (version 1 + dimensionName)"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_dimensions_values_nested",
+      "name": "Core fetchDimensions with values nested response",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchDimensions(\n    excludedDimensionIds: 17\n    dimensionIds: [1, 3, 4, 2, 5, 6]\n    version: 1\n    dimensionName: \"opu\"\n  ) {\n    name\n    dimensionId\n    description\n    hierarchy {\n      dimensionId\n      rank\n      version\n    }\n    values {\n      valueId\n      name\n      dimensionId\n      attributes\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchDimensions_with_nested_response"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_dimensions_values_val_name",
+      "name": "Core fetchDimensions values with valName filter (BIOLOGICS)",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchDimensions(\n    excludedDimensionIds: 17\n    dimensionIds: [1, 3, 4, 2, 5, 6]\n    version: 1\n    dimensionName: \"opu\"\n  ) {\n    name\n    dimensionId\n    description\n    hierarchy {\n      dimensionId\n      rank\n      version\n    }\n    values(valName: \"BIOLOGICS\") {\n      valueId\n      name\n      dimensionId\n      attributes\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchApplications_with_nested_filter (fetchDimensions valName)"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_dimensions_values_val_name_search",
+      "name": "Core fetchDimensions values with valName and searchText",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchDimensions(\n    excludedDimensionIds: 17\n    dimensionIds: [1, 3, 4, 2, 5, 6]\n    version: 1\n    dimensionName: \"opu\"\n  ) {\n    name\n    dimensionId\n    description\n    hierarchy {\n      dimensionId\n      rank\n      version\n    }\n    values(valName: \"BIOLOGICS\", searchText: \"region\") {\n      valueId\n      name\n      dimensionId\n      attributes\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchApplications_with_nested_filter (fetchDimensions valName + searchText)"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_dimensions_values_ids",
+      "name": "Core fetchDimensions values with valueIds",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchDimensions(\n    excludedDimensionIds: 17\n    dimensionIds: [1, 3, 4, 2, 5, 6]\n    version: 1\n    dimensionName: \"opu\"\n  ) {\n    name\n    dimensionId\n    description\n    hierarchy {\n      dimensionId\n      rank\n      version\n    }\n    values(toRank: 1, valueIds: [\"c9db051d-4381-4452-9432-4eff1acfc542\",\"def86f06-fdf1-4e9d-a0bd-56f213640795\", \"03347122-f8e2-445f-96c4-40577cbd43a4\"]) {\n      valueId\n      name\n      dimensionId\n      attributes\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchApplications_with_nested_filter (fetchDimensions valueIds)"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_dimensions_relationship_filter",
+      "name": "Core fetchDimensions with relationship filter",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchDimensions(dimensionIds: 1) {\n    name\n    dimensionId\n    values(\n      applicationId: \"d2bef96e-a1d9-4444-8af3-fd4e1ba67264\"\n      relationshipFilter: {intersetOperations: [], sets: {pairs: {dimId: 1, value: \"acfb91c7-d08f-48dd-a0ed-98b56113b986\"}, operation: OR}}\n    ) {\n      name\n      valueId\n    }\n    description\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchApplications_with_nested_relationship_filter"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_paginated_dimension_values_simple",
+      "name": "Core fetchPaginatedDimensionValues simple",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchPaginatedDimensionValues {\n    limit\n    page\n    totalRecords\n    dimensionValues {\n      attributes\n      dimensionId\n      name\n      valueId\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "smoke",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchPaginatedDimensionValues_without_filter"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_paginated_dimension_values_nested",
+      "name": "Core fetchPaginatedDimensionValues with nested aliases",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchPaginatedDimensionValues {\n    limit\n    page\n    totalRecords\n    dimensionValues {\n      attributes\n      dimensionId\n      name\n      valueId\n      aliases {\n        aliasAttributes\n        aliasName\n        dimensionId\n        valueId\n      }\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchPaginatedDimensionValues_without_filter_nested_response"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_paginated_dimensions_no_args",
+      "name": "Core fetchPaginatedDimensions without filter (no paginationFilters)",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchPaginatedDimensions {\n    limit\n    page\n    totalRecords\n    dimensions {\n      description\n      dimensionId\n      name\n      hierarchy {\n        dimensionId\n        rank\n        version\n      }\n      values {\n        name\n        valueId\n        dimensionId\n      }\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchPaginatedDimensions_without_filter"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_paginated_dimensions_with_filter",
+      "name": "Core fetchPaginatedDimensions with applicationId and dimensionIds filter",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchPaginatedDimensions(\n    applicationId: \"d2bef96e-a1d9-4444-8af3-fd4e1ba67264\"\n    dimensionIds: [1, 2, 3, 4, 6]\n    excludedDimensionIds: 2\n  ) {\n    limit\n    page\n    totalRecords\n    dimensions {\n      description\n      dimensionId\n      name\n      hierarchy {\n        dimensionId\n        rank\n        version\n      }\n      values {\n        name\n        valueId\n        dimensionId\n      }\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchPaginatedDimensions_with_filter"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_paginated_dimensions_nested_filter",
+      "name": "Core fetchPaginatedDimensions with nested filter on values",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchPaginatedDimensions(\n    applicationId: \"d2bef96e-a1d9-4444-8af3-fd4e1ba67264\"\n    dimensionIds: [1, 2, 3, 4, 6]\n    excludedDimensionIds: 2\n  ) {\n    limit\n    page\n    totalRecords\n    dimensions {\n      description\n      dimensionId\n      name\n      hierarchy {\n        dimensionId\n        rank\n        version\n      }\n      values(excludedDimensionIds: 1, valName: \"CHINA\") {\n        name\n        valueId\n        dimensionId\n      }\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchPaginatedDimensions_withr_nested_filter"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_release_details",
+      "name": "Core fetchReleaseDetails without filter",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchReleaseDetails {\n    devStartDate\n    description\n    version\n    releaseDate\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "smoke",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchReleaseDetails_without_filter"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_user_preset_simple",
+      "name": "Core fetchUserPreset without filter",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchUserPreset {\n    applicationId\n    dimensionId\n    userId\n    valueId\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "smoke",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchUserPreset_without_filter"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_user_preset_with_user_id",
+      "name": "Core fetchUserPreset with userId filter and nested types",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchUserPreset(userId: 50385199) {\n    applicationId\n    dimensionId\n    userId\n    valueId\n    applicationDetails {\n      applicationId\n      defaultOrder\n      description\n      hasGlobalSearch\n      name\n      type\n      url\n      version\n      applicationDimensionDetails {\n        applicationId\n        isDefault\n        dimensionGroup\n      }\n      associatedDimensions {\n        applicationId\n        dimensionId\n        displaySequenceNumber\n        isMultiSelect\n        requiredFlag\n      }\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchUserPreset_with_filter"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_user_preset_nested_filter",
+      "name": "Core fetchUserPreset with nested filters and userDetails",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchUserPreset(userId: 50385199) {\n    applicationId\n    dimensionId\n    userId\n    valueId\n    applicationDetails {\n      applicationId\n      defaultOrder\n      description\n      hasGlobalSearch\n      name\n      type\n      url\n      version\n      applicationDimensionDetails(isDefault: false) {\n        applicationId\n        isDefault\n        dimensionGroup\n      }\n      associatedDimensions(isMultiSelect: true, requiredFlag: true) {\n        applicationId\n        dimensionId\n        displaySequenceNumber\n        isMultiSelect\n        requiredFlag\n      }\n    }\n    userDetails {\n      fullName\n      email\n      displayName\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchUserPreset_with_nested_filter"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_user_preset_app_id",
+      "name": "Core fetchUserPreset with applicationId filter",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchUserPreset(applicationId: \"76a9d2d6-6943-4f7e-a76b-c489c8e95db3\") {\n    applicationId\n    dimensionId\n    userId\n    valueId\n    applicationDetails {\n      applicationId\n      defaultOrder\n      description\n      hasGlobalSearch\n      name\n      type\n      url\n      version\n      applicationDimensionDetails(isDefault: false) {\n        applicationId\n        isDefault\n        dimensionGroup\n      }\n      associatedDimensions(isMultiSelect: true, requiredFlag: true) {\n        applicationId\n        dimensionId\n        displaySequenceNumber\n        isMultiSelect\n        requiredFlag\n      }\n    }\n    userDetails {\n      fullName\n      email\n      displayName\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchUserPreset_with_application_id_filter"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_value_simple",
+      "name": "Core fetchValue without filter",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchValue {\n    dimensionId\n    name\n    valueId\n    attributes\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "smoke",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchValue_without_filter"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_value_app_id",
+      "name": "Core fetchValue with applicationId filter",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchValue(applicationId: \"76a9d2d6-6943-4f7e-a76b-c489c8e95db3\") {\n    dimensionId\n    name\n    valueId\n    attributes\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchValue_with_application_id_filter"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_value_multi_filter_alias",
+      "name": "Core fetchValue multiple filters with valueAliasAttributes",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchValue(\n    applicationId: \"76a9d2d6-6943-4f7e-a76b-c489c8e95db3\"\n    dimensionIds: 2\n    valueAliasAttributes: \"actos\"\n  ) {\n    dimensionId\n    name\n    valueId\n    dimension {\n      description\n      dimensionId\n      name\n      hierarchy {\n        dimensionId\n        rank\n        version\n      }\n    }\n    aliases {\n      aliasName\n      aliasAttributes\n      dimensionId\n      valueId\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchValue_with_multiple_filter (valueAliasAttributes)"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_value_multi_filter_ids",
+      "name": "Core fetchValue multiple filters with valueIds",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchValue(\n    applicationId: \"76a9d2d6-6943-4f7e-a76b-c489c8e95db3\"\n    dimensionIds: 2\n    valueIds: \"f384e3e1-346f-4f21-9bf5-b29aa6dfe675\"\n  ) {\n    dimensionId\n    name\n    valueId\n    dimension {\n      description\n      dimensionId\n      name\n      hierarchy {\n        dimensionId\n        rank\n        version\n      }\n    }\n    aliases {\n      aliasName\n      aliasAttributes\n      dimensionId\n      valueId\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchValue_with_multiple_filter (valueIds)"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_value_relationship",
+      "name": "Core fetchValue with relationship filter",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchValue(\n    dimensionIds: 1\n    relationshipFilter: {intersetOperations: [], sets: {pairs: {dimId: 1, value: \"acfb91c7-d08f-48dd-a0ed-98b56113b986\"}, operation: OR}}\n    applicationId: \"d2bef96e-a1d9-4444-8af3-fd4e1ba67264\"\n  ) {\n    dimensionId\n    name\n    valueId\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchValue_with_releationship_filter"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_value_invalid_relationship",
+      "name": "Core fetchValue with invalid relationship filter (multiple pairs)",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchValue(\n    dimensionIds: [1]\n    relationshipFilter: {\n      intersetOperations: []\n      sets: [\n        {\n          pairs: [\n            { dimId: 1, value: \"acfb91c7-d08f-48dd-a0ed-98b56113b986\" }\n            { dimId: 2, value: \"3b90d6cf-75d7-4e7a-9ad3-520e9b40f25e\" }\n            { dimId: 3, value: \"59192e0b-29c1-4058-967c-2ff20228392f\" }\n          ]\n          operation: OR\n        }\n        {\n          pairs: [\n            { dimId: 1, value: \"03347122-f8e2-445f-96c4-40577cbd43a4\" }\n            { dimId: 2, value: \"cdbc70db-d904-4cd7-a9f5-afa46376552e\" }\n          ]\n          operation: AND\n        }\n        {\n          pairs: [\n            { dimId: 2, value: \"03347122-f8e2-445f-96c4-40577cbd43a4\" }\n            { dimId: 3, value: \"cdbc70db-d904-4cd7-a9f5-afa46376552e\" }\n          ]\n          operation: OR\n        }\n      ]\n    }\n    applicationId: \"d2bef96e-a1d9-4444-8af3-fd4e1ba67264\"\n  ) {\n    dimensionId\n    name\n    valueId\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core",
+        "negative"
+      ],
+      "sources": [
+        "TC_fetchValue_with_invalid_releationship_filter"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_value_multiple_relationship",
+      "name": "Core fetchValue with multiple relationship filter sets",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchValue(\n    applicationId: \"939907cd-90ef-4e36-b1c6-2ce42976e545\"\n    relationshipFilter: {intersetOperations: [OR, AND], sets: [{pairs: [{dimId: 1, value: \"acfb91c7-d08f-48dd-a0ed-98b56113b986\"}, {dimId: 2, value: \"3b90d6cf-75d7-4e7a-9ad3-520e9b40f25e\"}, {dimId: 3, value: \"59192e0b-29c1-4058-967c-2ff20228392f\"}], operation: OR}, {pairs: [{dimId: 1, value: \"03347122-f8e2-445f-96c4-40577cbd43a4\"}, {dimId: 2, value: \"cdbc70db-d904-4cd7-a9f5-afa46376552e\"}], operation: AND}, {pairs: [{dimId: 2, value: \"03347122-f8e2-445f-96c4-40577cbd43a4\"}, {dimId: 3, value: \"cdbc70db-d904-4cd7-a9f5-afa46376552e\"}], operation: OR}]}\n  ) {\n    dimensionId\n    name\n    valueId\n    dimension {\n      description\n      dimensionId\n      name\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchValue_with_multiple_releationship_filter"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_value_invalid_app_id",
+      "name": "Core fetchValue with invalid applicationId",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchValue(\n    applicationId: \"1\"\n    relationshipFilter: {\n      intersetOperations: [OR, AND]\n      sets: [\n        {\n          pairs: [\n            { dimId: 1, value: \"acfb91c7-d08f-48dd-a0ed-98b56113b986\" }\n            { dimId: 2, value: \"3b90d6cf-75d7-4e7a-9ad3-520e9b40f25e\" }\n            { dimId: 3, value: \"59192e0b-29c1-4058-967c-2ff20228392f\" }\n          ]\n          operation: OR\n        }\n        {\n          pairs: [\n            { dimId: 1, value: \"03347122-f8e2-445f-96c4-40577cbd43a4\" }\n            { dimId: 2, value: \"cdbc70db-d904-4cd7-a9f5-afa46376552e\" }\n          ]\n          operation: AND\n        }\n        {\n          pairs: [\n            { dimId: 2, value: \"03347122-f8e2-445f-96c4-40577cbd43a4\" }\n            { dimId: 3, value: \"cdbc70db-d904-4cd7-a9f5-afa46376552e\" }\n          ]\n          operation: OR\n        }\n      ]\n    }\n  ) {\n    attributes\n    dimensionId\n    name\n    valueId\n    dimension {\n      description\n      dimensionId\n      name\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core",
+        "negative"
+      ],
+      "sources": [
+        "TC_fetchValue_invalid_application_id"
+      ],
+      "execution_mode": "regression",
+      "notes": "",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "core_fetch_value_relationship_empty",
+      "name": "Core fetchValue relationship filter empty response",
+      "service": "insight-center-dev-core-graphql-services",
+      "protocol": "graphql",
+      "method": "POST",
+      "endpoint": "",
+      "enabled": true,
+      "body": {
+        "query": "query MyQuery {\n  fetchValue(\n    applicationId: \"d2bef96e-a1d9-4444-8af3-fd4e1ba67264\"\n    relationshipFilter: {\n      intersetOperations: [OR, AND]\n      sets: [\n        {\n          pairs: [\n            { dimId: 1, value: \"acfb91c7-d08f-48dd-a0ed-98b56113b986\" }\n            { dimId: 2, value: \"3b90d6cf-75d7-4e7a-9ad3-520e9b40f25e\" }\n            { dimId: 3, value: \"59192e0b-29c1-4058-967c-2ff20228392f\" }\n          ]\n          operation: OR\n        }\n        {\n          pairs: [\n            { dimId: 1, value: \"03347122-f8e2-445f-96c4-40577cbd43a4\" }\n            { dimId: 2, value: \"cdbc70db-d904-4cd7-a9f5-afa46376552e\" }\n          ]\n          operation: AND\n        }\n        {\n          pairs: [\n            { dimId: 2, value: \"03347122-f8e2-445f-96c4-40577cbd43a4\" }\n            { dimId: 3, value: \"cdbc70db-d904-4cd7-a9f5-afa46376552e\" }\n          ]\n          operation: OR\n        }\n      ]\n    }\n  ) {\n    attributes\n    dimensionId\n    name\n    valueId\n    dimension {\n      description\n      dimensionId\n      name\n    }\n  }\n}"
+      },
+      "headers": {},
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "graphql",
+        "functional",
+        "core"
+      ],
+      "sources": [
+        "TC_fetchValue_with_releationship_filter_empty_response"
+      ],
+      "execution_mode": "regression",
+      "notes": "Expects empty result set from this relationship filter combination.",
       "ignore_paths": [],
       "ignore_field_names": []
     }
