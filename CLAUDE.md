@@ -27,12 +27,16 @@ python dashboard_automation.py compare --gt <gt-path> --candidate <candidate-pat
 # Compare dev2 vs test2 environments side-by-side
 python dashboard_automation.py env-compare --label sprint-42
 
+# Compare optimized dev feature branch against dev2 release/dev-new baseline
+python dashboard_automation.py dev-compare --label query-optimized-dev
+
 # Demo (no credentials needed)
 python dashboard_automation.py demo
 
 # Load testing variants (10 calls per case for run, 5 per env for env-compare)
 python dashboard_automation.py run --label perf-check --load-test
 python dashboard_automation.py env-compare --label sprint-42 --load-test
+python dashboard_automation.py dev-compare --label query-optimized-dev --load-test
 
 # env-compare with explicit thresholds (all have defaults)
 python dashboard_automation.py env-compare --label sprint-42 \
@@ -65,14 +69,14 @@ python dashboard_automation.py run --label test --only-case <case_id>
 | Check | Threshold | Outcome on fail |
 |-------|-----------|-----------------|
 | HTTP status == expected (both envs) | — | `status_mismatch` |
-| All schema fields in test2 present in dev2; no type mismatches | — | `structure_mismatch` |
-| dev2 p95 ≤ test2 p95 + `--latency-threshold` % | default 20% | `latency_regression` |
+| All schema fields in the baseline env present in the candidate env; no type mismatches | — | `structure_mismatch` |
+| Candidate p95 ≤ baseline p95 + `--latency-threshold` % | default 20% | `latency_regression` |
 
 In `--load-test` mode, additional check on `EnvCompareLoadResult`:
 
 | Check | Threshold | Outcome on fail |
 |-------|-----------|-----------------|
-| dev2 error rate ≤ test2 error rate + `--concurrency-threshold` % | default 5% | `concurrency_regression` |
+| Candidate error rate ≤ baseline error rate + `--concurrency-threshold` % | default 5% | `concurrency_regression` |
 
 The load dashboard adds: service-level avg latency table, environment total row, per-run latency (collapsible), error-rate Δ column.
 

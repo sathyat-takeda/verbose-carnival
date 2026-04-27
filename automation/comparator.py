@@ -131,7 +131,7 @@ def compare_runs(candidate_results: list[RunResult], baseline_results: list[RunR
 
 
 # ---------------------------------------------------------------------------
-# Env-compare — dev2 vs test2 direct comparison
+# Env-compare — direct comparison between a candidate environment and baseline environment
 # ---------------------------------------------------------------------------
 
 def _env_compare_latency(
@@ -139,7 +139,7 @@ def _env_compare_latency(
     test_elapsed_ms: int | None,
     threshold_pct: float,
 ) -> tuple[float | None, bool]:
-    """Return (delta_pct, within_threshold).  Positive = dev is slower than test."""
+    """Return (delta_pct, within_threshold). Positive = candidate is slower than baseline."""
     if dev_elapsed_ms is None or test_elapsed_ms is None or test_elapsed_ms <= 0:
         return None, True
     delta_pct = round(((dev_elapsed_ms - test_elapsed_ms) / test_elapsed_ms) * 100, 1)
@@ -157,17 +157,22 @@ def compare_env_pair(
     # ---- Status ----
     status_match = dev_result.actual_status == test_result.actual_status
 
-    # ---- Structural check (test2 is reference) ----
+    # ---- Structural check (test_env is reference/baseline) ----
     structural_diffs: list[str] = []
     structural_match = True
     if test_result.normalized_response is not None:
         if dev_result.normalized_response is None:
-            structural_diffs = ["dev2 returned no parseable response body"]
+            structural_diffs = [f"{dev_env} returned no parseable response body"]
             structural_match = False
         else:
             test_schema = extract_schema(test_result.normalized_response)
             dev_schema = extract_schema(dev_result.normalized_response)
-            structural_diffs = compare_schemas(test_schema, dev_schema)
+            structural_diffs = compare_schemas(
+                test_schema,
+                dev_schema,
+                reference_label=test_env,
+                candidate_label=dev_env,
+            )
             structural_match = len(structural_diffs) == 0
 
     # ---- Latency ----
@@ -254,7 +259,7 @@ def compare_env_load_pairs(
     results: list[EnvCompareLoadResult] = []
 
     for dev, test in pairs:
-        # Latency delta (p95-based, test2 is baseline)
+        # Latency delta (p95-based, test_env is baseline)
         latency_delta_pct, latency_within_threshold = _env_compare_latency(
             dev.p95_ms, test.p95_ms, latency_threshold_pct
         )
@@ -266,9 +271,14 @@ def compare_env_load_pairs(
             if test.normalized_response is not None and dev.normalized_response is not None:
                 test_schema = extract_schema(test.normalized_response)
                 dev_schema = extract_schema(dev.normalized_response)
-                structural_diffs = compare_schemas(test_schema, dev_schema)
+                structural_diffs = compare_schemas(
+                    test_schema,
+                    dev_schema,
+                    reference_label=test_env,
+                    candidate_label=dev_env,
+                )
             elif test.normalized_response is not None:
-                structural_diffs = ["dev2 has no representative response to compare"]
+                structural_diffs = [f"{dev_env} has no representative response to compare"]
 
         # Error rate comparison (positive delta = dev has higher error rate)
         dev_error_rate_pct = round(dev.error_count / dev.runs * 100, 1) if dev.runs > 0 else None

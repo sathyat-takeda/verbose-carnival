@@ -65,6 +65,7 @@ PURCHASE_ORDER_BASE_URL=https://api-insights-dev2.takeda.io/purchase
 | `run` | Execute cases, build HTML dashboards |
 | `compare` | Offline comparison of two existing result files — no API calls |
 | `env-compare` | Run every case against two environments simultaneously and diff schemas, latency, and error rates |
+| `dev-compare` | Compare optimized `dev` feature APIs against `dev2` release/dev-new baseline |
 | `demo` | Render sample dashboards with no network calls |
 
 ---
@@ -306,6 +307,26 @@ python dashboard_automation.py env-compare --label sprint-42 \
   --load-test
 ```
 
+**Optimized feature branch vs release/dev-new baseline:**
+
+```bash
+python dashboard_automation.py dev-compare --label query-optimized-dev \
+  --only-service insight-center-purchase-order-services \
+  --skip-workbook
+```
+
+`dev-compare` is equivalent to `env-compare --dev-env dev --test-env dev2`,
+but exposes the clearer flags `--feature-env` and `--baseline-env`. In this
+mode `dev2` is the baseline release/dev-new environment and `dev` is the
+query-optimized sync-to-async feature environment.
+
+```bash
+python dashboard_automation.py dev-compare --label query-optimized-dev \
+  --feature-env dev \
+  --baseline-env dev2 \
+  --load-test --load-test-runs 5
+```
+
 **Fail CI when any case is non-passing:**
 
 ```bash
@@ -331,22 +352,22 @@ Files produced:
 | Check | Failure outcome |
 |-------|-----------------|
 | Both envs return the expected HTTP status | `status_mismatch` |
-| Every field present in test2 also exists in dev2 (no missing keys, no type mismatches) | `structure_mismatch` |
-| dev2 single-pass latency ≤ test2 + `--latency-threshold` % | `latency_regression` |
+| Every field present in the baseline env also exists in the candidate env (no missing keys, no type mismatches) | `structure_mismatch` |
+| Candidate single-pass latency ≤ baseline + `--latency-threshold` % | `latency_regression` |
 
 **Load-test** — additionally checks across N runs per environment:
 
 | Check | Failure outcome |
 |-------|-----------------|
-| dev2 p95 ≤ test2 p95 + `--latency-threshold` % | `latency_regression` |
+| Candidate p95 ≤ baseline p95 + `--latency-threshold` % | `latency_regression` |
 | Schema fields unchanged across representative responses | `response_changed` |
-| dev2 error rate ≤ test2 error rate + `--concurrency-threshold` % | `concurrency_regression` |
+| Candidate error rate ≤ baseline error rate + `--concurrency-threshold` % | `concurrency_regression` |
 
 The load-test dashboard also shows:
 - **Service-level latency summary** — average latency per service for each environment
 - **Environment total** — single average across all APIs
 - **Per-run latency** — collapsible cell with individual timings for every run
-- **Error-rate Δ column** — dev error rate minus test error rate (red when over threshold)
+- **Error-rate Δ column** — candidate error rate minus baseline error rate (red when over threshold)
 
 ---
 
@@ -472,6 +493,25 @@ dashboard_automation.py demo        [--label LABEL] [--baseline-label LABEL]
 | `Checklist_GraphQL` | GraphQL | `/checklist/graphql` | `insight-center-dev-checklist-services` |
 | `AOS` | REST | `/aos` | `insight-center-dev-insight-center-AOS-services` |
 | `Search` | REST | `/search` | `insight-center-search-engine-services` |
+
+### PO Adherence cases (14 cases — all `Purchase_Order` / `GET`)
+
+| Case ID | TC | Endpoint | What it covers |
+|---------|----|----------|----------------|
+| `po_adh_sdn_status_fetch` | TC-11463 | `GET /api/v1/purchase-order/batches` | `sdn_status` field is null or active |
+| `po_adh_invalid_tag_stage_negative` | TC-11464 | `GET /api/v1/purchase-order/batches` | Negative — invalid Tag/Stage, 200 with null data |
+| `po_adh_optimized_response_time` | TC-11160 | `GET /api/v1/purchase-order/batches` | Response time < 30 s for bulk 50-record page |
+| `po_adh_batch_stages_all_params` | TC-11276 | `GET /api/v2/purchase-order/batch-stages` | All params: OPU + Brand + site_type + stage_code |
+| `po_adh_multiple_status_filter` | TC-11277 | `GET /api/v1/purchase-order/batches` | `batch_status=urgent,in_progress` multi-value |
+| `po_adh_count_by_batch` | TC-11279 step 1 | `GET /api/v1/purchase-order/batches` | `count_status_by=batch` — only batch counts populated |
+| `po_adh_count_by_material` | TC-11279 step 2 | `GET /api/v1/purchase-order/batches` | `count_status_by=material` — only material counts |
+| `po_adh_count_by_batch_and_material` | TC-11279 step 3 | `GET /api/v1/purchase-order/batches` | `count_status_by=batch,material` — both counts |
+| `po_adh_batch_stages_count_by_material` | TC-11284 | `GET /api/v2/purchase-order/batch-stages` | batch-stages with `count_status_by=material` |
+| `po_adh_date_range_plant_rank_supply_model` | TC-11299 | `GET /api/v1/purchase-order/batches` | plant rank, WOC, PSS, `supply_model_category_code` |
+| `po_adh_pss_and_woc_values` | TC-11301 | `GET /api/v1/purchase-order/batches` | `planned_safety_stock_weeks` + `current_weeks_of_coverage` |
+| `po_adh_forecast_grpt_pdt_values` | TC-11302 | `GET /api/v1/purchase-order/batches` | `forecast_next_6_weeks_avg`, PDT, GRPT fields |
+| `po_adh_smart_search` | TC-11303 | `GET /api/v2/purchase-order/batch-stages` | Smart search requirements |
+| `po_adh_api_documentation_openapi` | TC-11305 | `GET /openapi.json` | Documentation comments present in OpenAPI spec |
 
 ---
 

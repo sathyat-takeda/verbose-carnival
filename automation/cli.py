@@ -144,6 +144,9 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
               # Direct env-compare: dev2 vs test2 (single pass)
               python dashboard_automation.py env-compare --label sprint-42
 
+              # Direct feature comparison: dev (optimized branch) vs dev2 (release/dev-new baseline)
+              python dashboard_automation.py dev-compare --label query-optimized-dev
+
               # Env-compare with load test (5 runs per case per env)
               python dashboard_automation.py env-compare --label sprint-42 --load-test
 
@@ -324,10 +327,10 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
             "(default: dev2) and --test-env (default: test2) at the same time using "
             "concurrent HTTP calls.  For each case it checks:\n"
             "  1. HTTP status — both must return 200 (or the same expected_status).\n"
-            "  2. Response structure — every field present in test2 must also exist in "
-            "dev2 (missing records in dev2 are OK; missing field keys are not).\n"
-            "  3. Latency — dev2 p95 must not exceed test2 p95 by more than "
-            "--latency-threshold %% (default 20%%).\n\n"
+            "  2. Response structure — every field present in --test-env must also "
+            "exist in --dev-env (missing records are OK; missing field keys are not).\n"
+            "  3. Latency — --dev-env p95 must not exceed --test-env p95 by more than "
+            "--latency-threshold % (default 20%).\n\n"
             "Add --load-test to repeat each case N times per environment (default 5) "
             "and produce a dedicated load-test comparison dashboard."
         ),
@@ -378,6 +381,76 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         ),
     )
     ec_parser.add_argument(
+        "--fail-on-diff",
+        action="store_true",
+        help="Exit with code 1 if any comparison shows a non-passed outcome.",
+    )
+
+    dc_parser = subparsers.add_parser(
+        "dev-compare",
+        parents=[common],
+        help=(
+            "Compare the optimized dev feature environment against the dev2 "
+            "release/dev-new baseline."
+        ),
+        description=(
+            "Dev-Compare mode is a focused environment comparison for the query-optimized "
+            "sync-to-async migration branch. It hits every enabled test case against "
+            "--feature-env (default: dev) and --baseline-env (default: dev2) at the "
+            "same time. The baseline environment is the structural and latency reference: "
+            "the feature environment must return the expected status, preserve every "
+            "baseline response field, and stay within --latency-threshold percent of "
+            "baseline p95 latency."
+        ),
+    )
+    dc_parser.add_argument("--label", required=True, help="Short label for this run (e.g. query-optimized-dev).")
+    dc_parser.add_argument(
+        "--feature-env",
+        dest="dev_env",
+        default="dev",
+        metavar="ENV",
+        help="Feature/candidate environment to compare (default: dev).",
+    )
+    dc_parser.add_argument(
+        "--baseline-env",
+        dest="test_env",
+        default="dev2",
+        metavar="ENV",
+        help="Baseline release/dev-new environment (default: dev2).",
+    )
+    dc_parser.add_argument(
+        "--latency-threshold",
+        type=float,
+        default=20.0,
+        metavar="PCT",
+        help=(
+            "Percentage by which feature p95 may exceed baseline p95 before it is "
+            "flagged as a latency regression (default: 20)."
+        ),
+    )
+    dc_parser.add_argument(
+        "--load-test",
+        action="store_true",
+        help="Run each case N times against both environments and produce a load-test comparison dashboard.",
+    )
+    dc_parser.add_argument(
+        "--load-test-runs",
+        type=int,
+        default=5,
+        metavar="N",
+        help="Number of runs per case per environment in load-test mode (default: 5).",
+    )
+    dc_parser.add_argument(
+        "--concurrency-threshold",
+        type=float,
+        default=5.0,
+        metavar="PCT",
+        help=(
+            "Error-rate percentage by which feature error rate may exceed baseline "
+            "error rate before flagged as a concurrency regression (default: 5)."
+        ),
+    )
+    dc_parser.add_argument(
         "--fail-on-diff",
         action="store_true",
         help="Exit with code 1 if any comparison shows a non-passed outcome.",
@@ -479,16 +552,17 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Demo raw report: {paths['raw_report']}")
         return 0
 
-    if args.command == "env-compare":
+    if args.command in ("env-compare", "dev-compare"):
         services, selected_cases, env_file = _load_context(args, cwd)
         dev_env: str = args.dev_env
         test_env: str = args.test_env
         env_values = {**os.environ, **load_dotenv(env_file)}
         destination = ensure_output_dir(cwd, args.label)
+        mode_name = "dev-compare" if args.command == "dev-compare" else "env-compare"
 
-        print(f"Mode               : env-compare ({dev_env}  vs  {test_env})")
+        print(f"Mode               : {mode_name} ({dev_env}  vs  {test_env})")
         print(f"Output directory   : {destination}")
-        print(f"Latency threshold  : {args.latency_threshold}% (dev p95 vs test p95)")
+        print(f"Latency threshold  : {args.latency_threshold}% ({dev_env} p95 vs {test_env} p95)")
 
         # ------------------------------------------------------------------
         # Single-pass comparison
