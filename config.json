@@ -1,0 +1,27 @@
+{
+  "services": {
+    "AOS": true,
+    "Batches": true,
+    "Boards": true,
+    "COA": true,
+    "COA_GraphQL": true,
+    "Checklist_GraphQL": true,
+    "Core": true,
+    "Core_REST": true,
+    "Data_Quality_GraphQL": true,
+    "ERM_GraphQL": true,
+    "Inventory": true,
+    "KPI": true,
+    "Metric_GraphQL": true,
+    "NMT": true,
+    "NMT_GraphQL": true,
+    "Notification_GraphQL": true,
+    "Platform_API_Test": true,
+    "Process_Quality_GraphQL": true,
+    "Purchase_Order": true,
+    "Quality": true,
+    "Quality_GraphQL": true,
+    "Risk": true,
+    "Search": true
+  }
+}

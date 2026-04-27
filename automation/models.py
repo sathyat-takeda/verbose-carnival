@@ -13,6 +13,7 @@ class ServiceConfig:
     base_url: str = ""
     base_url_env: str = ""
     notes: str = ""
+    enabled: bool = True
 
 
 @dataclass

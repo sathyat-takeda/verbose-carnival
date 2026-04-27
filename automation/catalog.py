@@ -8,6 +8,17 @@ from automation.models import ServiceConfig, TestCase, WorkbookImport
 from automation.workbook import parse_xlsx_sheet_rows
 
 
+def apply_service_config(services: dict[str, ServiceConfig], config_path: Path) -> None:
+    """Override service.enabled from config.json (keyed by alias). Missing keys keep catalog default."""
+    if not config_path.exists():
+        return
+    cfg = json.loads(config_path.read_text(encoding="utf-8"))
+    alias_map = {svc.alias: svc for svc in services.values()}
+    for alias, enabled in cfg.get("services", {}).items():
+        if alias in alias_map:
+            alias_map[alias].enabled = bool(enabled)
+
+
 def load_catalog(path: Path) -> tuple[dict[str, ServiceConfig], list[TestCase], list[WorkbookImport]]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     services = {entry["service_id"]: ServiceConfig(**entry) for entry in payload["services"]}
@@ -65,19 +76,25 @@ def build_workbook_cases(
     return cases
 
 
-def select_cases(cases: list[TestCase], only_services: set[str], only_cases: set[str]) -> list[TestCase]:
+def select_cases(cases: list[TestCase], only_services: set[str], only_cases: set[str], services: dict[str, "ServiceConfig"] | None = None) -> list[TestCase]:
     selected: list[TestCase] = []
     for case in cases:
         if only_services and case.service not in only_services:
             continue
         if only_cases and case.case_id not in only_cases:
             continue
+        if services:
+            svc = services.get(case.service)
+            if svc and not svc.enabled:
+                continue
         selected.append(case)
     return selected
 
 
 def print_case_table(cases: list[TestCase], services: dict[str, ServiceConfig]) -> None:
     for case in cases:
-        service = services[case.service]
-        state = "enabled" if case.enabled else "disabled"
-        print(f"{case.case_id:36} {service.alias:18} {case.method:5} {case.protocol:7} {state:8} {case.name}")
+        service = services.get(case.service)
+        svc_disabled = service and not service.enabled
+        state = "svc-off" if svc_disabled else ("enabled" if case.enabled else "disabled")
+        alias = service.alias if service else case.service
+        print(f"{case.case_id:36} {alias:18} {case.method:5} {case.protocol:7} {state:8} {case.name}")

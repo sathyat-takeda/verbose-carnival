@@ -466,14 +466,33 @@ dashboard_automation.py demo        [--label LABEL] [--baseline-label LABEL]
 
 ### Services (all default to dev2)
 
-| Alias | Kind | Service ID |
-|-------|------|-----------|
-| `Purchase_Order` | REST | `insight-center-purchase-order-services` |
-| `Risk` | REST | `insight-center-dev-erm-services` |
-| `ERM_GraphQL` | GraphQL | `insight-center-dev-erm-graphql-services` |
-| `Core` | GraphQL | `insight-center-dev-core-graphql-services` |
-| `Platform_API_Test` | GraphQL | `insight-center-dev-graphql-user-management-services` |
-| `Batches` | GraphQL | `insight-center-dev-batches-graphql-services` *(URL TBD)* |
+281 test cases across 23 services. Run `python dashboard_automation.py list` for the full case list.
+
+| Alias | Kind | Route | Service ID |
+|-------|------|-------|-----------|
+| `Platform_API_Test` | GraphQL | `/core/user-management/graphql` | `insight-center-dev-graphql-user-management-services` |
+| `Core` | GraphQL | `/core/graphql/graphql` | `insight-center-dev-core-graphql-services` |
+| `Core_REST` | REST | `/core` | `insight-center-core-services` |
+| `Risk` | REST | `/risks` | `insight-center-dev-erm-services` |
+| `ERM_GraphQL` | GraphQL | `/risks/graphql/` | `insight-center-dev-erm-graphql-services` |
+| `Purchase_Order` | REST | `/purchase` | `insight-center-purchase-order-services` |
+| `Batches` | GraphQL | `/batches/graphql/` | `insight-center-dev-batches-graphql-services` |
+| `Boards` | REST | `/batches` | `insight-center-dev-insight-center-boards-services` |
+| `Quality` | REST | `/quality` | `insight-center-dev-quality-services` |
+| `Quality_GraphQL` | GraphQL | `/quality/graphql/graphql` | `insight-center-dev-graphql-quality-services` |
+| `Process_Quality_GraphQL` | GraphQL | `/process-quality/graphql` | `insight-center-dev-process-quality-services` |
+| `Data_Quality_GraphQL` | GraphQL | `/dqh/graphql/` | `insight-center-dev-data-quality-services` |
+| `Metric_GraphQL` | GraphQL | `/metrics/graphql` | `insight-center-dev-metric-graphql-services` |
+| `KPI` | REST | `/kpi` | `insight-center-kpi-services` |
+| `NMT` | REST | `/nmt` | `insight-center-nmt-service` |
+| `NMT_GraphQL` | GraphQL | `/nmt/graphql/` | `insight-center-dev-nmt-graphql-service` |
+| `Notification_GraphQL` | GraphQL | `/notification/graphql/graphql` | `insight-center-dev-notification-graphql` |
+| `COA` | REST | `/coa` | `insight-center-coa-services` |
+| `COA_GraphQL` | GraphQL | `/coa/graphql/graphql` | `insight-center-dev-coa-graphql-services` |
+| `Inventory` | GraphQL | `/inventory/graphql/` | `insight-center-dev-inventory-graphql-service` |
+| `Checklist_GraphQL` | GraphQL | `/checklist/graphql` | `insight-center-dev-checklist-services` |
+| `AOS` | REST | `/aos` | `insight-center-dev-insight-center-AOS-services` |
+| `Search` | REST | `/search` | `insight-center-search-engine-services` |
 
 ### PO Adherence cases (14 cases — all `Purchase_Order` / `GET`)
 
@@ -582,6 +601,5 @@ The `service` value must match a `service_id` in the `services` array.
 
 ## Notes
 
-- The `Batches` GraphQL service base URL is `https://api-insights-dev2.takeda.io/batches/graphql` (confirmed). Its placeholder case is disabled until real batch IDs are provided.
 - `--env` rewrites only URLs matching `api-insights-*.takeda.io`. Custom URLs set via environment variables (e.g. `PURCHASE_ORDER_BASE_URL`) take full precedence and are not rewritten.
 - To add more workbook sheet imports, extend `workbook_imports` in `test_catalog.json`.
