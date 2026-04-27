@@ -91,13 +91,15 @@ def compare_schemas(
     dev_schema: Any,
     prefix: str = "$",
     limit: int = 25,
+    reference_label: str = "test2",
+    candidate_label: str = "dev2",
 ) -> list[str]:
     """Report fields present in *test_schema* that are absent in *dev_schema*.
 
-    Direction: test2 is the reference.  dev2 must have at least the same
-    fields.  Extra fields in dev2 are *not* reported (more is fine).
-    An empty list in dev2 when test2 has items is *not* flagged — missing
-    records are acceptable; missing field keys are not.
+    Direction: *reference_label* is the reference. *candidate_label* must have
+    at least the same fields. Extra fields in the candidate are not reported
+    (more is fine). An empty list in the candidate when the reference has items
+    is not flagged — missing records are acceptable; missing field keys are not.
     """
     diffs: list[str] = []
 
@@ -108,11 +110,11 @@ def compare_schemas(
         # test has a dict — check that dev has all the same keys
         if isinstance(t_val, dict):
             if not isinstance(d_val, dict):
-                diffs.append(f"{path}: test2 has object, dev2 has {type(d_val).__name__}")
+                diffs.append(f"{path}: {reference_label} has object, {candidate_label} has {type(d_val).__name__}")
                 return
             for key in sorted(t_val.keys()):
                 if key not in d_val:
-                    diffs.append(f"{path}.{key}: field present in test2 but missing in dev2")
+                    diffs.append(f"{path}.{key}: field present in {reference_label} but missing in {candidate_label}")
                 else:
                     _walk(t_val[key], d_val[key], f"{path}.{key}")
                 if len(diffs) >= limit:
@@ -122,7 +124,7 @@ def compare_schemas(
         # test has a non-empty list — if dev is also non-empty, recurse into items
         if isinstance(t_val, list):
             if not isinstance(d_val, list):
-                diffs.append(f"{path}: test2 has array, dev2 has {type(d_val).__name__}")
+                diffs.append(f"{path}: {reference_label} has array, {candidate_label} has {type(d_val).__name__}")
                 return
             # empty dev list is fine (records may differ)
             if t_val and d_val:
@@ -132,7 +134,7 @@ def compare_schemas(
         # scalar: check for type mismatch only
         if type(t_val) is not type(d_val):
             diffs.append(
-                f"{path}: type mismatch test2={type(t_val).__name__} dev2={type(d_val).__name__}"
+                f"{path}: type mismatch {reference_label}={type(t_val).__name__} {candidate_label}={type(d_val).__name__}"
             )
 
     _walk(test_schema, dev_schema, prefix)
@@ -180,4 +182,3 @@ def build_diffs(candidate: Any, baseline: Any, prefix: str = "$", limit: int = 2
 
     _walk(candidate, baseline, prefix)
     return diffs
-

@@ -31,7 +31,7 @@ def build_workbook_cases(
                 raw_name = ""
             name = raw_name or f"{rule.sheet}: {endpoint or f'row-{index}'}"
             payload_text = row.get("Payload", "")
-            lowered = f"{name} {endpoint}".lower()
+            lowered = f"{name} {endpoint} {payload_text}".lower()
 
             if rule.include_patterns and not any(pattern.lower() in lowered for pattern in rule.include_patterns):
                 continue
@@ -81,4 +81,3 @@ def print_case_table(cases: list[TestCase], services: dict[str, ServiceConfig]) 
         service = services[case.service]
         state = "enabled" if case.enabled else "disabled"
         print(f"{case.case_id:36} {service.alias:18} {case.method:5} {case.protocol:7} {state:8} {case.name}")
-

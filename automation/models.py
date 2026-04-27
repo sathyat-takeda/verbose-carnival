@@ -187,7 +187,7 @@ class LoadTestComparison:
 
 
 # ---------------------------------------------------------------------------
-# Env-compare models (dev2 vs test2 direct comparison)
+# Env-compare models (candidate environment vs baseline environment)
 # ---------------------------------------------------------------------------
 
 @dataclass
@@ -225,7 +225,7 @@ class EnvCompareResult:
     # Comparison verdict
     status_match: bool
     structural_match: bool
-    # Positive = dev is slower than test (test2 is baseline per advisor guidance)
+    # Positive = candidate environment is slower than baseline environment
     latency_delta_pct: float | None
     latency_within_threshold: bool
     structural_diffs: list[str]
@@ -287,13 +287,13 @@ class EnvCompareLoadResult:
     test_error_samples: list[str]
     test_raw_elapsed_ms: list[int]
 
-    # Comparison (test2 is baseline; positive delta = dev is slower)
+    # Comparison: positive delta = candidate environment is slower than baseline environment
     latency_delta_pct: float | None
     latency_within_threshold: bool
     response_match: bool
     structural_diffs: list[str]
 
-    # Error rate comparison (positive = dev has higher error rate than test)
+    # Error rate comparison (positive = candidate has higher error rate than baseline)
     dev_error_rate_pct: float | None
     test_error_rate_pct: float | None
     error_rate_delta_pct: float | None

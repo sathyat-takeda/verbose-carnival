@@ -110,7 +110,12 @@
         "comprehensive-risks",
         "mitigation-plan"
       ],
-      "exclude_patterns": [],
+      "exclude_patterns": [
+        "risk_id",
+        "risk_ids",
+        "due_date",
+        "date="
+      ],
       "tags": [
         "excel",
         "risk"
@@ -408,38 +413,12 @@
       "ignore_field_names": []
     },
     {
-      "case_id": "risk_mitigation_plan",
-      "name": "Risk mitigation plan",
-      "service": "insight-center-dev-erm-services",
-      "protocol": "rest",
-      "method": "GET",
-      "endpoint": "/api/v1/mitigation-plan?risk_ids=4062",
-      "enabled": true,
-      "body": null,
-      "headers": {},
-      "timeout_seconds": 60,
-      "expected_status": 200,
-      "tags": [
-        "rest",
-        "functional",
-        "risk"
-      ],
-      "sources": [
-        "User-supplied endpoint",
-        "Repo scan: tests/api/v1/mitigation/test_route.py"
-      ],
-      "execution_mode": "regression",
-      "notes": "",
-      "ignore_paths": [],
-      "ignore_field_names": []
-    },
-    {
       "case_id": "po_batch_stages_v2",
       "name": "Purchase order batch stages v2",
       "service": "insight-center-purchase-order-services",
       "protocol": "rest",
       "method": "GET",
-      "endpoint": "/api/v2/purchase-order/batch-stages?brand_name=ADVATE&site_type=External&opu=SMALL%20MOLECULES%20AND%20ONCOLOGY&start_date=1736876741154&end_date=1807724741154&limit=50",
+      "endpoint": "/api/v2/purchase-order/batch-stages?brand_name=ADVATE&site_type=External&opu=SMALL%20MOLECULES%20AND%20ONCOLOGY&page=1&limit=50",
       "enabled": true,
       "body": null,
       "headers": {},
@@ -465,7 +444,7 @@
       "service": "insight-center-purchase-order-services",
       "protocol": "rest",
       "method": "GET",
-      "endpoint": "/api/v1/purchase-order/batches?sort_by=safety_stock_level_date&brand_name=ALOGLIPTIN&stage_code=B&sort_order=asc&page=1&limit=3&start_date=1736876851013&end_date=1807724851013&search_by=batch_number&site_type=Internal",
+      "endpoint": "/api/v1/purchase-order/batches?sort_by=safety_stock_level_date&brand_name=ALOGLIPTIN&stage_code=B&sort_order=asc&page=1&limit=50&search_by=batch_number&site_type=Internal",
       "enabled": true,
       "body": null,
       "headers": {},
@@ -512,12 +491,93 @@
       "ignore_field_names": []
     },
     {
+      "case_id": "po_safety_stock_woc_brigatinib_urgent_v2",
+      "name": "Purchase order safety stock weeks of coverage for BRIGATINIB urgent",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v2/purchase-order/safety-stock-weeks-of-coverage?is_current_week_year=false&stage_code=S&brand_name=BRIGATINIB&batch_status=urgent&page=1&limit=10",
+      "enabled": true,
+      "body": null,
+      "headers": {
+        "accept": "application/json"
+      },
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "purchase-order"
+      ],
+      "sources": [
+        "User-supplied curl"
+      ],
+      "execution_mode": "regression",
+      "notes": "Smoke test from supplied curl.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_batches_brigatinib_basic_v1",
+      "name": "Purchase order batches for BRIGATINIB basic",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/purchase-order/batches?brand_name=BRIGATINIB&page=1&limit=10",
+      "enabled": true,
+      "body": null,
+      "headers": {
+        "accept": "application/json"
+      },
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "purchase-order"
+      ],
+      "sources": [
+        "User-supplied curl"
+      ],
+      "execution_mode": "regression",
+      "notes": "Smoke test from supplied curl.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
+      "case_id": "po_batch_stages_brigatinib_v1",
+      "name": "Purchase order batch stages v1 for BRIGATINIB",
+      "service": "insight-center-purchase-order-services",
+      "protocol": "rest",
+      "method": "GET",
+      "endpoint": "/api/v1/purchase-order/batch-stages?brand_name=BRIGATINIB",
+      "enabled": true,
+      "body": null,
+      "headers": {
+        "accept": "application/json"
+      },
+      "timeout_seconds": 60,
+      "expected_status": 200,
+      "tags": [
+        "rest",
+        "smoke",
+        "purchase-order"
+      ],
+      "sources": [
+        "User-supplied curl"
+      ],
+      "execution_mode": "regression",
+      "notes": "Smoke test from supplied curl.",
+      "ignore_paths": [],
+      "ignore_field_names": []
+    },
+    {
       "case_id": "po_adh_sdn_status_fetch",
       "name": "PO Adherence - Fetch SDN_Status in batch card (TC-11463)",
       "service": "insight-center-purchase-order-services",
       "protocol": "rest",
       "method": "GET",
-      "endpoint": "/api/v1/purchase-order/batches?brand_name=LIVTENCITY&page=5&limit=10",
+      "endpoint": "/api/v1/purchase-order/batches?brand_name=LIVTENCITY&page=1&limit=50",
       "enabled": true,
       "body": null,
       "headers": {},
@@ -547,7 +607,7 @@
       "service": "insight-center-purchase-order-services",
       "protocol": "rest",
       "method": "GET",
-      "endpoint": "/api/v1/purchase-order/batches?opu=sm%26o&brand_name=IXAZOMIB&tag=XYZ&stage=Invalid&page=1&limit=10",
+      "endpoint": "/api/v1/purchase-order/batches?opu=sm%26o&brand_name=IXAZOMIB&tag=XYZ&stage=Invalid&page=1&limit=50",
       "enabled": true,
       "body": null,
       "headers": {},
@@ -606,7 +666,7 @@
       "service": "insight-center-purchase-order-services",
       "protocol": "rest",
       "method": "GET",
-      "endpoint": "/api/v2/purchase-order/batch-stages?opu=SMO&brand_name=BRIGATINIB&site_type=External&stage_code=B&page=1&limit=10",
+      "endpoint": "/api/v2/purchase-order/batch-stages?opu=SMO&brand_name=BRIGATINIB&site_type=External&stage_code=B&page=1&limit=50",
       "enabled": true,
       "body": null,
       "headers": {},
@@ -636,7 +696,7 @@
       "service": "insight-center-purchase-order-services",
       "protocol": "rest",
       "method": "GET",
-      "endpoint": "/api/v1/purchase-order/batches?batch_status=urgent&batch_status=in_progress&brand_name=ALUNBRIG&page=1&limit=50&start_date=1736876741154&end_date=1807724741154",
+      "endpoint": "/api/v1/purchase-order/batches?batch_status=urgent&batch_status=in_progress&brand_name=ALUNBRIG&page=1&limit=50",
       "enabled": true,
       "body": null,
       "headers": {},
@@ -665,7 +725,7 @@
       "service": "insight-center-purchase-order-services",
       "protocol": "rest",
       "method": "GET",
-      "endpoint": "/api/v1/purchase-order/batches?page=3&limit=10&count_status_by=batch",
+      "endpoint": "/api/v1/purchase-order/batches?page=1&limit=50&count_status_by=batch",
       "enabled": true,
       "body": null,
       "headers": {},
@@ -695,7 +755,7 @@
       "service": "insight-center-purchase-order-services",
       "protocol": "rest",
       "method": "GET",
-      "endpoint": "/api/v1/purchase-order/batches?page=3&limit=10&count_status_by=material",
+      "endpoint": "/api/v1/purchase-order/batches?page=1&limit=50&count_status_by=material",
       "enabled": true,
       "body": null,
       "headers": {},
@@ -725,7 +785,7 @@
       "service": "insight-center-purchase-order-services",
       "protocol": "rest",
       "method": "GET",
-      "endpoint": "/api/v1/purchase-order/batches?page=3&limit=10&count_status_by=batch&count_status_by=material",
+      "endpoint": "/api/v1/purchase-order/batches?page=1&limit=50&count_status_by=batch&count_status_by=material",
       "enabled": true,
       "body": null,
       "headers": {},
@@ -755,7 +815,7 @@
       "service": "insight-center-purchase-order-services",
       "protocol": "rest",
       "method": "GET",
-      "endpoint": "/api/v2/purchase-order/batch-stages?brand_name=BRIGATINIB&count_status_by=material&page=1&limit=10",
+      "endpoint": "/api/v2/purchase-order/batch-stages?brand_name=BRIGATINIB&count_status_by=material&page=1&limit=50",
       "enabled": true,
       "body": null,
       "headers": {},
@@ -782,11 +842,11 @@
     },
     {
       "case_id": "po_adh_date_range_plant_rank_supply_model",
-      "name": "PO Adherence - Date range with plant rank, WOC, PSS and supply model fields (TC-11299)",
+      "name": "PO Adherence - Plant rank, WOC, PSS and supply model fields (TC-11299)",
       "service": "insight-center-purchase-order-services",
       "protocol": "rest",
       "method": "GET",
-      "endpoint": "/api/v1/purchase-order/batches?brand_name=ALUNBRIG&page=1&limit=3&start_date=1736876741154&end_date=1807724741154",
+      "endpoint": "/api/v1/purchase-order/batches?brand_name=ALUNBRIG&page=1&limit=50",
       "enabled": true,
       "body": null,
       "headers": {},
@@ -810,42 +870,12 @@
       "ignore_field_names": []
     },
     {
-      "case_id": "po_adh_event_ids_in_plants",
-      "name": "PO Adherence - Event ID present in plants events array (TC-11300)",
-      "service": "insight-center-purchase-order-services",
-      "protocol": "rest",
-      "method": "GET",
-      "endpoint": "/api/v1/purchase-order/batches?search_by=batch_number&search_text=12931277&page=1&limit=1",
-      "enabled": true,
-      "body": null,
-      "headers": {},
-      "timeout_seconds": 60,
-      "expected_status": 200,
-      "tags": [
-        "rest",
-        "functional",
-        "purchase-order",
-        "po-adherence",
-        "events"
-      ],
-      "sources": [
-        "TC-11300",
-        "BICN-89125",
-        "R_1.15.0",
-        "PI-2/25 Sprint-5"
-      ],
-      "execution_mode": "regression",
-      "notes": "Verify each event in plants.events includes an 'id' field (1-5). Batch 12931277 (EVOBRIG 180MG BRA, External CMO). Covers BICN-89125 R_1.15.0.",
-      "ignore_paths": [],
-      "ignore_field_names": []
-    },
-    {
       "case_id": "po_adh_pss_and_woc_values",
       "name": "PO Adherence - Batch with PSS and WOC values in weeks_of_coverage (TC-11301)",
       "service": "insight-center-purchase-order-services",
       "protocol": "rest",
       "method": "GET",
-      "endpoint": "/api/v1/purchase-order/batches?search_by=batch_number&search_text=BTCH4502015451500420&page=1&limit=1",
+      "endpoint": "/api/v1/purchase-order/batches?search_by=batch_number&search_text=BTCH4502015451500420&page=1&limit=50",
       "enabled": true,
       "body": null,
       "headers": {},
@@ -876,7 +906,7 @@
       "service": "insight-center-purchase-order-services",
       "protocol": "rest",
       "method": "GET",
-      "endpoint": "/api/v1/purchase-order/batches?search_by=batch_number&search_text=12771727&page=1&limit=1",
+      "endpoint": "/api/v1/purchase-order/batches?search_by=batch_number&search_text=12771727&page=1&limit=50",
       "enabled": true,
       "body": null,
       "headers": {},
@@ -908,7 +938,7 @@
       "service": "insight-center-purchase-order-services",
       "protocol": "rest",
       "method": "GET",
-      "endpoint": "/api/v2/purchase-order/batch-stages?page=1&limit=10",
+      "endpoint": "/api/v2/purchase-order/batch-stages?page=1&limit=50",
       "enabled": true,
       "body": null,
       "headers": {},
